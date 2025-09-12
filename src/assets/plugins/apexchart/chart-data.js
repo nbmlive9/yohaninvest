@@ -16,9 +16,107 @@ $(document).ready(function() {
 		}
 		return series;
 	}
+	
+	// Simple Market Area
+	if ($('#market-area').length > 0) {
+	var options = {
+		chart: {
+			height: 350,
+			type: "line",
+			toolbar: {
+				show: false
+			},
+		},
+		dataLabels: {
+			enabled: false
+		},
+		stroke: {
+			curve: "smooth"
+		},
+		series: [{
+			color: '#234CE3',
+			data: [45, 60, 75, 51, 42, 42, 30]
+		}],
+		xaxis: {
+			categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+		}
+	}
+	var chart = new ApexCharts(
+		document.querySelector("#market-area"),
+		options
+	);
+	chart.render();
+	}
+	
+	// Simple Column
+	
+	if ($('#transaction-wallet').length > 0) {
+		var sCol = {
+			chart: {
+				height: 350,
+				type: 'bar',
+				toolbar: {
+				  show: false,
+				}
+			},
+			plotOptions: {
+				bar: {
+					horizontal: false,
+					columnWidth: '20%',
+					endingShape: 'rounded'  
+				},
+			},
+			// colors: ['#888ea8', '#4361ee'],
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				show: true,
+				width: 2,
+				colors: ['transparent']
+			},
+			series: [{
+				name: "Deposit",
+				color: '#0DBF0A',
+				data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+			}, {
+				name: "Withdraw",
+				color: '#FE3F51',
+				data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+			}],
+			xaxis: {
+				categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+			},
+			yaxis: {
+				title: {
+					text: '$ (thousands)'
+				}
+			},
+			fill: {
+				opacity: 1
 
+			},
+			tooltip: {
+				y: {
+					formatter: function (val) {
+						return "$ " + val + " thousands"
+					}
+				}
+			}
+		}
+
+		var chart = new ApexCharts(
+			document.querySelector("#transaction-wallet"),
+			sCol
+		);
+
+		chart.render();
+	}
+	
 
 	// Column chart
+	
+	if ($('#sales_chart').length > 0) {
 	var columnCtx = document.getElementById("sales_chart"),
 	columnConfig = {
 		colors: ['#7638ff', '#fda600'],
@@ -78,8 +176,11 @@ $(document).ready(function() {
 	};
 	var columnChart = new ApexCharts(columnCtx, columnConfig);
 	columnChart.render();
+	}
 
 	//Pie Chart
+	
+	if ($('#invoice_chart').length > 0) {
 	var pieCtx = document.getElementById("invoice_chart"),
 	pieConfig = {
 		colors: ['#7638ff', '#ff737b', '#fda600', '#1ec1b0'],
@@ -105,10 +206,10 @@ $(document).ready(function() {
 	};
 	var pieChart = new ApexCharts(pieCtx, pieConfig);
 	pieChart.render();
-	
+	}
 	
 	// Simple Line
-
+if ($('#s-line').length > 0) {
 var sline = {
   chart: {
     height: 350,
@@ -152,10 +253,11 @@ var chart = new ApexCharts(
 );
 
 chart.render();
-
+}
 
 // Simple Line Area
 
+if ($('#s-line-area').length > 0) {
 var sLineArea = {
     chart: {
         height: 350,
@@ -196,9 +298,11 @@ var chart = new ApexCharts(
 );
 
 chart.render();
+}
 
 // Simple Column
 
+if ($('#s-col').length > 0) {
 var sCol = {
     chart: {
         height: 350,
@@ -257,10 +361,61 @@ var chart = new ApexCharts(
 );
 
 chart.render();
+}
 
+// Linw Column
+
+if ($('#l-col').length > 0) {
+var sCol = {
+    chart: {
+        height: 150,
+        type: 'bar',
+        toolbar: {
+          show: false,
+        }
+    },
+    plotOptions: {
+        bar: {
+            horizontal: false,
+            columnWidth: '30%',
+            endingShape: 'rounded'  
+        },
+    },
+    dataLabels: {
+        enabled: false
+    },
+    stroke: {
+        show: true,
+        width: 1,
+    },
+    series: [{
+		color: '#0DBF0A',
+        data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+    }],
+    fill: {
+        opacity: 1
+
+    },
+    tooltip: {
+        y: {
+            formatter: function (val) {
+                return "$ " + val + " thousands"
+            }
+        }
+    }
+}
+
+var chart = new ApexCharts(
+    document.querySelector("#l-col"),
+    sCol
+);
+
+chart.render();
+}
 
 // Simple Column Stacked
 
+if ($('#s-col-stacked').length > 0) {
 var sColStacked = {
     chart: {
         height: 350,
@@ -318,9 +473,11 @@ var chart = new ApexCharts(
 );
 
 chart.render();
+}
 
 // Simple Bar
 
+if ($('#s-bar').length > 0) {
 var sBar = {
     chart: {
         height: 350,
@@ -352,10 +509,11 @@ var chart = new ApexCharts(
 );
 
 chart.render();
-
+}
 
 // Mixed Chart
 
+if ($('#mixed-chart').length > 0) {
 var options = {
   chart: {
     height: 350,
@@ -404,11 +562,11 @@ var chart = new ApexCharts(
 );
 
 chart.render();
-
+}
 
 // Donut Chart
 
-
+if ($('#donut-chart').length > 0) {
 var donutChart = {
     chart: {
         height: 350,
@@ -438,10 +596,11 @@ var donut = new ApexCharts(
 );
 
 donut.render();
-
+}
 
 // Radial Chart
 
+if ($('#radial-chart').length > 0) {
 var radialChart = {
     chart: {
         height: 350,
@@ -480,7 +639,7 @@ var chart = new ApexCharts(
 );
 
 chart.render();
-	
+}
 	
 	
   

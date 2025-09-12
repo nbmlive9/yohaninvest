@@ -407,4 +407,5 @@ $(function() {
 		data: datapie,
 		options: optionpie
 	});
+	
 });

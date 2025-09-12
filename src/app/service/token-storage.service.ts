@@ -9,63 +9,77 @@ const USER_KEY = 'auth-user';
   providedIn: 'root',
 })
 export class TokenStorageService {
-  user: any | null;
-  token: any;
+    private companyLoginFlag = false;
+  private user: any | null = null;
+  private token: string | null = null;
+  success: any;
+  error: any;
 
   constructor(private router: Router) {
-    this.getUser();
+    this.getUser(); // Load user if stored (optional)
     this.token = localStorage.getItem(TOKEN_KEY);
   }
 
-  signOut() {
-    this.user = null;
-    window.localStorage.clear();
-    this.router.navigateByUrl('/auth-login');
-  }
-
+  // ✅ Token methods
   public saveToken(token: string): void {
-    window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.setItem(TOKEN_KEY, token);
     this.token = token;
+    console.log(this.token);
   }
 
-  // public getToken(): string | null {
-  //   return this.token;
-  // }
+public getToken(): string {
+  return localStorage.getItem(TOKEN_KEY) ?? ''; // nullish coalescing
+}
 
-  public getToken(): string | null {
-    const token = this.token;
-    // console.log('Token retrieved:', token);
-    return token;
-  }
 
+  // ✅ Optional user storage (skip if not using)
   public saveUser(user: any): void {
-    this.user = user;
-    window.localStorage.removeItem(USER_KEY);
     window.localStorage.setItem(USER_KEY, JSON.stringify(user));
+    this.user = user;
   }
 
   public getUser(): any {
-    const user = window.localStorage.getItem(USER_KEY);
-    this.user = user ? JSON.parse(user) : null;
+    try {
+      this.user = JSON.parse(localStorage.getItem(USER_KEY) || 'null');
+    } catch (error) {
+      console.error('Invalid JSON format in localStorage:', error);
+      this.user = null;
+    }
     return this.user;
   }
+// 
+  public getRole(): string | null {
+    const user = this.getUser();
+    return user ? user.role : null;
+  }
 
-  isLogged() {
-    return this.user ? true : false;
+  public isLogged(): boolean {
+    return !!this.getToken(); // Only checks token now
+  }
+
+  // ✅ In-memory company login flag
+  public setCompanyLoginFlag(): void {
+    this.companyLoginFlag = true;
+  }
+
+  public isCompany(): boolean {
+    return this.companyLoginFlag;
+  }
+
+  // ✅ Role-based checks (if user is saved)
+  public isAdmin(): boolean {
+    return this.getRole() === 'user';
   }
 
 
-  isAdmin() {
-  this.user = this.getUser();
-  return this.user && this.user.usertype == 'admin';
-}
-
-isUser() {
-  this.user = this.getUser();
-  return this.user && this.user.usertype == 'user';
-}
-
+  // ✅ Logout
+  public signOut(): void {
+    this.user = null;
+    this.token = null;
+    this.companyLoginFlag = false;
+    window.localStorage.clear();
+    this.router.navigateByUrl('/login');
+  }
 
 
 }

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
-const AUTH_API ='https://iconistar.net/ICON/ICON/User/'
+const AUTH_API ='https://ciyash.com/NWRI325/NWRI325/User/'
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +65,7 @@ export class UserService {
       })
     };
     return this.http.post(
-      AUTH_API + 'Profile_Update',
+      AUTH_API + 'Profileiupdate',
       { 
         "password":value.password, 
         "wallet1":value.wallet1, 
@@ -230,48 +230,6 @@ UserWithdraw(value: {
   );
 }
 
-  DirectTeam(page: number, perPage: number) {
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  };
-  const pageDetails = `page=${page}&per_page=${perPage}`;
-  return this.http.get(
-    AUTH_API + `Directteam?${pageDetails}`,
-    httpOptions
-  );
-}
-
-     DirectReferralClubIncome(){
-    const token1 = this.token.getToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token1
-      })
-    }
-    return this.http.get(
-      AUTH_API + 'User_Referalclubreport',
-      httpOptions
-    );   
-  }
-
-   LevelMembersData() {
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  };
-  return this.http.get(
-    AUTH_API + `Level_members`,
-    httpOptions
-  );
-}
 
     UserNameDisplay(id:any){
     const httpOptions = {
@@ -407,61 +365,6 @@ GetSupportTickets(){
   );
 }
 
-GoldIncome(){
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  }
-  return this.http.get(
-    AUTH_API + 'User_goldiconreport',
-    httpOptions
-  );
-}
-
-DiamondIncome(){
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  }
-  return this.http.get(
-    AUTH_API + 'User_diamondiconreport',
-    httpOptions
-  );
-}
-
-LevelIncome(){
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  }
-  return this.http.get(
-    AUTH_API + 'Level_income',
-    httpOptions
-  );
-}
-
-AutopoolIncome(){
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  }
-  return this.http.get(
-    AUTH_API + 'Autopoll_Income',
-    httpOptions
-  );
-}
 
 //activate api
 ActivatePackage(value: {
@@ -486,109 +389,6 @@ ActivatePackage(value: {
   }
 
 
-  AchivedData(){
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  }
-  return this.http.get(
-    AUTH_API + 'Icon_Achivedata',
-    httpOptions
-  );
-}
-
-  salaryData(){
-  const token1 = this.token.getToken();
-  const httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token1
-    })
-  }
-  return this.http.get(
-    AUTH_API + 'Salary_Achivedata',
-    httpOptions
-  );
-}
-
-UpdateAutoLevel2(value: {
-    awardtype:string;
-  }){
-    const token1 = this.token.getToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token1
-      })
-    };
-    return this.http.post(
-      AUTH_API + 'Update_level2Award',
-      { 
-      "awardtype":value.awardtype, 
-    },
-       httpOptions 
-    );
-  }
-
-  UpdateAutoLevel3(value: {
-    awardtype:string;
-  }){
-    const token1 = this.token.getToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token1
-      })
-    };
-    return this.http.post(
-      AUTH_API + 'Update_level3Award',
-      { 
-      "awardtype":value.awardtype, 
-    },
-       httpOptions 
-    );
-  }
-
-  UpdateAutoLevel4(value: {
-    awardtype:string;
-  }){
-    const token1 = this.token.getToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token1
-      })
-    };
-    return this.http.post(
-      AUTH_API + 'Update_level4Award',
-      { 
-      "awardtype":value.awardtype, 
-    },
-       httpOptions 
-    );
-  }
-
-  UpdateAutoLevel5(value: {
-    awardtype:string;
-  }){
-    const token1 = this.token.getToken();
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + token1
-      })
-    };
-    return this.http.post(
-      AUTH_API + 'Update_level5Award',
-      { 
-      "awardtype":value.awardtype, 
-    },
-       httpOptions 
-    );
-  }
 
 
 }
