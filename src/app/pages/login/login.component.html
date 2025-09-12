@@ -10,14 +10,15 @@
                         <h3>Let's Get Started</h3>
                         <p>Sign in to continue to Yohan Invest</p>
                     </div>
-                    <form action="index.html" class="form-signin">
+                    <span class="text-danger">{{errorMessage}}</span>
+                    <form [formGroup]="form" (ngSubmit)="Login()" class="form-signin">
                         <div class="form-group">
-                            <input type="text" autofocus="" class="form-control" placeholder="Username">
+                            <input type="text" autofocus="" formControlName="regid" class="form-control" placeholder="Username">
                             <span class="profile-views"><img src="assets/img/icon/lock-icon-01.svg"  alt=""/></span>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password">
-                            <span class="profile-views"><img src="assets/img/icon/lock-icon-02.svg"  alt=""/></span>
+                            <input [type]="showPassword ? 'text' : 'password'"  class="form-control" formControlName="password" placeholder="Password">
+                            <span class="profile-views toggle-password"  (click)="togglePassword()"><img src="assets/img/icon/lock-icon-02.svg"  alt=""/></span>
                         </div>
                         <div class="forgotpass">
                             <div class="remember-me">
@@ -29,10 +30,10 @@
                             <a href="forgot-password.html"><img src="assets/img/icon/lock-icon.svg" class="me-1" alt=""/>Forgot your password?</a>
                         </div>
                         <div class="form-group text-center">
-                            <button type="submit" class="btn btn-primary account-btn">Sign In <i class="fas fa-arrow-right ms-1"></i></button>
+                            <button type="submit" class="btn btn-primary account-btn" [disabled]="form.invalid">Sign In <i class="fas fa-arrow-right ms-1"></i></button>
                         </div>
                         <div class="text-center register-link">
-                            Don't have an account?  <a href="register.html">Sign Up</a>
+                            Don't have an account?  <a routerLink="/auth-signup">Sign Up</a>
                         </div>
                     </form>
                 </div>

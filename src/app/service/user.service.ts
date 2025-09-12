@@ -19,6 +19,26 @@ export class UserService {
       });
   }
 
+  private apiUrl = 'https://restcountries.com/v3.1/all?fields=name,cca2'; 
+getCountries() {
+  return this.http.get(this.apiUrl);
+}
+
+  private baseApiUrl = 'https://api.apiverve.com/v1/callingcode';
+  private apiKey = 'f83453ba-3d3d-4ec3-a87d-664f1b51bf82';
+  
+  getCallingCode(countryCode: string): Observable<any> {
+    const headers = new HttpHeaders({
+      'x-api-key': this.apiKey,
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+  
+    const apiUrl = `${this.baseApiUrl}?country=${countryCode}`;
+  
+    return this.http.get(apiUrl, { headers });
+  }
+
   GetusersDataByRegID(id:any){
     return this.http.get(
       AUTH_API + 'Get_Userdatabyregid/'+id,

@@ -1,0 +1,16 @@
+.form-group {
+  position: relative;
+}
+
+.profile-views.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.profile-views img {
+  width: 20px;
+  height: 20px;
+}

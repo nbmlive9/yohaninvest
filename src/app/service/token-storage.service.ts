@@ -73,13 +73,23 @@ public getToken(): string {
 
 
   // ✅ Logout
-  public signOut(): void {
-    this.user = null;
-    this.token = null;
-    this.companyLoginFlag = false;
-    window.localStorage.clear();
-    this.router.navigateByUrl('/login');
-  }
+public signOut(): void {
+  // Clear in-memory variables
+  this.user = null;
+  this.token = null;
+  this.companyLoginFlag = false;
+
+  // Clear all browser storage
+  window.localStorage.clear();
+  window.sessionStorage.clear();
+
+  // Navigate to login and reload window
+  this.router.navigateByUrl('/auth-login').then(() => {
+    // Hard reload to clear any cached UI and state
+    window.location.reload();
+  });
+}
+
 
 
 }
