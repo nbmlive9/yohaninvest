@@ -1,0 +1,37 @@
+<div class="main-wrapper">
+  <app-menu></app-menu>
+   <div class="page-wrapper bg-wrapper">
+        <div class="content">
+            <div class="table-responsive">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Userid</th>
+                            <th style="min-width:110px;">Name</th>
+                            <th style="min-width:110px;">Position</th>
+                            <!-- <th style="min-width:110px;">Email </th> -->
+                            <th style="min-width:110px;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of data1; let i=index">
+                            <td> {{i+1}}</td>
+                            <td>{{row.regid}}</td>
+                            <td>{{row.name}}</td>
+                            <td>{{row.position}}</td>
+                            <!-- <td class="pay-clr">{{row.email}}</td> -->
+                            <td><span *ngIf="row.topupstatus=='0'" class="custom-status active-danger">
+                                <span class="live-dark me-1"></span>Not Active</span>
+                                <span *ngIf="row.topupstatus=='1'" class="custom-status active-success">
+                                <span class="live-dark me-1"></span>Active</span>
+                            </td>
+                                                                
+                        </tr>										
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>

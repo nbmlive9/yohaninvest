@@ -10,7 +10,7 @@ export const AuthGuard: CanActivateFn = (route, state) => {
 
   // ✅ Check if user is logged in
   if (!tokenService.isLogged()) {
-    router.navigate(['/login']);
+    router.navigate(['/auth-login']);
     return false;
   }
 
@@ -21,7 +21,7 @@ export const AuthGuard: CanActivateFn = (route, state) => {
     const allowedRoles = route.data['usertype'] as string[];
     if (!allowedRoles.includes(userRole)) {
       console.warn(`Access denied for role: ${userRole}`);
-      router.navigate(['/login']);
+      router.navigate(['/auth-login']);
       return false;
     }
   }

@@ -6800,9 +6800,9 @@ a.fc-event:not([href]) {
 	background-color: rgba(0, 0, 0, 0.6);
 	overflow: hidden;
 }
-.menu-opened .sidebar-overlay {
+/* .menu-opened .sidebar-overlay {
 	display: block;
-}
+} */
 .sidebar-menu.opened {
 	opacity: 1;
 	-webkit-transform: translateX(0px);

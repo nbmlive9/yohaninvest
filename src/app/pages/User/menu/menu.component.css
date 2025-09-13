@@ -1,3 +1,14 @@
 a {
     text-decoration: none;
 }
+
+.submenu-list {
+  display: none;
+  transition: all 0.3s ease-in-out;
+  /* overflow: hidden; */
+}
+
+.submenu.active .submenu-list {
+  display: block !important;
+}
+

@@ -1,0 +1,126 @@
+/* Hover effect for cards */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive typography */
+h3 {
+  font-size: 1.8rem;
+}
+
+h6 {
+  font-weight: 500;
+}
+
+.bg-wrapper {
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* News card special styling */
+.bg-light p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Loader Center Alignment */
+.loader-wrapper {
+  min-height: 60vh;
+  text-align: center;
+}
+
+/* Spinner Custom Size */
+.spinner-border {
+  border-width: 0.25rem;
+}
+
+/* Smooth Card Hover */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.hover-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Background Wrapper */
+/* .bg-wrapper {
+  background: #f8f9fa;
+  min-height: 100vh;
+} */
+
+/* Base Card Styling */
+.custom-card {
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.custom-card h6 {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.custom-card i {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 14px;
+  border-radius: 50%;
+}
+.custom-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Unique Gradient Backgrounds */
+.card-blue {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+}
+
+.card-green {
+  background: linear-gradient(135deg, #11998e, #38ef7d);
+}
+
+.card-orange {
+  background: linear-gradient(135deg, #ff8008, #ffc837);
+}
+
+.card-yellow {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  color: #212529;
+}
+.card-yellow h6, 
+.card-yellow h3, 
+.card-yellow i {
+  color: #212529 !important;
+}
+
+.card-purple {
+  background: linear-gradient(135deg, #8e2de2, #4a00e0);
+}
+
+.card-red {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+}
+
+.card-cyan {
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+
+/* Loader Alignment */
+.loader-wrapper {
+  min-height: 60vh;
+  text-align: center;
+}
+.spinner-border {
+  border-width: 0.25rem;
+}
+
+/* Background Wrapper */
+.bg-wrapper {
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+

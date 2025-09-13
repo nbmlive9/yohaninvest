@@ -1,0 +1,78 @@
+<div class="main-wrapper">
+  <app-menu></app-menu>
+
+  <div class="page-wrapper bg-wrapper">
+    <div class="content">
+
+      <!-- Loader -->
+      <div *ngIf="loading" class="loader-wrapper d-flex justify-content-center align-items-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;"></div>
+      </div>
+
+      <!-- Profile Section -->
+      <div *ngIf="!loading">
+        <div class="row">
+          <div class="col-sm-7">
+            <h4 class="page-title">My Profile</h4>
+          </div>
+        </div>
+
+        <div class="card-box profile-header mt-3">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="profile-info-left">
+                <h3 class="user-name">{{ pfdata?.name }}</h3>
+                <small class="text-muted">{{ pfdata?.cdate | date:'dd/MMM/yyyy' }}</small>
+                <div class="staff-id">User ID : {{ pfdata?.regid }}</div>
+                <button class="btn btn-primary btn-rounded mt-2" (click)="edit()" data-bs-toggle="modal"
+                  data-bs-target="#editModal">
+                  <i class="fas fa-edit"></i> Edit Profile
+                </button>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <ul class="personal-info">
+                <li><span class="title">Email:</span> <span class="text">{{ pfdata?.email }}</span></li>
+                <li><span class="title">Wallet Address:</span> <span class="text">{{ pfdata?.wallet1 }}</span></li>
+                <li><span class="title">Sponsor:</span> <span class="text">{{ pfdata?.sponcerid }}</span></li>
+                <li><span class="title">Placement ID:</span> <span class="text">{{ pfdata?.refid }}</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 20px;">
+      <div class="modal-header">
+        <h5 class="modal-title">Update Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <form [formGroup]="form">
+        <div class="modal-body">
+          <input type="text" class="form-control mb-2" placeholder="Full Name" formControlName="name" />
+          <input type="email" class="form-control mb-2" placeholder="Email Address" formControlName="email" />
+          <input type="text" class="form-control mb-2" placeholder="Wallet Address" formControlName="wallet1" />
+          <input type="password" class="form-control mb-2" placeholder="Password" formControlName="password" />
+
+          <!-- OTP Form -->
+          <div *ngIf="showOtpForm" class="mt-3">
+            <input type="text" class="form-control mb-2" placeholder="Enter OTP" formControlName="otp"
+              [formGroup]="form1" />
+            <button class="btn btn-success w-100" type="button" (click)="verifyOtpAndSave()">Verify OTP</button>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button *ngIf="!showOtpForm" type="button" class="btn btn-primary w-100" (click)="save()">Generate OTP</button>
+          <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

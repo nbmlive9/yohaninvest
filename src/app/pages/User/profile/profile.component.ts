@@ -1,0 +1,146 @@
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/service/user.service';
+
+@Component({
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
+})
+export class ProfileComponent {
+  data1: any;
+  pfdata: any;
+  loading: boolean = true;
+
+  form: FormGroup;   // Profile update form
+  form1: FormGroup;  // OTP form
+
+  currentTab: 'profile' | 'password' = 'profile';
+  isEdit: boolean = false;
+  showOtpForm: boolean = false;
+
+  constructor(
+    private api: UserService,
+    private fb: FormBuilder,
+    private toast: ToastrService
+  ) {
+    // Profile form
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      wallet1: ['', Validators.required],
+      password: ['']
+    });
+
+    // OTP form
+    this.form1 = this.fb.group({
+      otp: ['', Validators.required],
+    });
+  }
+
+  ngOnInit() {
+    this.GetProfile();
+  }
+
+  /** Fetch user profile data */
+  GetProfile() {
+    this.loading = true;
+    this.api.UDashboardData().subscribe({
+      next: (res: any) => {
+        this.data1 = res.data;
+        this.pfdata = res.data.profiledata;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.toast.error('Failed to fetch profile data', 'Error');
+        this.loading = false;
+      }
+    });
+  }
+
+  /** Switch between Profile and Password tabs */
+  switchTab(tab: 'profile' | 'password') {
+    this.currentTab = tab;
+  }
+
+  /** Open edit mode and pre-fill form */
+  edit() {
+    this.isEdit = true;
+    this.showOtpForm = false; // Reset OTP section
+    this.form.patchValue({
+      name: this.pfdata?.name,
+      email: this.pfdata?.email,
+      wallet1: this.pfdata?.wallet1,
+      password: ''
+    });
+  }
+
+  /** Step 1: Generate OTP before updating */
+  save() {
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    this.api.GenerateOtp().subscribe({
+      next: (res: any) => {
+        if (res.status === 1) {
+          this.toast.success(res?.message || 'OTP sent ✅', 'Success');
+          this.showOtpForm = true;
+        } else {
+          this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
+        }
+      },
+      error: () => {
+        this.toast.error('OTP generation failed ❌', 'Error');
+      }
+    });
+  }
+
+  /** Step 2: Verify OTP and call save API */
+  verifyOtpAndSave() {
+    if (this.form1.invalid) {
+      this.form1.markAllAsTouched();
+      return;
+    }
+
+    const payload = { otp: this.form1.value.otp };
+
+    this.api.VerifyOtp(payload).subscribe({
+      next: (res: any) => {
+        if (res.status === 1) {
+          this.toast.success(res?.message || 'OTP Verified ✅', 'Success');
+          this.callSaveApi(); // Proceed to update profile
+        } else {
+          this.toast.error(res?.message || 'Invalid OTP ❌', 'Error');
+        }
+      },
+      error: () => {
+        this.toast.error('OTP verification failed ❌', 'Error');
+      }
+    });
+  }
+
+  /** Final Step: Update profile */
+  callSaveApi() {
+    const payload = this.form.value;
+
+    this.api.updateProfile(payload).subscribe({
+      next: (res: any) => {
+        if (res.status === 1) {
+          this.toast.success(res?.message || 'Profile updated ✅', 'Success');
+          this.isEdit = false;
+          this.showOtpForm = false;
+          this.form1.reset();
+          this.GetProfile();
+        } else {
+          this.toast.error(res?.message || 'Update failed ❌', 'Error');
+        }
+      },
+      error: () => {
+        this.toast.error('Something went wrong ❌', 'Error');
+      }
+    });
+  }
+}

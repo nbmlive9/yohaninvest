@@ -1,31 +1,195 @@
 <div class="main-wrapper">
-   <app-menu></app-menu>
+  <app-menu></app-menu>
 
-  <div class="page-wrapper bg-wrapper">
-        <div class="content">
-			
-             <div class="row">
-                    <div class="col-sm-12">
-                    	<div class="welcome-header">
-                    		<div class="row">
-	                    		<div class="col-xl-6 col-lg-5 col-md-5 d-flex align-items-center">
-	                    			<div class="wel-come-name">
-	                    				<h4>Welcome , <span>Jim Carey</span></h4>
-	                    			</div>
-	                    		</div>
-	                    		<div class="col-xl-6 col-lg-7 col-md-7">
-	                    			<div class="welcome-wallet">
-	                    				<div class="wallet-list">
-	                    					<span>Wallet :  56, 444658</span>
-	                    				</div>
-	                    			</div>
-	                    		</div>
-	                    	</div>
-                    	</div>
+  <div class="page-wrapper bg-light">
+    <div class="content container-fluid py-4">
+
+      <!-- Loader when fetching data -->
+      <div *ngIf="loading" class="loader-wrapper d-flex flex-column justify-content-center align-items-center">
+        <div class="spinner-border text-primary mb-3" style="width: 4rem; height: 4rem;" role="status"></div>
+        <p class="text-muted fs-5">Loading Dashboard Data...</p>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div *ngIf="!loading">
+        <!-- Welcome Header -->
+        <div class="row mb-4">
+          <div class="col-sm-12">
+            <div class="welcome-header bg-primary text-white rounded-3 p-4 shadow-sm">
+              <div class="row align-items-center">
+                <div class="col-md-6">
+                  <h4 class="mb-0">Welcome, <span class="fw-bold">{{ pfdata?.name }} ({{ pfdata?.regid }})</span></h4>
                 </div>
+                <div class="col-md-6 text-md-end mt-3 mt-md-0">
+                  <h5 class="mb-0">
+                    Wallet:
+                    <span class="badge bg-warning text-dark fs-6">
+                      {{ pfdata?.walletamount | currency:'USD':true:'1.0-2' }}
+                    </span>
+                  </h5>
+                </div>
+              </div>
             </div>
-     </div>
+          </div>
+        </div>
 
+        <!-- Dashboard Stats -->
+        <div class="row g-4">
+          <!-- Active Sponsors -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-blue">
+              <div class="card-body text-center p-4">
+                <img src="assets/img/icon/menu-icon-01.svg" alt="img">
+                <h6>Active Sponsors</h6>
+                <h3 class="fw-bold">{{ data1?.activesponsors }}</h3>
+              </div>
+            </div>
+          </div>
 
+          <!-- Total Sponsors -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-green">
+              <div class="card-body text-center p-4">
+                <img src="assets/img/icon/menu-icon-03.svg" alt="img">
+                <h6>Total Sponsors</h6>
+                <h3 class="fw-bold">{{ data1?.sponsors }}</h3>
+              </div>
+            </div>
+          </div>
 
+          <!-- Left Sponsors -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-orange">
+              <div class="card-body text-center p-4">
+                <img src="assets/img/icon/menu-icon-02.svg" alt="img">
+                <h6>Left Sponsors</h6>
+                <h3 class="fw-bold">{{ data1?.leftsponsors }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Sponsors -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-yellow">
+              <div class="card-body text-center p-4">
+                <img src="assets/img/icon/menu-icon-11.svg" alt="img">
+                <h6>Right Sponsors</h6>
+                <h3 class="fw-bold">{{ data1?.rightsponsors }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- ROI Income -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-purple">
+              <div class="card-body text-center p-4">
+                <img src="assets/img/icon/menu-icon-13.svg" alt="img">
+                <h6>ROI Income</h6>
+                <h3 class="fw-bold">{{ data1?.roiincome | currency:'USD':true:'1.0-2' }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sponsor Income -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-cyan">
+              <div class="card-body text-center p-4">
+              <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Sponsor Income</h6>
+                <h3 class="fw-bold">{{ data1?.sponcerincome | currency:'USD':true:'1.0-2' }}</h3>
+              </div>
+            </div>
+          </div>
+
+		    <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-blue">
+              <div class="card-body text-center p-4">
+                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Left Count</h6>
+                <h3 class="fw-bold">{{ data1?.leftcount }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Count -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-green">
+              <div class="card-body text-center p-4">
+                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Right Count</h6>
+                <h3 class="fw-bold">{{ data1?.rightcount }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Daily Matching -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-orange">
+              <div class="card-body text-center p-4">
+                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Total Daily Matching</h6>
+                <h3 class="fw-bold">{{ data1?.totaldailymatching }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Instant Matching -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-yellow">
+              <div class="card-body text-center p-4">
+                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Total Instant Matching</h6>
+                <h3 class="fw-bold">{{ data1?.totalinstantmatching }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Credit -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-purple">
+              <div class="card-body text-center p-4">
+                <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Credit</h6>
+                <h3 class="fw-bold">{{ data1?.credit | currency:'USD':true:'1.0-2' }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Debit -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-red">
+              <div class="card-body text-center p-4">
+                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Debit</h6>
+                <h3 class="fw-bold">{{ data1?.debit | currency:'USD':true:'1.0-2' }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paid -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-cyan">
+              <div class="card-body text-center p-4">
+              <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Paid</h6>
+                <h3 class="fw-bold">{{ data1?.paid | currency:'USD':true:'1.0-2' }}</h3>
+              </div>
+            </div>
+          </div>
+
+          <!-- Total Matching -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-red">
+              <div class="card-body text-center p-4">
+                <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Total Matching</h6>
+                <h3 class="fw-bold">{{ data1?.totalmatching }}</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> <!-- End Dashboard Content -->
+
+    </div>
+  </div>
 </div>

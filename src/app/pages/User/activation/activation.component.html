@@ -1,0 +1,150 @@
+<div class="main-wrapper">
+  <app-menu></app-menu>
+
+  <div class="page-wrapper bg-wrapper">
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="sell-buy-list">
+            <ul>
+              <li class="active">Buy Package</li>
+            </ul>
+          </div>
+            <h4 class="text-success">Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}} </h4>
+          <div class="buy-crypto-group">
+            <form [formGroup]="form">
+              <div class="row">
+                <!-- Package Type -->
+                <div class="col-xl-4 col-lg-6">
+                  <div class="form-group bg-hover col-md-12">
+                    <label>Select Type</label>
+                    <select class="form-control select" formControlName="packagetype">
+                      <option value="" disabled>Select Type</option>
+                      <option value="secure">Secure</option>
+                      <option value="nonsecure">Non Secure</option>
+                    </select>
+                    <small
+                      class="text-danger"
+                      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
+                    >
+                      Package type is required.
+                    </small>
+                  </div>
+                </div>
+
+                <!-- Amount -->
+                <div class="col-xl-4 col-lg-6">
+                  <div class="form-group">
+                    <label>Amount</label>
+                    <input type="number" formControlName="amount"  class="form-control"
+                      placeholder="Enter amount (100, 200, 300...)" (input)="validateAmount($event)"
+                    />
+                    <input type="text"  formControlName="regid" [(ngModel)]="pfdata.regid"  hidden/>
+                    <!-- Error: Required -->
+                    <small
+                      class="text-danger"
+                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')"
+                    >
+                      Amount is required.
+                    </small>
+                    <!-- Error: Not multiple of 100 -->
+                    <small
+                      class="text-danger"
+                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('notMultipleOf100')"
+                    >
+                      Amount must be a multiple of 100 (e.g., 100, 200, 300...).
+                    </small>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="buy-crpto-btn mt-4" *ngIf="pfdata.topupstatus=='0'">
+                  <button type="submit" class="btn btn-primary submit-btn mb-0" (click)="Activation()">Buy</button>
+                </div>
+                 <div class="buy-crpto-btn mt-4" *ngIf="pfdata.topupstatus=='1'">
+                  <button type="submit" class="btn btn-primary submit-btn mb-0" (click)="Topup()">Buy</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+          <!-- Recent Buying Section -->
+          <div class="recent-buy comman-head">
+            <h3>Recent Buying</h3>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="buy-form-crypto mb-0">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Userid</th>
+                          <th>Type</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of adata; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{row.forid}}</td>
+                          <td>{{row.packagename}}</td>
+                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
+                          <td>
+                            <span class="custom-status active-green">
+                              <span class="live-dark me-1"></span>Success
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Recent Buying -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div
+  class="modal fade"
+  #successModal
+  tabindex="-1"
+  aria-labelledby="successModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="successModalLabel">Purchase Successful</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="bi bi-check-circle-fill text-success fs-1 mb-3"></i>
+        <h5>Your package has been successfully bought!</h5>
+        <p class="text-muted">Thank you for your purchase.</p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
