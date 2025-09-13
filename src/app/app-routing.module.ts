@@ -24,6 +24,7 @@ import { WithdrawRequestComponent } from './pages/User/withdraw-request/withdraw
 import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-registration.component';
 import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
 import { DepositFundComponent } from './pages/User/deposit-fund/deposit-fund.component';
+import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
 
 const routes: Routes = [
   {path:"auth-login",component:LoginComponent },
@@ -51,7 +52,8 @@ const routes: Routes = [
     { path: "withdraw", component: WithdrawRequestComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
      { path: "treeview/:regid", component: TreeViewComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [AuthGuard], data: { usertype: ['user'] } },
-       { path: "depositfund", component: DepositFundComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    { path: "depositfund", component: DepositFundComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    { path: "spinroll", component: SpinRollComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];

@@ -616,5 +616,23 @@ GenerateOtp() {
   );
 }
 
+ SpinRoll(value: { amount: number }) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    AUTH_API + 'Spin_Roll',
+    {
+      amount: value.amount,
+    },
+    httpOptions
+  );
+}
+
 
 }

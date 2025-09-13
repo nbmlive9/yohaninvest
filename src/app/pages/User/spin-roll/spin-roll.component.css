@@ -1,0 +1,132 @@
+/* General Container */
+.spin-container {
+  max-width: 420px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Spin Section Layout */
+.spin-wheel-section {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Pointer Arrow (Top) */
+.pointer {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 25px solid #ff0000;
+  margin-bottom: -12px;
+  z-index: 10;
+}
+
+/* Spin Wheel */
+.spin-wheel {
+  width: 100%;
+  max-width: 300px;
+  aspect-ratio: 1 / 1;
+  border: 8px solid #ddd;
+  border-radius: 50%;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle, #fff, #f1f1f1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 3s ease-out;
+  z-index: 5;
+}
+
+/* Segments */
+.segment {
+  position: absolute;
+  width: 50%;
+  height: 50%;
+  transform-origin: 100% 100%;
+  /* clip-path: polygon(100% 100%, 0 100%, 100% 0); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.segment-1 {
+  background: #28a745;
+  transform: rotate(0deg);
+}
+
+.segment-2 {
+  background: #007bff;
+  transform: rotate(180deg);
+}
+
+/* Centered Text inside Wheel */
+.segment-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg); /* Keep text upright */
+  color: #fff;
+  font-weight: bold;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+/* Spin Button */
+.spin-btn-wrapper {
+  margin-top: 30px;
+  width: 100%;
+  text-align: center;
+}
+
+.spin-btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  border-radius: 50px;
+  border: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.spin-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.spin-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #0056b3, #004494);
+  transform: scale(1.05);
+}
+
+/* Success Modal Animation */
+.success-animation i {
+  animation: pop 0.8s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+  .spin-wheel {
+    max-width: 240px;
+  }
+
+  .spin-btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+
+  .segment-text {
+    font-size: 1.4rem;
+  }
+}
