@@ -1,0 +1,265 @@
+<div class="main-wrapper">
+  <app-menu></app-menu>
+
+  <div class="page-wrapper bg-wrapper">
+        <div class="content">
+
+                    <h2 class="mb-4 fw-bold">📊 Company Dashboard</h2>
+    
+  
+    <hr class="my-4">
+    <h4>Power ID Generate</h4>
+    <div class="card p-3">
+           <form [formGroup]="form" (ngSubmit)="Active()">
+            <div class="row g-3">
+          
+              <!-- Full Name -->
+              <div class="col-sm-6">
+                <label class="form-label">User Id</label>
+                <div class="input-wrapper">
+                  <input type="text" formControlName="regid" placeholder="Enter Userid" class="form-control" (keyup)="onRegIdKeyup()" />
+                       <div *ngIf="idData" class="text-success small">Name: {{ idData.name }}</div>
+                </div>
+                <div *ngIf="form.get('regid')?.touched && form.get('regid')?.invalid" class="text-danger small">
+                  User Id is required
+                </div>
+              </div>
+          
+              <!-- Password -->
+              <div class="col-sm-6">
+                <label class="form-label">Points</label>
+                <div class="input-wrapper">
+                  <input type="number" formControlName="points" placeholder="Enter points" class="form-control" />
+                </div>
+                <div *ngIf="form.get('points')?.touched && form.get('points')?.invalid" class="text-danger small">
+                  <span *ngIf="form.get('points')?.errors?.['required']">points is required</span>
+                </div>
+              </div>
+          
+          
+            </div>
+          
+            <button type="submit" class="btn btn-success w-25 mt-3 rounded-pill">Active</button>
+          </form>
+    </div>
+   
+    <!-- <h4 class="mb-3 fw-bold">💸 Withdraw Users</h4> -->
+    <!-- <div class="container-fluid mt-3">
+      <div class="transaction-table">
+        <div class="table-responsive">
+          <table class="table  align-middle text-nowrap">
+            <thead>
+              <tr>
+                <th>S.no</th>
+                <th>Date</th>
+                <th>Registration ID</th>
+                <th>Name</th>
+                <th> Amount</th>
+                <th>WalletType</th>
+              </tr>
+            <tbody>
+              <tr *ngFor="let item of withdrawUsersData; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ item.cdate }}</td>
+                <td>{{ item.forid }}</td>
+                <td>{{ item.fname }}</td>
+                <td>${{ item.amount }}</td>
+              </tr>
+            
+              <tr *ngIf="noData">
+                <td colspan="6" class="text-center text-danger fw-bold">
+                  No data is available
+                </td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+    </div> -->
+  
+    <!-- <ng-template #noData>
+      <p class="text-muted">No withdraw requests available.</p>
+    </ng-template> -->
+  <h4 class="mb-3 fw-bold mx-3">Total Users</h4>
+
+  <div class="container-fluid mt-3">
+    <div class="transaction-table">
+      <div class="table-responsive">
+        <table class="table align-middle text-nowrap">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Date</th>
+              <th>Registration ID</th>
+              <th>Name</th>
+              <th>Position</th>
+              <th>wallet</th>
+
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of tuser?.data; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.cdate }}</td>
+              <td>{{ item.regid }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.position }}</td>
+            <td>{{item.walletamount}}</td>
+              <td (click)="openProfile(item)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i>
+              </td>
+            </tr>
+          </tbody>
+        
+          
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between mt-3">
+    <button class="btn btn-primary"
+            [disabled]="!tuser?.previouspage"
+            (click)="loadPage(tuser.previouspage)">
+      Previous
+    </button>
+  
+    <button class="btn btn-primary"
+            [disabled]="!tuser?.nextpage"
+            (click)="loadPage(tuser.nextpage)">
+      Next
+    </button>
+  </div>
+
+  <div class="modal fade" id="exampleModal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Profile Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="profileform">
+            <div class="form-card" *ngIf="pffdata">
+              <h5>Sponsor Details</h5>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label>Sponsor ID</label>
+                  <input type="text" class="form-control" [value]="pffdata.refid" readonly>
+                </div>
+                <div class="col-md-6">
+                  <label>Sponsor Name</label>
+                  <input type="text" class="form-control" [value]="pffdata.name" readonly>
+                </div>
+              </div>
+  
+              <h5 class="mt-4">Basic Details</h5>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label>Name</label>
+                  <input *ngIf="isEdit" type="text" class="form-control" formControlName="name">
+                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.name" readonly>
+                </div>
+                <div class="col-md-6">
+                  <label>Email</label>
+                  <input *ngIf="isEdit" type="email" class="form-control" formControlName="email">
+                  <input *ngIf="!isEdit" type="email" class="form-control" [value]="pffdata.email" readonly>
+                </div>
+              </div>
+  
+              <div class="row mb-3">
+                <div class="col-md-6">
+                  <label>Country</label>
+                  <!-- Edit mode -->
+                  <select *ngIf="isEdit" class="form-control" formControlName="country">
+                    <option value="" disabled>Select Country</option>
+                    <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                  </select>
+                  <!-- View mode -->
+                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.country" readonly>
+                </div>
+  
+                <div class="col-md-6">
+                  <label>Wallet Address (USDT BEP20)</label>
+                  <input *ngIf="isEdit" type="text" formControlName="wallet1" class="form-control">
+                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.wallet1" readonly>
+                </div>
+              </div>
+              <div class="text-end">
+                <button class="btn btn-danger me-2" type="button" (click)="edit()" *ngIf="!isEdit">Edit</button>
+                <button class="btn btn-success me-2" type="button"  data-bs-dismiss="modal"  (click)="save()" 
+                        [disabled]="!profileform.valid || !profileform.dirty" *ngIf="isEdit">Save</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+ <h4 class="fw-bold text-success">Withdraw Users</h4>
+<div class="mb-3">
+  <button class="btn btn-success me-2" (click)="paySelected()">Pay Selected</button>
+  <button class="btn btn-danger me-2" (click)="rejectSelected()">Reject Selected</button>
+  <button class="btn btn-primary" (click)="exportSelectedToExcel()">
+    <i class="pi pi-download me-2"></i> Download Selected Excel
+  </button>
+</div>
+
+
+<div class="table-responsive">
+   <table class="table">
+  <thead>
+    <tr>
+      <th>
+        <input type="checkbox" [(ngModel)]="selectAll" (change)="toggleSelectAll()" />
+      </th>
+      <th>S.No</th>
+      <th>Date</th>
+      <th>Userid</th>
+      <th>Amount</th>
+      <th>Wallet Address</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of withdrawUsersData; let i=index">
+      <td>
+        <input type="checkbox" [(ngModel)]="row.selected" (change)="updateSelectAll()" />
+      </td>
+      <td>{{i+1}}</td>
+      <td>{{row.cdate | date:'dd/MMM/yyyy'}}</td>
+      <td>{{row.regid}}</td>
+      <td>{{row.amount | currency:'USD':true:'1.0-2'}}</td>
+      <td class="d-flex align-items-center">
+        <span class="me-2">{{ row.accountno }}</span>
+        <button class="btn btn-sm btn-outline-secondary p-1"
+                (click)="copyToClipboard(row.accountno)"
+                title="Copy Wallet Address">
+          <i class="pi pi-copy"></i>
+        </button>
+      </td>
+      <td>
+        <span class="text-success" *ngIf="row.status=='1'">Success</span>
+        <span class="text-danger" *ngIf="row.status=='0'">Pending</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</div>
+  
+  
+  
+
+
+
+
+        </div>
+
+    </div>
+
+
+</div>

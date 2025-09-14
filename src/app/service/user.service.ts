@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { TokenStorageService } from './token-storage.service';
 import { Observable } from 'rxjs';
 
-const AUTH_API ='https://ciyash.com/NWRI325/NWRI325/User/'
+const AUTH_API ='https://yohaninv.live/NWRI325/NWRI325/User/'
 
 @Injectable({
   providedIn: 'root'
@@ -633,6 +633,136 @@ GenerateOtp() {
     httpOptions
   );
 }
+
+//company apis
+withdrawUsers() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(AUTH_API + 'Withdraw_users', httpOptions);
+}
+
+withdrawpaid() {
+  const token = this.token.getToken(); 
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+    return this.http.get(AUTH_API + 'Withdraw_Paid', httpOptions);
+}
+
+PayWithdraw(id:any){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'Pay_withdrawreq/'+id,
+      httpOptions
+    );   
+  }
+
+  RejectWithdraw(id:any){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'Reject_withdrawreq/'+id,
+      httpOptions
+    );   
+  }
+
+  totalusers(page: number = 1) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.get(`${AUTH_API}Total_users?page=${page}`, httpOptions);
+}
+
+cupdateprofile(id: string, value: {
+  regid: string;
+  name: string;
+  email: string;
+  country: string;
+  wallet1: string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.put(
+    `${AUTH_API}Userprofile_Update/${id}`,  
+    {
+      regid: value.regid,
+      name: value.name,
+      email: value.email,
+      country: value.country,
+      wallet1: value.wallet1
+    },
+    httpOptions
+  );
+}
+
+
+totalMembers() {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.get(
+    AUTH_API + "Total_Memebers",   // ✅ correct path
+    httpOptions
+  );
+}
+
+ActivatePremiumId(value: {
+  regid: string;
+  points:string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    AUTH_API + 'ActivatePremimum', 
+   {
+        regid: value.regid,
+        points:value.points,
+      },
+    httpOptions
+  );
+}
+
 
 
 }

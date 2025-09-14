@@ -25,6 +25,7 @@ import { TreeRegistrationComponent } from './pages/User/tree-registration/tree-r
 import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
 import { DepositFundComponent } from './pages/User/deposit-fund/deposit-fund.component';
 import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
+import { CpDashboardComponent } from './pages/User/cp-dashboard/cp-dashboard.component';
 
 const routes: Routes = [
   {path:"auth-login",component:LoginComponent },
@@ -54,6 +55,7 @@ const routes: Routes = [
     { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [AuthGuard], data: { usertype: ['user'] } },
     { path: "depositfund", component: DepositFundComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "spinroll", component: SpinRollComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+     { path: "cpdash", component: CpDashboardComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];

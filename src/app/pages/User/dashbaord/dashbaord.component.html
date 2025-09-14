@@ -33,10 +33,15 @@
           </div>
         </div>
 
-         <div class="row text-center g-2" *ngIf="pfdata.spincount!='0'">
+         <div class="row text-center g-2" >
             <!-- Active Sponsors -->
-            <div class="col-xl-3 col-md-6" routerLink="/spinroll">
+            <div class="col-xl-3 col-md-6" *ngIf="pfdata.spincount!='0'" routerLink="/spinroll">
                   <button class="btn btn-danger dtn-sm">Spin Now Earn Reward</button>
+            </div>
+            <div class="col-md-6">
+               <button type="button" class="btn btn-success" *ngIf="pfdata?.regid == '115599'" routerLink="/cpdash">
+                   Company Dashboard
+              </button>
             </div>
           </div>
 

@@ -88,7 +88,7 @@ async generatePayment() {
     price_amount: amount,
     price_currency: 'usd',
     pay_currency: 'usdtbsc',
-    ipn_callback_url: 'https://myusd.co/payment/callback'
+    ipn_callback_url: 'https://yohaninv.live/payment/callback'
   }, { headers }).subscribe({
     next: (res) => {
       // console.log('Payment details', res);

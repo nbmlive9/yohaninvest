@@ -44,6 +44,7 @@ import { TagModule } from 'primeng/tag';
 import { DepositFundComponent } from './pages/User/deposit-fund/deposit-fund.component';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
+import { CpDashboardComponent } from './pages/User/cp-dashboard/cp-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
     WithdrawRequestComponent,
     TreeRegistrationComponent,
     DepositFundComponent,
-    SpinRollComponent
+    SpinRollComponent,
+    CpDashboardComponent
   ],
   imports: [
     BrowserModule,
