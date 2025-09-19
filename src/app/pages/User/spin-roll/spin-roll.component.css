@@ -15,7 +15,7 @@
 }
 
 /* Pointer Arrow (Top) */
-.pointer {
+/* .pointer {
   width: 0;
   height: 0;
   border-left: 15px solid transparent;
@@ -23,7 +23,7 @@
   border-bottom: 25px solid #ff0000;
   margin-bottom: -12px;
   z-index: 10;
-}
+} */
 
 /* Spin Wheel */
 .spin-wheel {
@@ -36,7 +36,7 @@
   overflow: hidden;
   background: radial-gradient(circle, #fff, #f1f1f1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 3s ease-out;
+  transition: transform 4s ease-out;
   z-index: 5;
 }
 
@@ -45,40 +45,42 @@
   position: absolute;
   width: 50%;
   height: 50%;
-  transform-origin: 100% 100%;
-  /* clip-path: polygon(100% 100%, 0 100%, 100% 0); */
+  top: 0;
+  left: 50%;
+  transform-origin: 0% 100%;
+  clip-path: polygon(0 100%, 100% 100%, 100% 0);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.segment-1 {
-  background: #28a745;
-  transform: rotate(0deg);
-}
-
-.segment-2 {
-  background: #007bff;
-  transform: rotate(180deg);
-}
-
-/* Centered Text inside Wheel */
 .segment-text {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-45deg); /* Keep text upright */
+  top: 70%;
+  left: 70%;
+  transform: translate(-50%, -50%) rotate(45deg);
   color: #fff;
   font-weight: bold;
-  font-size: clamp(1.2rem, 3vw, 1.8rem);
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+  font-size: 1rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   pointer-events: none;
+}
+
+/* Pointer */
+.pointer {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 25px solid #ff0000;
+  margin-bottom: -12px;
+  z-index: 10;
+  position: relative;
 }
 
 /* Spin Button */
 .spin-btn-wrapper {
   margin-top: 30px;
-  width: 100%;
   text-align: center;
 }
 

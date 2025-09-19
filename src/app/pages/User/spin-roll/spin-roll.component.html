@@ -14,29 +14,26 @@
         <!-- Show wheel only when spincount > 0 -->
         <div *ngIf="pfdata?.spincount > 0; else noSpins">
           <div class="spin-wheel-section">
-            <!-- Pointer Arrow -->
-            <div class="pointer"></div>
+              <!-- Pointer Arrow -->
+              <div class="pointer"></div>
 
-            <!-- Spin Wheel -->
-            <div class="spin-wheel" #wheel>
-              <!-- Segment 1: $50 -->
-              <div class="segment segment-1">
-                <div class="segment-text">$50</div>
+              <!-- Spin Wheel -->
+              <div class="spin-wheel" #wheel>
+                <div class="segment" *ngFor="let prize of prizes; let i = index" 
+                    [style.transform]="'rotate(' + (i * 45) + 'deg)'"
+                    [style.background]="segmentColors[i]">
+                  <div class="segment-text">${{ prize }}</div>
+                </div>
               </div>
 
-              <!-- Segment 2: $100 -->
-              <div class="segment segment-2">
-                <div class="segment-text">$100</div>
+              <!-- Spin Button -->
+              <div class="spin-btn-wrapper">
+                <button class="spin-btn" (click)="spin()" [disabled]="spinning">
+                  <i class="bi bi-arrow-repeat me-2"></i> Spin Now
+                </button>
               </div>
             </div>
 
-            <!-- Spin Button -->
-            <div class="spin-btn-wrapper">
-              <button class="spin-btn" (click)="spin()" [disabled]="spinning">
-                <i class="bi bi-arrow-repeat me-2"></i> Spin Now
-              </button>
-            </div>
-          </div>
         </div>
 
         <!-- Remaining Spins -->

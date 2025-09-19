@@ -1,1 +1,113 @@
-<p>referral-registration works!</p>
+<div class="main-wrapper account-wrapper bg-wrapper">
+		<div class="account-page">
+            <div class="account-center">
+                <div class="account-logo">
+                        <a routerLink="/"><img src="assets/logo.png" style="border-radius: 15px;" alt="Logo"></a>
+                </div>
+                <div class="account-box">
+                    <div class="login-header">
+                        <h3>Let's Get Started</h3>
+                        <p>Sign up to continue to Crypto</p>
+                    </div>
+                    <form [formGroup]="registerForm" (ngSubmit)="sign()" class="form-signin">
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="name" placeholder="Fullname">
+                            <span class="profile-views"><img src="assets/img/icon/lock-icon-01.svg"  alt=""/></span>
+                               <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="text-danger small">
+                                    <div *ngIf="registerForm.get('name')?.errors?.['required']">Full name is required.</div>
+                                    <div *ngIf="registerForm.get('name')?.errors?.['minlength']">Name must be at least 3 characters.</div>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" formControlName="email"  placeholder="Email">
+                            <span class="profile-views"><img src="assets/img/icon/lock-icon-03.svg"  alt=""/></span>
+                            <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger small">
+                                <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</div>
+                                <div *ngIf="registerForm.get('email')?.errors?.['email']">Please enter a valid email.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" formControlName="password" placeholder="Password">
+                            <span class="profile-views"><img src="assets/img/icon/lock-icon-02.svg"  alt=""/></span>
+                            <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger small">
+                                <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
+                                <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="sponcerid" [(ngModel)]="pffdata.regid"  readonly>
+                            <span class="profile-views"><img src="assets/img/icon/lock-icon-01.svg"  alt=""/></span>
+                            <div class="text-success small">Name: {{ pffdata?.name }}</div>
+                             
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" formControlName="placementid" (keyup)="onRegIdKeyup1()" placeholder="Placement Id">
+                            <span class="profile-views"><img src="assets/img/icon/lock-icon-01.svg"  alt=""/></span>
+                           <div *ngIf="idData1" class="text-success small">Name: {{ idData1.name }}</div>
+                           <div *ngIf="errorMessage1" class="text-danger small">{{ errorMessage1 }}</div>
+                            <div *ngIf="registerForm.get('placementid')?.touched && registerForm.get('placementid')?.invalid" class="text-danger small">
+                                <div *ngIf="registerForm.get('placementid')?.errors?.['required']">placementid is required.</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <select formControlName="position" class="form-select">
+                                <option value="" disabled>Select Position</option>
+                                <option value="Left">Left</option>
+                                <option value="Right">Right</option>
+                            </select>
+                                <div *ngIf="registerForm.get('position')?.touched && registerForm.get('position')?.invalid" class="text-danger small">
+                                    <div *ngIf="registerForm.get('position')?.errors?.['required']">Position is required.</div>
+                                </div>
+                        </div>
+
+                        <div class="forgotpass term-register">
+                            <div class="remember-me">
+                                <label class="custom_check me-2 mb-0 d-inline-flex remember-me"> I have read and agree the <a href="javascript:;">Terms & Conditions</a>
+                                    <input type="checkbox" formControlName="terms">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <div *ngIf="registerForm.get('terms')?.touched && registerForm.get('terms')?.invalid" class="text-danger small">
+                                You must agree to the Terms & Conditions.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary account-btn" [disabled]="registerForm.invalid" type="submit">Sign up<i class="fas fa-arrow-right ms-1"></i></button>
+                        </div>
+                        <div class="text-center login-link">
+                            Already have an account? <a routerLink="/auth-login">Sign in</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Registration Success Modal -->
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-primary text-white border-0 rounded-top-4">
+        <h5 class="modal-title" id="registrationModalLabel">Registration Successful ✅</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4 px-4">
+        <p class="mb-3">Your registration was successful! Please find your login details below:</p>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item"><strong>Name:</strong> {{ udata?.Username }}</li>
+          <!-- <li class="list-group-item"><strong>Email:</strong> {{ udata?.email }}</li> -->
+          <li class="list-group-item"><strong>RegID:</strong> {{ udata?.Registerid }}</li>
+          <li class="list-group-item"><strong>Password:</strong> {{ udata?.password }}</li>
+          <li class="list-group-item"><strong>Sponsor:</strong> {{ udata?.Sponcerid }}</li>
+
+        </ul>
+        <p class="text-muted small">Thank you for joining our team! You can now use these details to log in.</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <a routerLink="/auth-login" class="btn btn-primary">Go to Login</a> -->
+      </div>
+    </div>
+  </div>
+</div>

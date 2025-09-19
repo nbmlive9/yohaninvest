@@ -12,30 +12,13 @@
           </div>
             <h4 class="text-success">Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}} </h4>
           <div class="buy-crypto-group">
-            <form [formGroup]="form">
+            <form [formGroup]="form" novalidate>
               <div class="row">
-                <!-- Package Type -->
-                <div class="col-xl-4 col-lg-6">
-                  <div class="form-group bg-hover col-md-12">
-                    <label>Select Type</label>
-                    <select class="form-control select" formControlName="packagetype">
-                      <option value="" disabled>Select Type</option>
-                      <option value="secure">Secure</option>
-                      <option value="nonsecure">Non Secure</option>
-                    </select>
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
-                    >
-                      Package type is required.
-                    </small>
-                  </div>
-                </div>
 
                 <!-- Amount -->
                 <div class="col-xl-4 col-lg-6">
                   <div class="form-group">
-                    <label>Amount</label>
+                    <label>Amount *</label>
                     <input type="number" formControlName="amount"  class="form-control"
                       placeholder="Enter amount (100, 200, 300...)" (input)="validateAmount($event)"
                     />
@@ -57,12 +40,31 @@
                   </div>
                 </div>
 
+                
+                <!-- Package Type -->
+                <div class="col-xl-4 col-lg-6">
+                  <div class="form-group bg-hover col-md-12">
+                    <label>Select Type *</label>
+                    <select class="form-control select" formControlName="packagetype">
+                      <option value="" disabled>Select Type</option>
+                      <option value="secure">Secure</option>
+                      <option value="nonsecure">Non Secure</option>
+                    </select>
+                    <small
+                      class="text-danger"
+                      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
+                    >
+                      Package type is required.
+                    </small>
+                  </div>
+                </div>
+
                 <!-- Submit Button -->
                 <div class="buy-crpto-btn mt-4" *ngIf="pfdata.topupstatus=='0'">
-                  <button type="submit" class="btn btn-primary submit-btn mb-0" (click)="Activation()">Buy</button>
+                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form.valid" (click)="Activation()">Buy</button>
                 </div>
                  <div class="buy-crpto-btn mt-4" *ngIf="pfdata.topupstatus=='1'">
-                  <button type="submit" class="btn btn-primary submit-btn mb-0" (click)="Topup()">Buy</button>
+                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form.valid" (click)="Topup()">Buy</button>
                 </div>
 
               </div>

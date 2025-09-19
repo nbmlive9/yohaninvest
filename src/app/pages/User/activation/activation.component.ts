@@ -23,7 +23,7 @@ export class ActivationComponent {
   constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
         this.form = this.fb.group({
             packagetype: ['', [Validators.required,]],
-            regid: ['', [Validators.required]],
+            regid: [''],
             amount: ['', [Validators.required]],
           });
   }

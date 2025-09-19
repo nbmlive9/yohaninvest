@@ -33,7 +33,32 @@
           </div>
         </div>
 
+     
+
          <div class="row text-center g-2" >
+
+                   <!-- Share Link Section -->
+              <div class="col-12 col-md-6 col-lg-3 mt-4 text-md-end">
+                <div class="d-inline-block">
+                  <h5 class="d-inline-block p-1" style="cursor: pointer;" (click)="toggleShare()">
+                    <span class="share-btn">
+                      Share Link <i class="fa fa-share-alt-square" aria-hidden="true"></i>
+                    </span>
+                  </h5>
+                      <!-- Share Icons -->
+                      <div *ngIf="showShareIcons" class="d-flex justify-content-md-end gap-3 mt-2 mb-3">
+                        <a (click)="sharwahtsapp(pfdata?.regid)" target="_blank" title="WhatsApp">
+                          <i class="fab fa-whatsapp fa-lg text-success"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram">
+                          <i class="fab fa-instagram fa-lg text-danger"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" title="Facebook">
+                          <i class="fab fa-facebook fa-lg text-primary"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
             <!-- Active Sponsors -->
             <div class="col-xl-3 col-md-6" *ngIf="pfdata.spincount!='0'" routerLink="/spinroll">
                   <button class="btn btn-danger dtn-sm">Spin Now Earn Reward</button>

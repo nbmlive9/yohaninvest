@@ -7,7 +7,7 @@
         
           <!-- Recent Buying Section -->
           <div class="recent-buy comman-head">
-            <h3>Matching Report</h3>
+            <h3>Invest Amount</h3>
             <div class="row">
               <div class="col-md-12">
                 <div class="buy-form-crypto mb-0">
@@ -17,6 +17,7 @@
                         <tr>
                           <th>S.No</th>
                           <th>Date</th>
+                            <th>Invest</th>
                           <th>Amount</th>
                            <th>Days</th>
                             <th>R Amount</th>
@@ -28,6 +29,7 @@
                         <tr *ngFor="let row of data1; let i=index">
                           <td>{{i+1}}</td>
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                          <td>{{row.shamount | currency:'USD':true:'1.0-2' }}</td>
                           <td class="pay-clr">{{row.samount | currency:'USD':true:'1.0-2'}}</td>
                           <td>{{row.refdays}}</td>
                            <td class="pay-clr">{{row.balamount | currency:'USD':true:'1.0-2'}}</td>

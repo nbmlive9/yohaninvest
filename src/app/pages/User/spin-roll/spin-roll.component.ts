@@ -16,10 +16,18 @@ export class SpinRollComponent {
 
   form: FormGroup;
   errorMessage: any;
-  idData: any;
   pfdata: any;
   spinning = false;
   earnedAmount = 0;
+
+  // Displayed prizes on the wheel
+  prizes = [50, 100, 200, 300, 400, 500, 750, 1000];
+
+  // Segment colors
+  segmentColors = [
+    '#28a745', '#007bff', '#ffc107', '#ff5722',
+    '#9c27b0', '#00bcd4', '#e91e63', '#8bc34a'
+  ];
 
   constructor(private api: UserService, private router: Router, private fb: FormBuilder) {
     this.form = this.fb.group({
@@ -37,32 +45,36 @@ export class SpinRollComponent {
 
   spin() {
     if (this.spinning) return;
-
     this.spinning = true;
 
-    // Simulate random result (50 or 100)
-    const result = Math.random() < 0.5 ? 50 : 100;
-    const degree = result === 50 ? 1800 : 1890; // Adjust for realistic spins
+    // 1️⃣ Spin visually across any of the 8 segments
+    const randomIndex = Math.floor(Math.random() * this.prizes.length);
+    const visualPrize = this.prizes[randomIndex];
 
-    // Rotate the wheel
+    // 2️⃣ Decide actual backend prize (only 50 or 100)
+    const backendPrize = Math.random() < 0.5 ? 50 : 100;
+
+    // Each segment covers 45 degrees
+    const segmentAngle = 360 / this.prizes.length;
+    const targetAngle = (randomIndex * segmentAngle) + (360 * 5); // 5 extra spins
+
     const wheelElement = this.wheel.nativeElement;
-    wheelElement.style.transition = 'transform 3s ease-out';
-    wheelElement.style.transform = `rotate(${degree}deg)`;
+    wheelElement.style.transition = 'transform 4s ease-out';
+    wheelElement.style.transform = `rotate(-${targetAngle}deg)`;
 
     // After spin completes
     setTimeout(() => {
-      this.earnedAmount = result;
+      this.earnedAmount = backendPrize; // Show only 50 or 100
       this.spinning = false;
 
-      // Call API to register spin
-      const payload = { amount: result };
+      // 3️⃣ Send only backendPrize (50 or 100) to backend
+      const payload = { amount: backendPrize };
       this.api.SpinRoll(payload).subscribe({
-        next: (res: any) => {
-          // Show success modal
+        next: () => {
           const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
           modalElement.show();
 
-          // Close modal and refresh page after 3 seconds
+          // Auto-close modal and refresh
           setTimeout(() => {
             modalElement.hide();
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
@@ -74,8 +86,6 @@ export class SpinRollComponent {
           this.errorMessage = err?.error?.message || 'Spin failed.';
         }
       });
-    }, 3000);
+    }, 4000);
   }
-
-  
 }
