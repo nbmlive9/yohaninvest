@@ -82,7 +82,7 @@
                       <thead>
                         <tr>
                           <th>S.No</th>
-                          <th>Userid</th>
+                          <th>Date</th>
                           <th>Type</th>
                           <th>Amount</th>
                           <th>Status</th>
@@ -91,7 +91,7 @@
                       <tbody>
                         <tr *ngFor="let row of adata; let i=index">
                           <td>{{i+1}}</td>
-                          <td>{{row.forid}}</td>
+                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
                           <td>{{row.packagename}}</td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
                           <td>
@@ -113,6 +113,8 @@
     </div>
   </div>
 </div>
+
+<app-roi-report></app-roi-report>
 
 <!-- Success Modal -->
 <div

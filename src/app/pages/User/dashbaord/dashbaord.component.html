@@ -73,7 +73,7 @@
         <!-- Dashboard Stats -->
         <div class="row g-4">
           <!-- Active Sponsors -->
-          <div class="col-xl-3 col-md-6">
+          <!-- <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-blue">
               <div class="card-body text-center p-4">
                 <img src="assets/img/icon/menu-icon-01.svg" alt="img">
@@ -81,10 +81,10 @@
                 <h3 class="fw-bold">{{ data1?.activesponsors }}</h3>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Total Sponsors -->
-          <div class="col-xl-3 col-md-6">
+          <!-- <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-green">
               <div class="card-body text-center p-4">
                 <img src="assets/img/icon/menu-icon-03.svg" alt="img">
@@ -92,26 +92,48 @@
                 <h3 class="fw-bold">{{ data1?.sponsors }}</h3>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Left Sponsors -->
           <div class="col-xl-3 col-md-6">
-            <div class="card custom-card card-orange">
+            <div class="card custom-card card-green">
               <div class="card-body text-center p-4">
                 <img src="assets/img/icon/menu-icon-02.svg" alt="img">
-                <h6>Left Sponsors</h6>
-                <h3 class="fw-bold">{{ data1?.leftsponsors }}</h3>
+                <h6>Sponsors</h6>
+                <h3 class="fw-bold">{{data1?.sponsors}} </h3>
+                <p>Left: {{ data1?.leftsponsors }} | Right: {{ data1?.rightsponsors }}</p>
               </div>
             </div>
           </div>
 
           <!-- Right Sponsors -->
-          <div class="col-xl-3 col-md-6">
+          <!-- <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-yellow">
               <div class="card-body text-center p-4">
                 <img src="assets/img/icon/menu-icon-11.svg" alt="img">
                 <h6>Right Sponsors</h6>
-                <h3 class="fw-bold">{{ data1?.rightsponsors }}</h3>
+                <h3 class="fw-bold"></h3>
+              </div>
+            </div>
+          </div> -->
+
+          <!-- Sponsor Income -->
+          <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-cyan">
+              <div class="card-body text-center p-4">
+              <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Sponsor Income</h6>
+                <h3 class="fw-bold">{{ data1?.sponcerincome | currency:'USD':true:'1.0-2' }}</h3>
+              </div>
+            </div>
+          </div>
+
+           <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-blue">
+              <div class="card-body text-center p-4">
+                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Total Invest</h6>
+                <h3 class="fw-bold">{{ pfdata?.business | currency:'USD':true:'1.0-2' }}</h3>
               </div>
             </div>
           </div>
@@ -127,18 +149,18 @@
             </div>
           </div>
 
-          <!-- Sponsor Income -->
+           <!-- Total Matching -->
           <div class="col-xl-3 col-md-6">
-            <div class="card custom-card card-cyan">
+            <div class="card custom-card card-orange">
               <div class="card-body text-center p-4">
-              <img src="assets/img/icon/menu-icon-05.svg" alt="img">
-                <h6>Sponsor Income</h6>
-                <h3 class="fw-bold">{{ data1?.sponcerincome | currency:'USD':true:'1.0-2' }}</h3>
+                <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Total Matching</h6>
+                <h3 class="fw-bold">{{ data1?.totalmatching }}</h3>
               </div>
             </div>
           </div>
 
-		    <div class="col-xl-3 col-md-6">
+		    <!-- <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-blue">
               <div class="card-body text-center p-4">
                  <img src="assets/img/icon/menu-icon-05.svg" alt="img">
@@ -146,10 +168,10 @@
                 <h3 class="fw-bold">{{ data1?.leftcount }}</h3>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Right Count -->
-          <div class="col-xl-3 col-md-6">
+          <!-- <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-green">
               <div class="card-body text-center p-4">
                  <img src="assets/img/icon/menu-icon-05.svg" alt="img">
@@ -157,10 +179,10 @@
                 <h3 class="fw-bold">{{ data1?.rightcount }}</h3>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Total Daily Matching -->
-          <div class="col-xl-3 col-md-6">
+          <!-- <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-orange">
               <div class="card-body text-center p-4">
                  <img src="assets/img/icon/menu-icon-05.svg" alt="img">
@@ -168,10 +190,10 @@
                 <h3 class="fw-bold">{{ data1?.totaldailymatching }}</h3>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Total Instant Matching -->
-          <div class="col-xl-3 col-md-6">
+          <!-- <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-yellow">
               <div class="card-body text-center p-4">
                  <img src="assets/img/icon/menu-icon-05.svg" alt="img">
@@ -179,11 +201,11 @@
                 <h3 class="fw-bold">{{ data1?.totalinstantmatching }}</h3>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <!-- Credit -->
           <div class="col-xl-3 col-md-6">
-            <div class="card custom-card card-purple">
+            <div class="card custom-card card-yellow">
               <div class="card-body text-center p-4">
                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
                 <h6>Credit</h6>
@@ -214,16 +236,18 @@
             </div>
           </div>
 
-          <!-- Total Matching -->
-          <div class="col-xl-3 col-md-6">
-            <div class="card custom-card card-red">
+           <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-green">
               <div class="card-body text-center p-4">
-                <img src="assets/img/icon/menu-icon-05.svg" alt="img">
-                <h6>Total Matching</h6>
-                <h3 class="fw-bold">{{ data1?.totalmatching }}</h3>
+              <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Activation Wallet</h6>
+                <h3 class="fw-bold">{{ pfdata?.actwallet | currency:'USD':true:'1.0-2' }}</h3>
+                <p>Cash Wallet: {{ pfdata?.cashwallet | currency:'USD':true:'1.0-2' }}</p>
               </div>
             </div>
           </div>
+
+         
         </div>
       </div> <!-- End Dashboard Content -->
 

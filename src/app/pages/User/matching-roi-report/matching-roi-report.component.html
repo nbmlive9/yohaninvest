@@ -18,9 +18,9 @@
                           <th>S.No</th>
                           <th>Date</th>
                           <th>Amount</th>
-                           <th>Days</th>
+                           <!-- <th>Days</th>
                             <th>R Amount</th>
-                            <th>R Days</th>
+                            <th>R Days</th> -->
                               <th>Credit</th>
                         </tr>
                       </thead>
@@ -29,9 +29,9 @@
                           <td>{{i+1}}</td>
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
                           <td class="pay-clr">{{row.samount | currency:'USD':true:'1.0-2'}}</td>
-                          <td>{{row.refdays}}</td>
+                          <!-- <td>{{row.refdays}}</td>
                            <td class="pay-clr">{{row.balamount | currency:'USD':true:'1.0-2'}}</td>
-                            <td>{{row.roidays}}</td>
+                            <td>{{row.roidays}}</td> -->
                              <td class="pay-clr">{{row.cramount | currency:'USD':true:'1.0-2'}}</td>
                         </tr>
                       </tbody>

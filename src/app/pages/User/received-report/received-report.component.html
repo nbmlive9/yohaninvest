@@ -25,7 +25,7 @@
                         <tr *ngFor="let row of data1; let i=index">
                           <td>{{i+1}}</td>
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
-                          <td class="pay-clr">{{row.forid}}</td>
+                          <td class="pay-clr">{{row.fromid}}</td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td> 
                         </tr>
                       </tbody>
