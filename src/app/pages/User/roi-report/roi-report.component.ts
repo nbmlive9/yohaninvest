@@ -16,7 +16,7 @@ export class RoiReportComponent {
   
           Getdata(){
             this.api.RoiReport().subscribe((res:any)=>{
-                console.log(res);
+                // console.log(res);
                 this.data1=res.data;
             })
           }

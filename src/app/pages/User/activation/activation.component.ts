@@ -20,11 +20,19 @@ export class ActivationComponent {
   adata: any;
   data1: any;
   pfdata: any;
+  form1:FormGroup;
   constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
         this.form = this.fb.group({
             packagetype: ['', [Validators.required,]],
             regid: [''],
             amount: ['', [Validators.required]],
+          });
+
+              this.form1 = this.fb.group({
+            packagetype: ['', [Validators.required,]],
+            regid: ['',],
+            amount: ['', [Validators.required]],
+            atype: ['', [Validators.required]],
           });
   }
 
@@ -36,6 +44,7 @@ export class ActivationComponent {
     GetProfile() {
     this.api.UDashboardData().subscribe({
       next: (res: any) => {
+        // console.log('profile',res);
         this.data1 = res.data;
         this.pfdata = res.data.profiledata;
       }
@@ -52,9 +61,18 @@ export class ActivationComponent {
     }
   }
 
+   validateAmount1(event: any) {
+    const value = event.target.value;
+    if (value && value % 100 !== 0) {
+      this.form1.controls['amount'].setErrors({ notMultipleOf100: true });
+    } else {
+      this.form1.controls['amount'].setErrors(null);
+    }
+  }
+
     GetActivationData(){
     this.api.ActivationData().subscribe((res:any)=>{
-      console.log(res);
+      // console.log(res);
       this.adata=res.data;
       
     })
@@ -65,12 +83,12 @@ export class ActivationComponent {
     this.api.GetusersDataByRegID(id).subscribe(
       (res4: any) => {
         if (res4) {
-          console.log(res4);
+          // console.log(res4);
           this.regname = res4.data[0];
           this.idselectmsg = `Name: ${this.regname.name}`;
           this.errorMessage = ''; // Reset the error message when data is correct
         } else {
-          console.log(res4);
+          // console.log(res4);
           this.regname = null; // Reset the regname object when data is incorrect
           this.errorMessage = 'Error fetching user data';
           this.idselectmsg = 'User Not Available';
@@ -122,9 +140,9 @@ export class ActivationComponent {
 
     Topup() {
       const payload = {
-        regid: this.form.value.regid,
-        packagetype: this.form.value.packagetype,
-        amount: this.form.value.amount,
+           regid: this.form.value.regid,
+    packagetype: this.form.value.packagetype,
+    amount: this.form.value.amount,
       };
   
       this.api.Topup(payload).subscribe({
@@ -141,7 +159,7 @@ export class ActivationComponent {
         this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
           this.router.navigate(['/activation']); // Refresh the page
         });
-      }, 3000);
+      }, 2000);
         },
         error: (err) => {
           this.errorMessage = err?.error?.message || 'Activation failed.';

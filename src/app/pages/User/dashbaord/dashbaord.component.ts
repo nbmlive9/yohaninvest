@@ -25,7 +25,7 @@ export class DashbaordComponent {
     this.loading = true; // start loading
     this.api.UDashboardData().subscribe(
       (res: any) => {
-        console.log('Dashboard Data:', res);
+        // console.log('Dashboard Data:', res);
         this.data1 = res.data;
         this.pfdata = res.data.profiledata;
         this.loading = false; // stop loading
@@ -43,5 +43,20 @@ export class DashbaordComponent {
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
     window.open(whatsappUrl, '_blank');
   }
+
+copied = false;
+
+copyValue(text: string) {
+  navigator.clipboard.writeText(text).then(() => {
+    this.copied = true;
+
+    // Hide message after 2 seconds
+    setTimeout(() => {
+      this.copied = false;
+    }, 2000);
+  }).catch(err => {
+    console.error('Failed to copy: ', err);
+  });
+}
 
 }

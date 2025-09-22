@@ -30,23 +30,24 @@
   </div>
 </div>
 
-<div class="row text-center g-3 d-lg-none">
-    <!-- Sticky Icon List -->
-<!-- <div class="sticky-icons">
-  <div class="icon-item">
-    <img src="assets/free.png" alt="Free User" width="50" height="50">
-    <span>Free User</span>
-  </div>
-  <div class="icon-item">
-    <img src="assets/silver.jpg" alt="Subscribed" width="50" height="50">
-    <span>Subscribed</span>
-  </div>
-  
-  <div class="icon-item">
-    <img src="assets/logo.png" alt="Default" width="50" height="50">
-    <span>Default</span>
-  </div>
-</div> -->
+<div class="row d-lg-none">
+    <!-- Sticky Horizontal Footer Icons -->
+      <div class="sticky-footer-icons text-center">
+        <a href="#" class="icon-item" title="Free User">
+          <img src="assets/free.png" alt="Free User">
+          <span>Free</span>
+        </a>
+
+        <a href="#" class="icon-item" title="Subscribed">
+          <img src="assets/silver.jpg" alt="Subscribed">
+          <span>Subscribed</span>
+        </a>
+
+        <a href="#" class="icon-item" title="Default">
+          <img src="assets/logo.png" alt="Default">
+          <span>Default</span>
+        </a>
+      </div>
 
 </div>
 
@@ -65,6 +66,34 @@
   </div>
 </div>
 <!-- nhh -->
+
+ <div class="card shadow-sm p-3 mt-4">
+    <label class="form-label fw-bold text-primary">{{data2?.main.regid}} ({{data2?.main.name}})</label>
+    <div class="d-flex flex-wrap gap-2">
+           <table class="table table-bordered align-middle text-center">
+            <thead class="table-light">
+              <tr>
+                <th> </th>
+                <th>Left</th>
+                <th>Right</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="fw-bold text-primary">Team</td>
+                <td>{{ data2?.mleft || 0 }}</td>
+                <td>{{ data2?.mright || 0 }}</td>
+              </tr>
+              <tr>
+                <td class="fw-bold text-secondary">Business</td>
+                <td>{{ data2?.mleftbusiness || 0 | currency:'USD':true:'1.0-2' }}</td>
+                <td>{{ data2?.mrightbusiness || 0 | currency:'USD':true:'1.0-2' }}</td>
+              </tr>
+            </tbody>
+          </table> 
+    </div>
+  </div>
+</div>
 
 
 <div class="card flex justify-content-center overflow-x-auto p-2">
@@ -160,22 +189,22 @@
           <table class="table table-bordered align-middle text-center">
             <thead class="table-light">
               <tr>
-                <th>Package</th>
+                <th></th>
                 <th>Left</th>
                 <th>Right</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td class="fw-bold text-primary">Total</td>
+                <td class="fw-bold text-primary">Team</td>
                 <td>{{ tdata?.mleft || 0 }}</td>
                 <td>{{ tdata?.mright || 0 }}</td>
               </tr>
-              <!-- <tr>
+               <tr>
                 <td class="fw-bold text-secondary">Business</td>
-                <td>{{ tdata?.mlevelleft || 0 }}</td>
-                <td>{{ tdata?.mlevelright || 0 }}</td>
-              </tr> -->
+                <td>{{ data2?.mleftbusiness || 0 | currency:'USD':true:'1.0-2' }}</td>
+                <td>{{ data2?.mrightbusiness || 0 | currency:'USD':true:'1.0-2' }}</td>
+              </tr>
             </tbody>
           </table>
         </div>

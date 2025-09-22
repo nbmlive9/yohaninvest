@@ -35,7 +35,7 @@ export class SelfTransferComponent {
         GetProfile() {
         this.api.UDashboardData().subscribe({
           next: (res: any) => {
-            console.log('profile',res);
+            // console.log('profile',res);
             
             this.data1 = res.data;
             this.pfdata = res.data.profiledata;
@@ -46,7 +46,7 @@ export class SelfTransferComponent {
     
         GetActivationData(){
         this.api.SelfTransferReport().subscribe((res:any)=>{
-          console.log(res);
+          // console.log(res);
           this.adata=res.data;
           
         })

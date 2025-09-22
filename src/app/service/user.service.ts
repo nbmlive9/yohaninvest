@@ -562,6 +562,31 @@ Activate(value: {
     );
   }
 
+   UserActivate(value: {
+    regid:string;
+    packagetype:string;
+    amount:number;
+    atype:string;
+  }){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    };
+    return this.http.post(
+      AUTH_API + 'Activateid',
+      { 
+      "regid":value.regid, 
+      "packagetype":value.packagetype, 
+      "amount":value.amount, 
+      "atype":value.atype, 
+    },
+       httpOptions 
+    );
+  }
+
   Topup(value: {
     regid:string;
     packagetype:string;
@@ -579,7 +604,7 @@ Activate(value: {
       { 
       "regid":value.regid, 
       "packagetype":value.packagetype, 
-       "amount":value.amount, 
+      "amount":value.amount, 
     },
        httpOptions 
     );

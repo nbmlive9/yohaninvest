@@ -7,14 +7,14 @@
         <div class="col-sm-12">
           <div class="sell-buy-list">
             <ul>
-              <li class="active">Buy Package</li>
+              <li class="active">User Activation</li>
             </ul>
           </div>
-            <h6><span class="text-success">Activation Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</span> 
-              <!-- <span class="text-primary">Cash Wallet: {{pfdata?.cashwallet | currency:'USD':true:'1.0-2'}}</span> -->
-            </h6>
-          <div class="buy-crypto-group" *ngIf="pfdata.topupstatus=='0'">
-            <form [formGroup]="form" novalidate>
+            <h6><span class="text-success">Activation Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</span> - <span class="text-primary">Cash Wallet: {{pfdata?.cashwallet | currency:'USD':true:'1.0-2'}}</span></h6>
+        
+
+          <div class="buy-crypto-group" *ngIf="pfdata.topupstatus=='1'">
+            <form [formGroup]="form1" novalidate>
               <div class="row">
 
                 <!-- Amount -->
@@ -28,78 +28,21 @@
                     <!-- Error: Required -->
                     <small
                       class="text-danger"
-                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')"
+                      *ngIf="form1.controls['amount'].touched && form1.controls['amount'].hasError('required')"
                     >
                       Amount is required.
                     </small>
                     <!-- Error: Not multiple of 100 -->
                     <small
                       class="text-danger"
-                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('notMultipleOf100')"
+                      *ngIf="form1.controls['amount'].touched && form1.controls['amount'].hasError('notMultipleOf100')"
                     >
                       Amount must be a multiple of 100 (e.g., 100, 200, 300...).
                     </small>
                   </div>
                 </div>
 
-                
-                <!-- Package Type -->
                 <div class="col-xl-4 col-lg-6">
-                  <div class="form-group bg-hover col-md-12">
-                    <label>Select Type *</label>
-                    <select class="form-control select" formControlName="packagetype">
-                      <option value="" disabled>Select Type</option>
-                      <option value="secure">Secure</option>
-                      <option value="nonsecure">Non Secure</option>
-                    </select>
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
-                    >
-                      Package type is required.
-                    </small>
-                  </div>
-                </div>
-
-                <!-- Submit Button -->
-                <div class="buy-crpto-btn mt-4">
-                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form.valid" (click)="Activation()">Buy</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
-
-          <div class="buy-crypto-group" *ngIf="pfdata.topupstatus=='1'">
-            <form [formGroup]="form" novalidate>
-              <div class="row">
-
-                <!-- Amount -->
-                <div class="col-xl-4 col-lg-6">
-                  <div class="form-group">
-                    <label>Amount *</label>
-                    <input type="number" formControlName="amount"  class="form-control"
-                      placeholder="Enter amount (100, 200, 300...)" (input)="validateAmount1($event)"
-                    />
-                    <input type="text"  formControlName="regid" [(ngModel)]="pfdata.regid"  hidden/>
-                    <!-- Error: Required -->
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')"
-                    >
-                      Amount is required.
-                    </small>
-                    <!-- Error: Not multiple of 100 -->
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('notMultipleOf100')"
-                    >
-                      Amount must be a multiple of 100 (e.g., 100, 200, 300...).
-                    </small>
-                  </div>
-                </div>
-
-                <!-- <div class="col-xl-4 col-lg-6">
                   <div class="form-group">
                     <label>Userid *</label>
                     <input type="number" formControlName="regid" (keyup)="onRegisterIdSelect($event)" class="form-control" placeholder="Enter Userid" />
@@ -107,11 +50,11 @@
                     <span class="text-danger">{{errorMessage}}</span>
                         <small
                       class="text-danger"
-                      *ngIf="form.controls['regid'].touched && form.controls['regid'].hasError('required')" >
+                      *ngIf="form1.controls['regid'].touched && form1.controls['regid'].hasError('required')" >
                       Userid is required.
                     </small>
                   </div>
-                </div> -->
+                </div>
 
                 
                 <!-- Package Type -->
@@ -125,14 +68,14 @@
                     </select>
                     <small
                       class="text-danger"
-                      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
+                      *ngIf="form1.controls['packagetype'].touched && form1.controls['packagetype'].hasError('required')"
                     >
                       Package type is required.
                     </small>
                   </div>
                 </div>
 
-                <!-- <div class="col-xl-4 col-lg-6">
+                <div class="col-xl-4 col-lg-6">
                   <div class="form-group bg-hover col-md-12">
                     <label>Wallet Type *</label>
                     <select class="form-control select" formControlName="atype">
@@ -142,15 +85,15 @@
                     </select>
                     <small
                       class="text-danger"
-                      *ngIf="form.controls['atype'].touched && form.controls['atype'].hasError('required')"
+                      *ngIf="form1.controls['atype'].touched && form1.controls['atype'].hasError('required')"
                     >
                       Package type is required.
                     </small>
                   </div>
-                </div> -->
+                </div>
 
                  <div class="buy-crpto-btn mt-4">
-                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form.valid" (click)="Topup()">Buy</button>
+                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form1.valid" (click)="Topup()">Buy</button>
                 </div>
 
               </div>
@@ -159,7 +102,7 @@
 
           <!-- Recent Buying Section -->
           <div class="recent-buy comman-head">
-            <h3>Recent Buying</h3>
+            <h3>Recent Activations</h3>
             <div class="row">
               <div class="col-md-12">
                 <div class="buy-form-crypto mb-0">
@@ -169,6 +112,7 @@
                         <tr>
                           <th>S.No</th>
                           <th>Date</th>
+                           <th>Userid</th>
                           <th>Type</th>
                           <th>Amount</th>
                           <th>Status</th>
@@ -178,6 +122,7 @@
                         <tr *ngFor="let row of adata; let i=index">
                           <td>{{i+1}}</td>
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                           <td>{{row.forid}}</td>
                           <td>{{row.packagename}}</td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
                           <td>

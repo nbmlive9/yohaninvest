@@ -10,7 +10,7 @@
             <div class="row g-3">
               <!-- Full Name -->
               <div class="col-sm-6">
-                <label class="form-label">Full Name</label>
+                <label class="form-label">Full Name *</label>
                 <div class="input-wrapper">
                   <input type="text" formControlName="name" placeholder="Enter Name" class="form-control" />
                 </div>
@@ -21,9 +21,9 @@
           
               <!-- Email -->
               <div class="col-sm-6">
-                <label class="form-label">Email</label>
+                <label class="form-label">Email *</label>
                 <div class="input-wrapper">
-                  <input type="email" formControlName="email" placeholder="example@domain.com" class="form-control" />
+                  <input type="email" formControlName="email" class="form-control" />
                 </div>
                 <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger small">
                   <span *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</span>
@@ -48,7 +48,7 @@
 
               <!-- Password -->
               <div class="col-sm-6">
-                <label class="form-label">Password</label>
+                <label class="form-label">Password *</label>
                 <div class="input-wrapper">
                   <input type="password" formControlName="password" placeholder="********" class="form-control" />
                 </div>
@@ -101,10 +101,38 @@
               </div>
             </div>
           
-            <button type="submit" class="btn btn-dark w-100 mt-3 rounded-pill">Sign Up</button>
+            <button type="submit" class="btn btn-dark w-100 mt-3 rounded-pill" *ngIf="registerForm.valid">Sign Up</button>
           </form>
 
        </div>
    </div>
 
+</div>
+
+ <!-- Registration Success Modal -->
+<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header bg-primary text-white border-0 rounded-top-4">
+        <h5 class="modal-title" id="registrationModalLabel">Registration Successful ✅</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4 px-4">
+        <p class="mb-3">Your registration was successful! Please find your login details below:</p>
+        <ul class="list-group list-group-flush mb-3">
+          <li class="list-group-item"><strong>Name:</strong> {{ udata?.Username }}</li>
+          <!-- <li class="list-group-item"><strong>Email:</strong> {{ udata?.email }}</li> -->
+          <li class="list-group-item"><strong>RegID:</strong> {{ udata?.Registerid }}</li>
+          <li class="list-group-item"><strong>Password:</strong> {{ udata?.password }}</li>
+          <li class="list-group-item"><strong>Sponsor:</strong> {{ udata?.Sponcerid }}</li>
+
+        </ul>
+        <p class="text-muted small">Thank you for joining our team! You can now use these details to log in.</p>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <a routerLink="/auth-login" class="btn btn-primary">Go to Login</a> -->
+      </div>
+    </div>
+  </div>
 </div>

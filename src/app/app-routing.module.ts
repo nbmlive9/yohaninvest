@@ -26,6 +26,7 @@ import { TreeViewComponent } from './pages/User/tree-view/tree-view.component';
 import { DepositFundComponent } from './pages/User/deposit-fund/deposit-fund.component';
 import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
 import { CpDashboardComponent } from './pages/User/cp-dashboard/cp-dashboard.component';
+import { OtherActivationComponent } from './pages/User/other-activation/other-activation.component';
 
 const routes: Routes = [
   {path:"auth-login",component:LoginComponent },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   { path: "directreferrals", component: DirectTeamComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
    { path: "activation", component: ActivationComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+     { path: "useractivation", component: OtherActivationComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "walletreport", component: WalletReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "todaywalletreport", component: WalletTodayReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "leftteam", component: LeftTeamComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },

@@ -2,6 +2,7 @@
   <app-menu></app-menu>
    <div class="page-wrapper bg-wrapper">
         <div class="content">
+            <h4>Direct Referral</h4>
             <div class="table-responsive">
                 <table class="table ">
                     <thead>
@@ -11,7 +12,7 @@
                             <th>Userid</th>
                             <th style="min-width:110px;">Name</th>
                             <th style="min-width:110px;">Position</th>
-                            <!-- <th style="min-width:110px;">Email </th> -->
+                            <th style="min-width:110px;">Business</th>
                             <th style="min-width:110px;">Status</th>
                         </tr>
                     </thead>
@@ -22,7 +23,7 @@
                             <td>{{row.regid}}</td>
                             <td>{{row.name}}</td>
                             <td>{{row.position}}</td>
-                            <!-- <td class="pay-clr">{{row.email}}</td> -->
+                            <td class="pay-clr">{{row.business | currency:'USD':true:'1.0-2'}}</td>
                             <td><span *ngIf="row.topupstatus=='0'" class="custom-status active-danger">
                                 <span class="live-dark me-1"></span>Not Active</span>
                                 <span *ngIf="row.topupstatus=='1'" class="custom-status active-success">

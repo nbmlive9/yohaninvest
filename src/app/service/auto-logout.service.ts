@@ -41,7 +41,7 @@ export class AutoLogoutService {
 
   // Log out the user after inactivity
   private logoutUser() {
-    console.log('Session expired due to inactivity. Logging out...');
+    // console.log('Session expired due to inactivity. Logging out...');
     this.tokenStorageService.signOut(); // Clear token/session
     this.router.navigate(['/auth-login']); // Redirect to login page
   }

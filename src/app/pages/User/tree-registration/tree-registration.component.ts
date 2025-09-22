@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-tree-registration',
   templateUrl: './tree-registration.component.html',
@@ -28,6 +28,7 @@ export class TreeRegistrationComponent {
     hpdata:any;
     regid:any;
     position:any;
+  udata: any;
       constructor(private fb: FormBuilder,private router:Router, private api: UserService, private activeroute:ActivatedRoute,private toast:ToastrService) {
           this.registerForm = this.fb.group({
         name: ['', Validators.required],
@@ -64,15 +65,15 @@ export class TreeRegistrationComponent {
         if (selected) {
           const cca2 = selected.cca2;
           this.CountryCode = cca2;
-          console.log("Selected Country:", selected.name.common);
-          console.log("Selected Country Code (cca2):", cca2);
+          // console.log("Selected Country:", selected.name.common);
+          // console.log("Selected Country Code (cca2):", cca2);
       
           // 🔔 Call the API to get the calling code
           this.api.getCallingCode(cca2).subscribe({
             next: (res: any) => {
-              console.log("📞 Calling Code Response:", res.data);
+              // console.log("📞 Calling Code Response:", res.data);
               this.numbercode=res.data.callingcodes[0]
-              console.log("numbercode:",this.numbercode);
+              // console.log("numbercode:",this.numbercode);
               
             },
             error: (err) => {
@@ -84,41 +85,50 @@ export class TreeRegistrationComponent {
        
       }
     
-      sign(): void {
-        if (this.registerForm.invalid) {
-          this.registerForm.markAllAsTouched(); // highlight errors
-          return;
-        }
-      
-        const form = this.registerForm.value;
-        const payload = {
-          sponcerid: form.sponcerid,
-          name: form.name,
-          email: form.email,
-          password: form.password,
-          position: form.position,
-          // country: form.country,
-          placementid: form.placementid
-        };
-      
-        this.api.UserRegistration(payload).subscribe({
-          next: (res: any) => {
-            // console.log('Registration Response:', res);
-               const newRegId = this.regid; 
-            this.toast.success(res?.message || 'Registration successful ✅', 'Success');
-            this.registerForm.reset();
+  sign(): void {
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      return;
+    }
+
+    const form = this.registerForm.value;
+    const payload = {
+      sponcerid: form.sponcerid,
+      name: form.name,
+      email: form.email,
+      password: form.password,
+      position: form.position,
+      placementid: form.placementid
+    };
+
+    this.api.UserRegistration(payload).subscribe({
+      next: (res: any) => {
+        this.udata = res.data;
+        const newRegId = this.regid;
+
+        this.toast.success(res?.message || 'Registration successful ✅', 'Success');
+        this.registerForm.reset();
+
+        // 👉 Show Bootstrap Modal
+        const modalElement = document.getElementById('registrationModal');
+        if (modalElement) {
+          const modal = new bootstrap.Modal(modalElement);
+          modal.show();
+
+          // ✅ Redirect when modal is closed (Close button OR X)
+          modalElement.addEventListener('hidden.bs.modal', () => {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                 this.router.navigate([`/treeview/${newRegId}`]);
+              this.router.navigate([`/treeview/${newRegId}`]);
             });
-          },
-          error: (err) => {
-            // console.error('Registration error:', err);
-            this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
-          }
-        });
+          }, { once: true }); // run only once
+        }
+      },
+      error: (err) => {
+        this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
       }
-      
-      
+    });
+  }
+
     
       getProfileData() {
         this.api.GetusersDataByRegID(this.regid).subscribe((res: any) => {
@@ -141,8 +151,8 @@ export class TreeRegistrationComponent {
             .sort();
   
           const countryCodes = res.map((c: any) => c.cca2).filter(Boolean);
-          console.log("Country List:", this.countries);
-          console.log("Country Codes (cca2):", countryCodes);
+          // console.log("Country List:", this.countries);
+          // console.log("Country Codes (cca2):", countryCodes);
         },
         error: (err) => {
           console.error('API Error:', err);
@@ -154,7 +164,7 @@ export class TreeRegistrationComponent {
       this.api.getCountries().subscribe({
         next: (res: any) => {
           this.countries = res.map((country: { name: { common: any; }; }) => country.name?.common).filter(Boolean).sort();
-          console.log("Country List:", this.countries);
+          // console.log("Country List:", this.countries);
         },
         error: (err) => {
           console.error('API Error:', err);

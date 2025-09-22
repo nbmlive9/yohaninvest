@@ -107,3 +107,62 @@
     margin: 0.5rem;
   }
 }
+
+/* Sticky footer bar */
+.sticky-footer-icons {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  z-index: 1100;
+}
+
+/* Each icon */
+.sticky-footer-icons .icon-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.sticky-footer-icons .icon-item img {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 4px;
+}
+
+.sticky-footer-icons .icon-item span {
+  font-size: 11px;
+  color: #333;
+  font-weight: 600;
+}
+
+/* Hover effect */
+.sticky-footer-icons .icon-item:hover {
+  transform: translateY(-6px);
+}
+
+/* Responsive (mobile adjustments) */
+@media (max-width: 768px) {
+  .sticky-footer-icons {
+    bottom: 6px;
+    padding: 8px 14px;
+    gap: 12px;
+  }
+  .sticky-footer-icons .icon-item img {
+    width: 30px;
+    height: 30px;
+  }
+  .sticky-footer-icons .icon-item span {
+    font-size: 10px;
+  }
+}

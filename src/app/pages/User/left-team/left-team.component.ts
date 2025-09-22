@@ -18,7 +18,7 @@ export class LeftTeamComponent {
     
       getLeftTeam(){
         this.api.Leftteam().subscribe((res:any)=>{
-            console.log(res);
+            // console.log(res);
             this.data1=res.data;
         })
       }

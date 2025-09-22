@@ -17,7 +17,7 @@ export class WalletTodayReportComponent {
   
     getWalletReport(){
       this.api.WalletTodayReportData().subscribe((res:any)=>{
-          console.log(res);
+          // console.log(res);
           this.data1=res.data;
       })
     }

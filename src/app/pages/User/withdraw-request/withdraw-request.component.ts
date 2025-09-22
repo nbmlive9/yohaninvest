@@ -37,8 +37,7 @@ export class WithdrawRequestComponent {
           GetProfile() {
           this.api.UDashboardData().subscribe({
             next: (res: any) => {
-              console.log('profile',res);
-              
+              // console.log('profile',res);
               this.data1 = res.data;
               this.pfdata = res.data.profiledata;
             }
@@ -48,7 +47,7 @@ export class WithdrawRequestComponent {
       
           PendingData(){
           this.api.UserWithdrawPending().subscribe((res:any)=>{
-            console.log(res);
+            // console.log(res);
             this.adata=res.data;
             
           })
@@ -56,7 +55,7 @@ export class WithdrawRequestComponent {
 
             CompletedData(){
           this.api.UserWithdrawCompleted().subscribe((res:any)=>{
-            console.log(res);
+            // console.log(res);
             this.cdata=res.data;
             
           })

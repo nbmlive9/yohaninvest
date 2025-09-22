@@ -23,3 +23,7 @@
 .modal-footer .btn-secondary {
     border-radius: 0.5rem;
 }
+
+a{
+    text-decoration: none;
+}

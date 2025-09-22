@@ -80,12 +80,12 @@ export class SpinRollComponent {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/spinroll']);
             });
-          }, 3000);
+          }, 2000);
         },
         error: (err) => {
           this.errorMessage = err?.error?.message || 'Spin failed.';
         }
       });
-    }, 4000);
+    }, 2000);
   }
 }

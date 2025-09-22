@@ -52,6 +52,21 @@ h6 {
   background: #f8f9fa;
   min-height: 100vh;
 } */
+/* Blinking effect */
+.blink-btn {
+  animation: blink 2s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
 
 /* Base Card Styling */
 .custom-card {
@@ -109,6 +124,10 @@ h6 {
   background: linear-gradient(135deg, #00c6ff, #0072ff);
 }
 
+.card-pink {
+  background: linear-gradient(135deg, #8805a8, #131212);
+}
+
 /* Loader Alignment */
 .loader-wrapper {
   min-height: 60vh;
@@ -123,4 +142,16 @@ h6 {
   background: #f8f9fa;
   min-height: 100vh;
 }
+
+.text-success {
+  font-weight: bold;
+  animation: fadeOut 2s ease forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  80% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 

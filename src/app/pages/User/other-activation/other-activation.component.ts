@@ -5,14 +5,14 @@ import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
 declare var bootstrap: any;
 @Component({
-  selector: 'app-transfer-wallet',
-  templateUrl: './transfer-wallet.component.html',
-  styleUrls: ['./transfer-wallet.component.css']
+  selector: 'app-other-activation',
+  templateUrl: './other-activation.component.html',
+  styleUrls: ['./other-activation.component.css']
 })
-export class TransferWalletComponent {
-   @ViewChild('successModal') successModal!: ElementRef;
+export class OtherActivationComponent {
+
+    @ViewChild('successModal') successModal!: ElementRef;
     pack: any;
-   form:FormGroup;
     idData: any;
     errorMessage: any;
      idselectmsg: string = '';
@@ -20,12 +20,13 @@ export class TransferWalletComponent {
     adata: any;
     data1: any;
     pfdata: any;
+    form1:FormGroup;
     constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
-          this.form = this.fb.group({
-              wallettyoe: ['', [Validators.required,]],
+                this.form1 = this.fb.group({
+              packagetype: ['', [Validators.required,]],
               regid: ['', [Validators.required]],
               amount: ['', [Validators.required]],
-               remark: ['Transfer Fund'],
+              atype: ['', [Validators.required]],
             });
     }
   
@@ -44,9 +45,18 @@ export class TransferWalletComponent {
       });
     }
   
+     // Validate amount input dynamically
+    validateAmount(event: any) {
+      const value = event.target.value;
+      if (value && value % 100 !== 0) {
+        this.form1.controls['amount'].setErrors({ notMultipleOf100: true });
+      } else {
+        this.form1.controls['amount'].setErrors(null);
+      }
+    }
   
       GetActivationData(){
-      this.api.TransferWalletData().subscribe((res:any)=>{
+      this.api.ActivationData().subscribe((res:any)=>{
         // console.log(res);
         this.adata=res.data;
         
@@ -77,43 +87,36 @@ export class TransferWalletComponent {
       );
     }
   
-    transfer() {
-    const payload = {
-      regid: this.form.value.regid,
-      wallettyoe: this.form.value.wallettyoe,
-      amount: this.form.value.amount,
-       remark: this.form.value.remark,
-    };
   
-    this.api.UserTransferUserWallet(payload).subscribe({
-      next: (res: any) => {
-        this.toastr.success('Transfer Successful!', 'Success');
-  
-        // Reset the form
-        this.form.reset();
-        this.idData = null;
-        this.GetActivationData();
-  
-        // Show success modal
-        const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
-        modalElement.show();
-  
-        // Automatically close modal and refresh page after 3 seconds
-        setTimeout(() => {
+      Topup() {
+        const payload = {
+          regid: this.form1.value.regid,
+          packagetype: this.form1.value.packagetype,
+          amount: this.form1.value.amount,
+          atype: this.form1.value.atype,
+        };
+    
+        this.api.UserActivate(payload).subscribe({
+          next: (res: any) => {
+            this.toastr.success('Activation Successful!', 'Success');
+            this.form1.reset();
+            this.idData = null;
+            this.GetActivationData();
+               // Show success modal
+          const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
+          modalElement.show();
+           setTimeout(() => {
           modalElement.hide(); // Close modal
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/activation']); // Refresh the page
+            this.router.navigate(['/useractivation']); // Refresh the page
           });
-        }, 3000); // 3000ms = 3 seconds
-      },
-      error: (err) => {
-        this.errorMessage = err?.error?.message || 'Activation failed.';
-        this.toastr.error(this.errorMessage, 'Error');
+        }, 2000);
+          },
+          error: (err) => {
+            this.errorMessage = err?.error?.message || 'Activation failed.';
+            this.toastr.error(err?.error?.message || 'Activation failed.', 'Error');
+          }
+        });
       }
-    });
-  }
-  
-  
-     
 
 }

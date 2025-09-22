@@ -42,7 +42,7 @@ export class LoginComponent {
   this.auth.login(regid, password).subscribe({
     next: (res: any) => {
       this.isLoading = false;
-      console.log('Login Response:', res); // DEBUG
+      // console.log('Login Response:', res); 
 
       if (res?.status === 1) {
         // ✅ Success login

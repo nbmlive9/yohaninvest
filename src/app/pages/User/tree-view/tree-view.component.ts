@@ -95,7 +95,7 @@ mytree1(regid: string) {
 loadUserTreeData() {
   this.uapi.UserTreeView(this.id).subscribe(
       (res: any) => {
-        console.log('treeview',res);
+        // console.log('treeview',res);
           // Success response
           this.data2 = res.data;
           if (this.data2) {
@@ -245,7 +245,7 @@ getTreeViewData(id: string) {
     this.loading = true;
     this.uapi.UserTreeViewDataById(id).subscribe(
       (res: any) => {
-        console.log('modal data', res);
+        // console.log('modal data', res);
         
         this.tdata = res.data;
         this.loading = false;

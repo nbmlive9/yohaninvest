@@ -13,7 +13,7 @@
       <!-- Dashboard Content -->
       <div *ngIf="!loading">
         <!-- Welcome Header -->
-        <div class="row mb-4">
+        <div class="row mb-2">
           <div class="col-sm-12">
             <div class="welcome-header bg-primary text-white rounded-3 p-4 shadow-sm">
               <div class="row align-items-center">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-md-6 text-md-end mt-3 mt-md-0">
                   <h5 class="mb-0">
-                    Wallet:
+                    Main Wallet:
                     <span class="badge bg-warning text-dark fs-6">
                       {{ pfdata?.walletamount | currency:'USD':true:'1.0-2' }}
                     </span>
@@ -35,10 +35,10 @@
 
      
 
-         <div class="row text-center g-2" >
+         <div class="row text-center g-1" >
 
                    <!-- Share Link Section -->
-              <div class="col-12 col-md-6 col-lg-3 mt-4 text-md-end">
+              <div class="col-12 col-md-6 col-lg-3 text-md-end">
                 <div class="d-inline-block">
                   <h5 class="d-inline-block p-1" style="cursor: pointer;" (click)="toggleShare()">
                     <span class="share-btn">
@@ -59,9 +59,25 @@
                       </div>
                     </div>
                   </div>
+                  <div class="col-md-6">
+                     <div (click)="copyValue('https://yohaninv.live/auth-sponsorsignup/' + pfdata?.regid)" class="mt-2">
+                        <p class="bg-warning p-2 text-white" style="border-radius: 15px; cursor: pointer;">
+                          https://yohaninv.live/auth-sponsorsignup/{{pfdata?.regid}} 
+                          <span class="text-danger fw-bold">Copy</span>
+                        </p>
+                      </div>
+
+                      <!-- Show copied message -->
+                      <div *ngIf="copied" class="text-success mt-2">
+                        ✅ Copied!
+                      </div>
+                    </div>
+                  
             <!-- Active Sponsors -->
-            <div class="col-xl-3 col-md-6" *ngIf="pfdata.spincount!='0'" routerLink="/spinroll">
-                  <button class="btn btn-danger dtn-sm">Spin Now Earn Reward</button>
+           <div class="col-xl-3 col-md-6" *ngIf="pfdata.spincount != '0'" routerLink="/spinroll">
+              <button class="btn btn-danger btn-sm blink-btn">
+                Spin Now Earn Reward
+               </button>
             </div>
             <div class="col-md-6">
                <button type="button" class="btn btn-success" *ngIf="pfdata?.regid == '115599'" routerLink="/cpdash">
@@ -156,6 +172,18 @@
                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
                 <h6>Total Matching</h6>
                 <h3 class="fw-bold">{{ data1?.totalmatching }}</h3>
+              </div>
+            </div>
+          </div>
+
+             <div class="col-xl-3 col-md-6">
+            <div class="card custom-card card-pink">
+              <div class="card-body text-center p-4">
+                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
+                <h6>Business</h6>
+                <p class="fw-bold">Left: {{ data1?.leftbusiness | currency:'USD':true:'1.0-2' }} - 
+                  Right: {{ data1?.rightbusiness | currency:'USD':true:'1.0-2' }}
+                </p>
               </div>
             </div>
           </div>

@@ -15,7 +15,7 @@ export class TransferReportComponent {
     
             getData(){
               this.api.TransferWalletData().subscribe((res:any)=>{
-                  console.log(res);
+                  // console.log(res);
                   this.data1=res.data;
               })
             }

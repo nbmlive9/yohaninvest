@@ -24,7 +24,7 @@ export class TokenStorageService {
   public saveToken(token: string): void {
     window.localStorage.setItem(TOKEN_KEY, token);
     this.token = token;
-    console.log(this.token);
+    // console.log(this.token);
   }
 
 public getToken(): string {
