@@ -13,7 +13,7 @@
             <h6><span class="text-success">Activation Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</span> - <span class="text-primary">Cash Wallet: {{pfdata?.cashwallet | currency:'USD':true:'1.0-2'}}</span></h6>
         
 
-          <div class="buy-crypto-group" *ngIf="pfdata.topupstatus=='1'">
+          <div class="buy-crypto-group" >
             <form [formGroup]="form1" novalidate>
               <div class="row">
 
@@ -24,7 +24,7 @@
                     <input type="number" formControlName="amount"  class="form-control"
                       placeholder="Enter amount (100, 200, 300...)" (input)="validateAmount($event)"
                     />
-                    <input type="text"  formControlName="regid" [(ngModel)]="pfdata.regid"  hidden/>
+                    <!-- <input type="text"  formControlName="regid" [(ngModel)]="pfdata.regid"  hidden/> -->
                     <!-- Error: Required -->
                     <small
                       class="text-danger"
