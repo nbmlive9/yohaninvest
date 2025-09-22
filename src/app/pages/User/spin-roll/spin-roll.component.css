@@ -1,11 +1,3 @@
-/* General Container */
-.spin-container {
-  max-width: 420px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-}
-
 /* Spin Section Layout */
 .spin-wheel-section {
   position: relative;
@@ -14,30 +6,18 @@
   align-items: center;
 }
 
-/* Pointer Arrow (Top) */
-/* .pointer {
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 25px solid #ff0000;
-  margin-bottom: -12px;
-  z-index: 10;
-} */
-
 /* Spin Wheel */
 .spin-wheel {
-  width: 100%;
-  max-width: 300px;
-  aspect-ratio: 1 / 1;
-  border: 8px solid #ddd;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
+  border: 8px solid #ddd;
   position: relative;
   overflow: hidden;
+  transition: transform 4s ease-out;
   background: radial-gradient(circle, #fff, #f1f1f1);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: transform 4s ease-out;
-  z-index: 5;
+  z-index: 1;
 }
 
 /* Segments */
@@ -66,16 +46,20 @@
   pointer-events: none;
 }
 
-/* Pointer */
+/* Pointer (▼ Down Arrow) */
 .pointer {
+  position: absolute;
+  top: -35px;     /* stick above wheel */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+
   width: 0;
   height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-bottom: 25px solid #ff0000;
-  margin-bottom: -12px;
-  z-index: 10;
-  position: relative;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-top: 30px solid red;  /* ▼ arrow */
+  pointer-events: none;
 }
 
 /* Spin Button */
@@ -121,6 +105,7 @@
 @media (max-width: 576px) {
   .spin-wheel {
     max-width: 240px;
+    height: 240px;
   }
 
   .spin-btn {
@@ -129,6 +114,13 @@
   }
 
   .segment-text {
-    font-size: 1.4rem;
+    font-size: 0.9rem;
+  }
+
+  .pointer {
+    top: -28px;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 22px solid red;
   }
 }

@@ -60,9 +60,9 @@
                     </div>
                   </div>
                   <div class="col-md-6">
-                     <div (click)="copyValue('https://yohaninv.live/auth-sponsorsignup/' + pfdata?.regid)" class="mt-2">
+                     <div (click)="copyValue('https://yohaninv.live/yohan/auth-sponsorsignup/' + pfdata?.regid)" class="mt-2">
                         <p class="bg-warning p-2 text-white" style="border-radius: 15px; cursor: pointer;">
-                          https://yohaninv.live/auth-sponsorsignup/{{pfdata?.regid}} 
+                          https://yohaninv.live/yohan/auth-sponsorsignup/{{pfdata?.regid}} 
                           <span class="text-danger fw-bold">Copy</span>
                         </p>
                       </div>
@@ -146,10 +146,11 @@
 
            <div class="col-xl-3 col-md-6">
             <div class="card custom-card card-blue">
-              <div class="card-body text-center p-4">
+              <div class="card-body text-center p-4" routerLink="/roireport">
                  <img src="assets/img/icon/menu-icon-05.svg" alt="img">
                 <h6>Total Invest</h6>
                 <h3 class="fw-bold">{{ pfdata?.business | currency:'USD':true:'1.0-2' }}</h3>
+                <p>Spin Reward: {{ totalSpinAmount | currency:'USD':true:'1.0-2'}}</p>
               </div>
             </div>
           </div>

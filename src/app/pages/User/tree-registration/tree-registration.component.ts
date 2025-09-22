@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
@@ -29,18 +29,36 @@ export class TreeRegistrationComponent {
     regid:any;
     position:any;
   udata: any;
+  password: string = '';
+  confirmPassword: string = '';
+  showPassword = false;
+  showConfirmPassword = false;
       constructor(private fb: FormBuilder,private router:Router, private api: UserService, private activeroute:ActivatedRoute,private toast:ToastrService) {
           this.registerForm = this.fb.group({
         name: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
         // country: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]], // ✅ min 6 chars
+        confirmPassword: ['', Validators.required],
         sponcerid: [''],
         position: [''], 
         placementid: ['',],
         terms: [false, Validators.requiredTrue] // ✅ checkbox must be checked
-      });
+      },
+       { validators: this.passwordMatchValidator }
+       );
       }
+
+  passwordMatchValidator(control: AbstractControl) {
+  const password = control.get('password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value;
+  return password === confirmPassword ? null : { mismatch: true };
+}
+
+  // Convenience getter for easy template access
+  get f() {
+    return this.registerForm.controls;
+  }
     
       ngOnInit(): void {
           this.regid = this.activeroute.snapshot.paramMap.get('regid') || '';
@@ -137,9 +155,6 @@ export class TreeRegistrationComponent {
         });
       }
     
-     
-  
-     
         getCountries() {
          this.api.getCountries().subscribe({
         next: (res: any) => {

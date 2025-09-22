@@ -20,15 +20,15 @@ export class SpinRollComponent {
   spinning = false;
   earnedAmount = 0;
 
-  // Displayed prizes on the wheel
   prizes = [50, 100, 200, 300, 400, 500, 750, 1000];
 
-  // Segment colors
   segmentColors = [
     '#28a745', '#007bff', '#ffc107', '#ff5722',
     '#9c27b0', '#00bcd4', '#e91e63', '#8bc34a'
   ];
-
+  wdata: any;
+  dpdata: any;
+totalSpinAmount: number = 0;
   constructor(private api: UserService, private router: Router, private fb: FormBuilder) {
     this.form = this.fb.group({
       amount: ['', [Validators.required]]
@@ -36,47 +36,129 @@ export class SpinRollComponent {
   }
 
   ngOnInit() {
+    this.walletReport();
     this.api.UDashboardData().subscribe({
       next: (res: any) => {
         this.pfdata = res.data.profiledata;
       }
     });
+
+   this.api.DepositeData().subscribe({
+  next: (res: any) => {
+    // Filter array for dtype == 'spin'
+    this.dpdata = res.data.filter((item: any) => item.dtype === 'spin');
+
+    // Calculate total spin amount
+    this.totalSpinAmount = this.dpdata.reduce((sum: number, item: any) => {
+      return sum + Number(item.amount); // Convert string to number
+    }, 0);
+
+    console.log('Total Spin Amount:', this.totalSpinAmount);
+  },
+  error: (err) => {
+    console.error('Error fetching deposit data:', err);
+  }
+});
+
+
   }
 
-  spin() {
-    if (this.spinning) return;
-    this.spinning = true;
+  walletReport(){
+    this.api.WalletReportData().subscribe((res:any)=>{
+      // console.log('report',res);
+      this.wdata=res.data;
+    })
+  }
 
-    // 1️⃣ Spin visually across any of the 8 segments
-    const randomIndex = Math.floor(Math.random() * this.prizes.length);
-    const visualPrize = this.prizes[randomIndex];
+  // spin() {
+  //   if (this.spinning) return;
+  //   this.spinning = true;
 
-    // 2️⃣ Decide actual backend prize (only 50 or 100)
-    const backendPrize = Math.random() < 0.5 ? 50 : 100;
+  //   const backendPrize = Math.random() < 0.5 ? 50 : 100;
 
-    // Each segment covers 45 degrees
-    const segmentAngle = 360 / this.prizes.length;
-    const targetAngle = (randomIndex * segmentAngle) + (360 * 5); // 5 extra spins
+  //   const targetIndex = this.prizes.indexOf(backendPrize);
+  //   const segmentAngle = 360 / this.prizes.length;
+  //   const targetAngle = (targetIndex * segmentAngle) + (360 * 5);
 
-    const wheelElement = this.wheel.nativeElement;
-    wheelElement.style.transition = 'transform 4s ease-out';
-    wheelElement.style.transform = `rotate(-${targetAngle}deg)`;
+  //   const wheelElement = this.wheel.nativeElement;
+  //   wheelElement.style.transition = 'transform 4s ease-out';
+  //   wheelElement.style.transform = `rotate(-${targetAngle}deg)`;
 
-    // After spin completes
+  //   setTimeout(() => {
+  //     this.earnedAmount = backendPrize;
+  //     this.spinning = false;
+
+  //     const payload = { amount: backendPrize };
+  //     this.api.SpinRoll(payload).subscribe({
+  //       next: () => {
+  //         const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
+  //         modalElement.show();
+
+  //         setTimeout(() => {
+  //           modalElement.hide();
+  //           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  //             this.router.navigate(['/spinroll']);
+  //           });
+  //         }, 2000);
+  //       },
+  //       error: (err) => {
+  //         this.errorMessage = err?.error?.message || 'Spin failed.';
+  //       }
+  //     });
+  //   }, 4000);
+  // }
+
+ spin() {
+  if (this.spinning) return;
+  this.spinning = true;
+
+  // 1️⃣ Get the last spin from backend
+  this.api.DepositeData().subscribe((res: any) => {
+    const spinTransactions = res.data.filter((t: any) => t.dtype === 'spin');
+    if (!spinTransactions.length) {
+      console.error('No spin transactions found!');
+      this.spinning = false;
+      return;
+    }
+
+    const lastSpin = spinTransactions[spinTransactions.length - 1];
+    const backendPrize = Number(lastSpin.amount); // Convert to number
+    // console.log('Backend prize:', backendPrize);
+
+    // 2️⃣ Find the segment index of backendPrize
+    const targetIndex = this.prizes.indexOf(backendPrize);
+    if (targetIndex === -1) {
+      console.error('Prize not found in wheel!');
+      this.spinning = false;
+      return;
+    }
+
+    const totalSegments = this.prizes.length;
+    const segmentAngle = 360 / totalSegments;
+
+    // 3️⃣ Calculate final rotation angle
+    // 270 deg because pointer is at top (12 o'clock)
+    const stopAngle = targetIndex * segmentAngle + segmentAngle / 2;
+    const finalAngle = 360 * 5 + (320 - stopAngle); 
+
+    // 4️⃣ Animate wheel
+    const wheelEl = this.wheel.nativeElement;
+    wheelEl.style.transition = 'transform 4s ease-out';
+    wheelEl.style.transform = `rotate(${finalAngle}deg)`; // Note: positive rotation
+
+    // 5️⃣ After spin ends
     setTimeout(() => {
-      this.earnedAmount = backendPrize; // Show only 50 or 100
+      this.earnedAmount = backendPrize;
       this.spinning = false;
 
-      // 3️⃣ Send only backendPrize (50 or 100) to backend
-      const payload = { amount: backendPrize };
-      this.api.SpinRoll(payload).subscribe({
+      // 6️⃣ Call SpinRoll API with correct prize
+      this.api.SpinRoll({ amount: backendPrize }).subscribe({
         next: () => {
-          const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
-          modalElement.show();
-
-          // Auto-close modal and refresh
-          setTimeout(() => {
-            modalElement.hide();
+          const modal = new bootstrap.Modal(this.successModal.nativeElement);
+          modal.show();
+          // setTimeout(() => modal.hide(), 2000);
+           setTimeout(() => {
+            modal.hide();
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/spinroll']);
             });
@@ -86,6 +168,10 @@ export class SpinRollComponent {
           this.errorMessage = err?.error?.message || 'Spin failed.';
         }
       });
-    }, 2000);
-  }
+    }, 4000); // Match CSS transition
+  });
+}
+
+
+
 }

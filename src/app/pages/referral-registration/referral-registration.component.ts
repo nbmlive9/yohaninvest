@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
@@ -25,19 +25,32 @@ export class ReferralRegistrationComponent {
    errorMessage1: any;
       idData1: any;
     udata: any;
+      showPassword = false;
     constructor(private fb: FormBuilder,private router:Router, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef) {
     
         this.registerForm = this.fb.group({
           name: ['', [Validators.required, Validators.minLength(3)]],
           email: ['', [Validators.required, Validators.email]],
           password: ['', [Validators.required, Validators.minLength(6)]],
-          sponcerid: ['',Validators.required],
+          confirmPassword: ['', Validators.required],
+          sponcerid: ['',],
           placementid: ['', Validators.required],
           position: ['', Validators.required],
           terms: ['', Validators.required]
-        });
+        },
+       { validators: this.passwordMatchValidator });
         
     }
+
+       passwordMatchValidator(control: AbstractControl) {
+        const password = control.get('password')?.value;
+        const confirmPassword = control.get('confirmPassword')?.value;
+        return password === confirmPassword ? null : { mismatch: true };
+      }
+    
+       togglePasswordVisibility() {
+        this.showPassword = !this.showPassword; // Toggles both fields together
+      }
   
     ngOnInit(): void {
       // this.getCountries();

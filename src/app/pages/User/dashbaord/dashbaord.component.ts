@@ -11,14 +11,36 @@ export class DashbaordComponent {
   pfdata: any;
   loading: boolean = true;
     showShareIcons = false;
+  dpdata: any;
+  totalSpinAmount: number = 0;
   constructor(private api:UserService){}
 
   ngOnInit(){
     this.DashbOardData();
+    this.SpinRewardTotal();
   }
 
     toggleShare() {
     this.showShareIcons = !this.showShareIcons;
+  }
+
+  SpinRewardTotal(){
+       this.api.DepositeData().subscribe({
+  next: (res: any) => {
+    // Filter array for dtype == 'spin'
+    this.dpdata = res.data.filter((item: any) => item.dtype === 'spin');
+
+    // Calculate total spin amount
+    this.totalSpinAmount = this.dpdata.reduce((sum: number, item: any) => {
+      return sum + Number(item.amount); // Convert string to number
+    }, 0);
+
+    console.log('Total Spin Amount:', this.totalSpinAmount);
+  },
+  error: (err) => {
+    console.error('Error fetching deposit data:', err);
+  }
+});
   }
 
   DashbOardData() {
@@ -38,7 +60,7 @@ export class DashbaordComponent {
   }
 
     sharwahtsapp(regid: any) {
-    const textToShare = `Welcome to Yohan Invest Family! Please click the link below to join our team for SignUp:  https://yohaninv.live/auth-sponsorsignup/${regid}`;
+    const textToShare = `Welcome to Yohan Invest Family! Please click the link below to join our team for SignUp:  https://yohaninv.live/yohan/auth-sponsorsignup/${regid}`;
     const encodedText = encodeURIComponent(textToShare);
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedText}`;
     window.open(whatsappUrl, '_blank');

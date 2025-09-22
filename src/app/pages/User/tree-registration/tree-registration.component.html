@@ -47,18 +47,53 @@
               </div> -->
 
               <!-- Password -->
-              <div class="col-sm-6">
-                <label class="form-label">Password *</label>
-                <div class="input-wrapper">
-                  <input type="password" formControlName="password" placeholder="********" class="form-control" />
-                </div>
-                <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger small">
-                  <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required</span>
-                  <span *ngIf="registerForm.get('password')?.errors?.['minlength']">
-                    Password must be at least 6 characters
-                  </span>
-                </div>
-              </div>
+        <!-- Password -->
+<div class="col-sm-6 mb-3 position-relative">
+  <label class="form-label">Password *</label>
+  <input 
+    [type]="showPassword ? 'text' : 'password'" 
+    formControlName="password" 
+    placeholder="********" 
+    class="form-control pe-5" 
+  />
+  <i class="fa" 
+     [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" 
+     (click)="showPassword = !showPassword"
+     style="position: absolute; top: 70%; right: 15px; transform: translateY(-50%); cursor: pointer;">
+  </i>
+  <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger small mt-1">
+    <span *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</span>
+    <span *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</span>
+  </div>
+</div>
+
+<!-- Confirm Password -->
+<div class="col-sm-6 mb-3 position-relative">
+  <label class="form-label">Confirm Password *</label>
+  <input 
+    [type]="showConfirmPassword ? 'text' : 'password'" 
+    formControlName="confirmPassword" 
+    placeholder="********" 
+    class="form-control pe-5" 
+  />
+  <i class="fa" 
+     [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'" 
+     (click)="showConfirmPassword = !showConfirmPassword"
+     style="position: absolute; top: 70%; right: 15px; transform: translateY(-50%); cursor: pointer;">
+  </i>
+
+  <!-- Confirm Password Errors -->
+  <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.get('confirmPassword')?.invalid" class="text-danger small mt-1">
+    <span *ngIf="registerForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required.</span>
+  </div>
+
+  <!-- Password Mismatch -->
+  <div *ngIf="registerForm.errors?.['mismatch'] && registerForm.get('confirmPassword')?.touched" class="text-danger small mt-1">
+    Password and Confirm Password must match.
+  </div>
+</div>
+
+
           
               <!-- Referral ID -->
               <div class="col-sm-6">

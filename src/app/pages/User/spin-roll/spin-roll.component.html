@@ -14,26 +14,26 @@
         <!-- Show wheel only when spincount > 0 -->
         <div *ngIf="pfdata?.spincount > 0; else noSpins">
           <div class="spin-wheel-section">
-              <!-- Pointer Arrow -->
-              <div class="pointer"></div>
 
-              <!-- Spin Wheel -->
-              <div class="spin-wheel" #wheel>
-                <div class="segment" *ngFor="let prize of prizes; let i = index" 
-                    [style.transform]="'rotate(' + (i * 45) + 'deg)'"
+            <!-- Pointer Arrow (fixed, ▼ down) -->
+            <div class="pointer"></div>
+
+            <!-- Spin Wheel (only this rotates) -->
+            <div class="spin-wheel" #wheel>
+                <div class="segment" *ngFor="let prize of prizes; let i = index"
+                    [style.transform]="'rotate(' + (i * (360/prizes.length)) + 'deg)'"
                     [style.background]="segmentColors[i]">
                   <div class="segment-text">${{ prize }}</div>
                 </div>
-              </div>
-
-              <!-- Spin Button -->
-              <div class="spin-btn-wrapper">
-                <button class="spin-btn" (click)="spin()" [disabled]="spinning">
-                  <i class="bi bi-arrow-repeat me-2"></i> Spin Now
-                </button>
-              </div>
             </div>
 
+            <!-- Spin Button -->
+            <div class="spin-btn-wrapper">
+              <button class="spin-btn" (click)="spin()" [disabled]="spinning">
+                <i class="bi bi-arrow-repeat me-2"></i> Spin Now
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Remaining Spins -->
@@ -51,6 +51,43 @@
           </div>
         </ng-template>
       </div>
+
+      <div class="recent-buy comman-head mt-2">
+            <h3>Spin Rewards</h3>
+            <div class="mb-3">
+  <strong>Total Spin Reward:</strong> {{ totalSpinAmount | currency:'USD':true:'1.0-2'}}
+</div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="buy-form-crypto mb-0">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Date</th>
+                          <th>Reward</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of dpdata; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
+                          <td>
+                            <span class="custom-status active-green">
+                              <span class="live-dark me-1"></span>Success
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
       <!-- Success Modal -->
       <div class="modal fade" #successModal tabindex="-1">
