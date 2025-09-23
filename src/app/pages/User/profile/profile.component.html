@@ -61,17 +61,37 @@
           <input type="password" class="form-control mb-2" placeholder="Password" formControlName="password" />
 
           <!-- OTP Form -->
-          <div *ngIf="showOtpForm" class="mt-3">
-            <input type="text" class="form-control mb-2" placeholder="Enter OTP" formControlName="otp"
-              [formGroup]="form1" />
-            <button class="btn btn-success w-100" type="button" (click)="verifyOtpAndSave()">Verify OTP</button>
-          </div>
-        </div>
+      <!-- OTP Verification Section -->
+                <div *ngIf="showOtpForm" class="mt-3">
+                  <form [formGroup]="form1" novalidate>
+                    <div class="mb-3">
+                      <label class="form-label">Enter OTP</label>
+                      <input 
+                        type="text" 
+                        formControlName="otp" 
+                        class="form-control" 
+                        placeholder="Enter 6-digit OTP"
+                      >
+                      <div *ngIf="form1.get('otp')?.touched && form1.get('otp')?.invalid" class="text-danger small">
+                        OTP is required.
+                      </div>
+                    </div>
 
-        <div class="modal-footer">
-          <button *ngIf="!showOtpForm" type="button" class="btn btn-primary w-100" (click)="save()">Generate OTP</button>
-          <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
-        </div>
+                    <button class="btn btn-primary me-2" type="button" (click)="verifyOtpAndSave()" [disabled]="form1.invalid">
+                      Verify & Save
+                    </button>
+                    <button class="btn btn-secondary" type="button" (click)="showOtpForm = false">
+                      Cancel
+                    </button>
+                  </form>
+                </div>
+
+
+            <div class="modal-footer">
+              <button *ngIf="!showOtpForm" type="button" class="btn btn-primary w-100" (click)="save()">Generate OTP</button>
+              <button type="button" class="btn btn-danger w-100" data-bs-dismiss="modal">Close</button>
+            </div>
+         </div>
       </form>
     </div>
   </div>

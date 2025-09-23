@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -23,13 +24,13 @@ export class ProfileComponent {
   constructor(
     private api: UserService,
     private fb: FormBuilder,
-    private toast: ToastrService
+    private toast: ToastrService, private router:Router
   ) {
     // Profile form
     this.form = this.fb.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      wallet1: ['', Validators.required],
+      name: ['', ],
+      email: ['', [Validators.email]],
+      wallet1: ['',],
       password: ['']
     });
 
@@ -72,31 +73,35 @@ export class ProfileComponent {
       name: this.pfdata?.name,
       email: this.pfdata?.email,
       wallet1: this.pfdata?.wallet1,
-      password: ''
+      password: this.pfdata?.password,
     });
   }
 
   /** Step 1: Generate OTP before updating */
-  save() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.api.GenerateOtp().subscribe({
-      next: (res: any) => {
-        if (res.status === 1) {
-          this.toast.success(res?.message || 'OTP sent ✅', 'Success');
-          this.showOtpForm = true;
-        } else {
-          this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
-        }
-      },
-      error: () => {
-        this.toast.error('OTP generation failed ❌', 'Error');
-      }
-    });
+ save() {
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.api.GenerateOtp().subscribe({
+    next: (res: any) => {
+      if (res.status === 1) {
+        this.toast.success(res?.message || 'OTP sent ✅', 'Success');
+        this.showOtpForm = true;
+
+        // ✅ Reset OTP form when showing
+        this.form1.reset();
+      } else {
+        this.toast.error(res?.message || 'OTP generation failed ❌', 'Error');
+      }
+    },
+    error: () => {
+      this.toast.error('OTP generation failed ❌', 'Error');
+    }
+  });
+}
+
 
   /** Step 2: Verify OTP and call save API */
   verifyOtpAndSave() {
@@ -123,24 +128,40 @@ export class ProfileComponent {
   }
 
   /** Final Step: Update profile */
-  callSaveApi() {
-    const payload = this.form.value;
+  /** Final Step: Update profile */
+callSaveApi() {
+  const payload = this.form.value;
 
-    this.api.updateProfile(payload).subscribe({
-      next: (res: any) => {
-        if (res.status === 1) {
-          this.toast.success(res?.message || 'Profile updated ✅', 'Success');
-          this.isEdit = false;
-          this.showOtpForm = false;
-          this.form1.reset();
-          this.GetProfile();
-        } else {
-          this.toast.error(res?.message || 'Update failed ❌', 'Error');
+  this.api.updateProfile(payload).subscribe({
+    next: (res: any) => {
+      if (res.status === 1) {
+        this.toast.success(res?.message || 'Profile updated ✅', 'Success');
+        this.isEdit = false;
+        this.showOtpForm = false;
+        this.form1.reset();
+
+        // ✅ Close modal
+        const modal = document.getElementById('editModal');
+        if (modal) {
+          const modalInstance = bootstrap.Modal.getInstance(modal);
+          if (modalInstance) modalInstance.hide();
         }
-      },
-      error: () => {
-        this.toast.error('Something went wrong ❌', 'Error');
+
+        // ✅ Reload profile data
+        this.GetProfile();
+
+        // ✅ Force reload component (optional)
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate(['/profile']);
+        });
+      } else {
+        this.toast.error(res?.message || 'Update failed ❌', 'Error');
       }
-    });
-  }
+    },
+    error: () => {
+      this.toast.error('Something went wrong ❌', 'Error');
+    }
+  });
+}
+
 }

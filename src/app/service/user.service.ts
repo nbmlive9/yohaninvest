@@ -88,7 +88,7 @@ getCountries() {
   };
 
   return this.http.post(
-    AUTH_API + 'Userprofile_Update', 
+    AUTH_API + 'Profileiupdate', 
 
    {
     wallet1:value.wallet1,
