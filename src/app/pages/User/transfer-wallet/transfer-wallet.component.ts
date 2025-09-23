@@ -54,36 +54,28 @@ export class TransferWalletComponent {
     }
   
      onRegisterIdSelect(event: any) {
-  const id = event.target.value.trim();
-
-  // If input is empty, reset messages and return
-  if (!id) {
-    this.regname = null;
-    this.idselectmsg = '';
-    //this.errorMessage = 'Userid is required';
-    return;
-  }
-
-  // Call API only if id is not empty
-  this.api.GetusersDataByRegID(id).subscribe(
-    (res4: any) => {
-      if (res4?.data?.length > 0) {
-        this.regname = res4.data[0];
-        this.idselectmsg = `Name: ${this.regname.name}`;
-        this.errorMessage = ''; // Reset error
-      } else {
-        this.regname = null;
-        this.idselectmsg = '';
-        this.errorMessage = 'User Not Available';
-      }
-    },
-    (err: any) => {
-      this.regname = null;
-      this.idselectmsg = '';
-      this.errorMessage = 'User Not Available';
+      const id = event.target.value;
+      this.api.GetusersDataByRegID(id).subscribe(
+        (res4: any) => {
+          if (res4) {
+            // console.log(res4);
+            this.regname = res4.data[0];
+            this.idselectmsg = `Name: ${this.regname.name}`;
+            this.errorMessage = ''; // Reset the error message when data is correct
+          } else {
+            // console.log(res4);
+            this.regname = null; // Reset the regname object when data is incorrect
+            this.errorMessage = 'Error fetching user data';
+            this.idselectmsg = 'User Not Available';
+          }
+        },
+        (err: any) => {
+          this.errorMessage = 'user Not Found';
+          this.regname = null; // Reset the regname object when there's an error
+          this.idselectmsg = '';
+        }
+      );
     }
-  );
-}
   
     transfer() {
     const payload = {
@@ -110,7 +102,7 @@ export class TransferWalletComponent {
         setTimeout(() => {
           modalElement.hide(); // Close modal
           this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/activation']); // Refresh the page
+            this.router.navigate(['/transfer']); // Refresh the page
           });
         }, 3000); // 3000ms = 3 seconds
       },
