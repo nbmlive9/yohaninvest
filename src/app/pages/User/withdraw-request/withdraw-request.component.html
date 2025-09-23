@@ -21,8 +21,11 @@
                 <div class="col-xl-4 col-lg-6">
                   <div class="form-group">
                     <label>Amount</label>
-                    <input type="number" formControlName="amount"  class="form-control"
+                    <input type="number" formControlName="amount" min="10" class="form-control"
                       placeholder="Enter amount" />
+                        <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
+                          Amount is required and must be ≥ $10
+                        </div>
                     <!-- Error: Required -->
                     <small
                       class="text-danger"

@@ -27,6 +27,7 @@ import { DepositFundComponent } from './pages/User/deposit-fund/deposit-fund.com
 import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
 import { CpDashboardComponent } from './pages/User/cp-dashboard/cp-dashboard.component';
 import { OtherActivationComponent } from './pages/User/other-activation/other-activation.component';
+import { SponsorIncomeComponent } from './pages/User/sponsor-income/sponsor-income.component';
 
 const routes: Routes = [
   {path:"auth-login",component:LoginComponent },
@@ -48,6 +49,7 @@ const routes: Routes = [
     { path: "matchingroi", component: MatchingRoiReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "matchingreport", component: WalletMatchingReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "roireport", component: RoiReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    { path: "sponsorincome", component: SponsorIncomeComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "transfer", component: TransferWalletComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "transferreport", component: TransferReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: "receivedreport", component: ReceivedReportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },

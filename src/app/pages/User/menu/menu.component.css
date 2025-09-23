@@ -12,3 +12,29 @@ a {
   display: block !important;
 }
 
+/* Sidebar full height */
+.sidebar {
+  height: 100vh; /* take full screen height */
+  overflow: hidden; /* prevent double scrollbars */
+}
+
+/* Sidebar inner scrollable area */
+.sidebar-inner {
+  height: 100%;
+  overflow-y: auto; /* enable vertical scroll */
+  overflow-x: hidden;
+  padding-bottom: 80px; /* optional, so bottom items not cut */
+  scrollbar-width: thin; /* for Firefox */
+}
+
+/* Optional: custom scrollbar for Chrome, Edge */
+.sidebar-inner::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-inner::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+.sidebar-inner::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

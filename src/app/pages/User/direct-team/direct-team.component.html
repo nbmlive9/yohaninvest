@@ -24,9 +24,9 @@
                             <td>{{row.name}}</td>
                             <td>{{row.position}}</td>
                             <td class="pay-clr">{{row.business | currency:'USD':true:'1.0-2'}}</td>
-                            <td><span *ngIf="row.topupstatus=='0'" class="custom-status active-danger">
+                            <td><span *ngIf="row.topupstatus=='0'" class="custom-status active-red">
                                 <span class="live-dark me-1"></span>Not Active</span>
-                                <span *ngIf="row.topupstatus=='1'" class="custom-status active-success">
+                                <span *ngIf="row.topupstatus=='1'" class="custom-status active-green">
                                 <span class="live-dark me-1"></span>Active</span>
                             </td>
                                                                 

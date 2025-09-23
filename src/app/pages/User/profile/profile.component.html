@@ -31,12 +31,25 @@
               </div>
             </div>
             <div class="col-md-9">
-              <ul class="personal-info">
-                <li><span class="title">Email:</span> <span class="text">{{ pfdata?.email }}</span></li>
-                <li><span class="title">Wallet Address:</span> <span class="text">{{ pfdata?.wallet1 }}</span></li>
-                <li><span class="title">Sponsor:</span> <span class="text">{{ pfdata?.sponcerid }}</span></li>
-                <li><span class="title">Placement ID:</span> <span class="text">{{ pfdata?.refid }}</span></li>
+           <ul class="profile-list">
+                <li>
+                  <span class="title">Email:</span>
+                  <span class="text">{{ pfdata?.email }}</span>
+                </li>
+                <li>
+                  <span class="title">BNB Wallet Address:</span>
+                  <span class="text">{{ pfdata?.wallet1 }}</span>
+                </li>
+                <li>
+                  <span class="title">Sponsor:</span>
+                  <span class="text">{{ pfdata?.sponcerid }}</span>
+                </li>
+                <li>
+                  <span class="title">Placement ID:</span>
+                  <span class="text">{{ pfdata?.refid }}</span>
+                </li>
               </ul>
+
             </div>
           </div>
         </div>
@@ -57,7 +70,7 @@
         <div class="modal-body">
           <input type="text" class="form-control mb-2" placeholder="Full Name" formControlName="name" />
           <input type="email" class="form-control mb-2" placeholder="Email Address" formControlName="email" />
-          <input type="text" class="form-control mb-2" placeholder="Wallet Address" formControlName="wallet1" />
+          <input type="text" class="form-control mb-2" placeholder="BNB Wallet Address" formControlName="wallet1" />
           <input type="password" class="form-control mb-2" placeholder="Password" formControlName="password" />
 
           <!-- OTP Form -->

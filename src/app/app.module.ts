@@ -46,6 +46,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
 import { CpDashboardComponent } from './pages/User/cp-dashboard/cp-dashboard.component';
 import { OtherActivationComponent } from './pages/User/other-activation/other-activation.component';
+import { SponsorIncomeComponent } from './pages/User/sponsor-income/sponsor-income.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { OtherActivationComponent } from './pages/User/other-activation/other-ac
     DepositFundComponent,
     SpinRollComponent,
     CpDashboardComponent,
-    OtherActivationComponent
+    OtherActivationComponent,
+    SponsorIncomeComponent
   ],
   imports: [
     BrowserModule,

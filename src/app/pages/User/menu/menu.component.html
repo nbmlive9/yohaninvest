@@ -73,6 +73,10 @@
                             <a class="active" routerLink="/dashboard"><img src="assets/img/icon/menu-icon-01.svg" alt="img"> <span>Dashboard</span></a>
                         </li>
 
+						<li>
+                            <a routerLink="/profile"><img src="assets/img/icon/menu-icon-12.svg" alt="img"> <span>Profile</span></a>
+                        </li>
+
 						   <li class="submenu">
 							<a href="javascript:void(0)" (click)="toggleSubmenu($event)"><img src="assets/img/icon/menu-icon-02.svg" alt="img"> <span> My Team </span> <span class="menu-arrow"></span></a>
 							<ul class="submenu-list" style="display: none;">
@@ -107,9 +111,10 @@
 							<a href="javascript:void(0)" (click)="toggleSubmenu($event)"><img src="assets/img/icon/menu-icon-08.svg" alt="img"> <span> Reports </span> <span class="menu-arrow"></span></a>
 							<ul class="submenu-list" style="display: none;">
 								<li><a routerLink="/todaywalletreport"><i class="feather-more-horizontal"></i><span> Today Wallet</span></a></li>
+								<li><a  routerLink="/sponsorincome"><i class="feather-more-horizontal"></i><span>Sponsor Income</span></a></li>
+									<li><a routerLink="/roireport"><i class="feather-more-horizontal"></i><span> ROI Report</span></a></li>
 									<li><a routerLink="/matchingreport"><i class="feather-more-horizontal"></i><span> Matching Report</span></a></li>
 									<li><a routerLink="/matchingroi"><i class="feather-more-horizontal"></i><span> Matching ROI Report</span></a></li>
-									<li><a routerLink="/roireport"><i class="feather-more-horizontal"></i><span> ROI Report</span></a></li>
 								<li><a  routerLink="/walletreport"><i class="feather-more-horizontal"></i><span>Wallet Report</span></a></li>
 							</ul>
 						</li>
