@@ -400,23 +400,12 @@ GetSupportTickets(){
   );
 }
 
- forgotPassword(value: { regid: string; email: string }) {
-    const token = this.token.getToken(); // optional if required
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` }) // include only if token exists
-      }),
-    };
-    return this.http.post(
-      AUTH_API + 'Forget_Password',
-      {
-        regid: value.regid,
-        email: value.email,
-      },
-      httpOptions
-    );
-  }
+ forgotPassword(value: { regid: string; email: string }): Observable<any> {
+  return this.http.post(AUTH_API + 'Forget_password', {
+    regid: value.regid,
+    email: value.email
+  });
+}
 
 //deposites api
 

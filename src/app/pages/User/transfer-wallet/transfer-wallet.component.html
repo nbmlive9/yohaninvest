@@ -67,7 +67,7 @@
 
                 <!-- Submit Button -->
                 <div class="buy-crpto-btn mt-4">
-                  <button type="submit" class="btn btn-primary submit-btn mb-0" (click)="transfer()">Transfer</button>
+                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form.valid" (click)="transfer()">Transfer</button>
                 </div>
 
               </div>
