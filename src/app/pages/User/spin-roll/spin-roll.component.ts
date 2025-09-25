@@ -19,6 +19,7 @@ export class SpinRollComponent {
   pfdata: any;
   spinning = false;
   earnedAmount = 0;
+spinCount: number = 0;
 
   prizes = [50, 100, 200, 300, 400, 500, 750, 1000];
 
@@ -29,6 +30,7 @@ export class SpinRollComponent {
   wdata: any;
   dpdata: any;
 totalSpinAmount: number = 0;
+  spinReward: any;
   constructor(private api: UserService, private router: Router, private fb: FormBuilder) {
     this.form = this.fb.group({
       amount: ['', [Validators.required]]
@@ -36,9 +38,12 @@ totalSpinAmount: number = 0;
   }
 
   ngOnInit() {
+      this.loadDashboardData();
     this.walletReport();
     this.api.UDashboardData().subscribe({
       next: (res: any) => {
+        console.log(res);
+        
         this.pfdata = res.data.profiledata;
       }
     });
@@ -69,6 +74,21 @@ totalSpinAmount: number = 0;
       this.wdata=res.data;
     })
   }
+
+  loadDashboardData() {
+  this.api.UDashboardData().subscribe({
+    next: (res: any) => {
+      if (res?.data?.profiledata) {
+        this.spinCount = Number(res.data.profiledata.spincount); // Get spincount from backend
+        console.log('Current Spin Count:', this.spinCount);
+      }
+    },
+    error: (err) => {
+      console.error('Failed to load dashboard data:', err);
+    }
+  });
+}
+
 
   // spin() {
   //   if (this.spinning) return;
@@ -110,67 +130,81 @@ totalSpinAmount: number = 0;
 
  spin() {
   if (this.spinning) return;
+
+  // Check if user has spins available
+  if (this.spinCount <= 0) {
+    this.errorMessage = 'No spins available!';
+    console.warn('No spins available');
+    return;
+  }
+
   this.spinning = true;
 
-  // 1️⃣ Get the last spin from backend
-  this.api.DepositeData().subscribe((res: any) => {
-    const spinTransactions = res.data.filter((t: any) => t.dtype === 'spin');
-    if (!spinTransactions.length) {
-      console.error('No spin transactions found!');
-      this.spinning = false;
-      return;
-    }
+  // --- Get prize from backend dynamically ---
+  // For now, let's simulate prize as either 50 or 100
+  const backendPrize = this.spinReward || 50; // You can fetch dynamically from API
+  const targetIndex = this.prizes.indexOf(backendPrize);
 
-    const lastSpin = spinTransactions[spinTransactions.length - 1];
-    const backendPrize = Number(lastSpin.amount); // Convert to number
-    // console.log('Backend prize:', backendPrize);
+  if (targetIndex === -1) {
+    console.error('Prize not found in wheel!');
+    this.spinning = false;
+    return;
+  }
 
-    // 2️⃣ Find the segment index of backendPrize
-    const targetIndex = this.prizes.indexOf(backendPrize);
-    if (targetIndex === -1) {
-      console.error('Prize not found in wheel!');
-      this.spinning = false;
-      return;
-    }
+  const totalSegments = this.prizes.length;
+  const segmentAngle = 360 / totalSegments;
 
-    const totalSegments = this.prizes.length;
-    const segmentAngle = 360 / totalSegments;
+  /**
+   * Stop Angle Logic:
+   * Pointer is fixed at the top (0°),
+   * so wheel must rotate so that the center of the target segment
+   * aligns perfectly under the pointer.
+   */
+  const stopAngle = targetIndex * segmentAngle + segmentAngle / 2;
 
-    // 3️⃣ Calculate final rotation angle
-    // 270 deg because pointer is at top (12 o'clock)
-    const stopAngle = targetIndex * segmentAngle + segmentAngle / 2;
-    const finalAngle = 360 * 5 + (320 - stopAngle); 
+  // --- Dynamic full spin logic based on prize ---
+  let baseRotation = 360; // Default full spin
+  if (backendPrize === 50) {
+    baseRotation = 370; // Slightly offset for $50
+  } else if (backendPrize === 100) {
+    baseRotation = 380; // Slightly offset for $100
+  }
 
-    // 4️⃣ Animate wheel
-    const wheelEl = this.wheel.nativeElement;
-    wheelEl.style.transition = 'transform 4s ease-out';
-    wheelEl.style.transform = `rotate(${finalAngle}deg)`; // Note: positive rotation
+  const finalAngle = (baseRotation * 5) + stopAngle;
 
-    // 5️⃣ After spin ends
-    setTimeout(() => {
-      this.earnedAmount = backendPrize;
-      this.spinning = false;
+  // Animate wheel
+  const wheelEl = this.wheel.nativeElement;
+  wheelEl.style.transition = 'transform 4s ease-out';
+  wheelEl.style.transform = `rotate(-${finalAngle}deg)`; // Negative for clockwise rotation
 
-      // 6️⃣ Call SpinRoll API with correct prize
-      this.api.SpinRoll({ amount: backendPrize }).subscribe({
-        next: () => {
-          const modal = new bootstrap.Modal(this.successModal.nativeElement);
-          modal.show();
-          // setTimeout(() => modal.hide(), 2000);
-           setTimeout(() => {
-            modal.hide();
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-              this.router.navigate(['/spinroll']);
-            });
-          }, 2000);
-        },
-        error: (err) => {
-          this.errorMessage = err?.error?.message || 'Spin failed.';
-        }
-      });
-    }, 4000); // Match CSS transition
-  });
+  // --- After animation finishes ---
+  setTimeout(() => {
+    this.earnedAmount = backendPrize;
+    this.spinning = false;
+
+    // Reduce spin count by 1 after successful spin
+    this.spinCount -= 1;
+
+    // Notify backend about spin result
+    this.api.SpinRoll({ amount: backendPrize }).subscribe({
+      next: () => {
+        const modal = new bootstrap.Modal(this.successModal.nativeElement);
+        modal.show();
+
+        setTimeout(() => {
+          modal.hide();
+          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+            this.router.navigate(['/spinroll']);
+          });
+        }, 2000);
+      },
+      error: (err) => {
+        this.errorMessage = err?.error?.message || 'Spin failed.';
+      }
+    });
+  }, 4000); // Match transition duration
 }
+
 
 
 

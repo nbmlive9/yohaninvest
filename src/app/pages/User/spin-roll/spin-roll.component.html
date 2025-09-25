@@ -29,9 +29,17 @@
 
             <!-- Spin Button -->
             <div class="spin-btn-wrapper">
-              <button class="spin-btn" (click)="spin()" [disabled]="spinning">
-                <i class="bi bi-arrow-repeat me-2"></i> Spin Now
-              </button>
+           <button 
+  class="btn btn-primary mt-3" 
+  (click)="spin()" 
+  [disabled]="spinning || spinCount <= 0">
+  Spin Now ({{ spinCount }} left)
+</button>
+
+<!-- Error Message -->
+<div *ngIf="errorMessage" class="text-danger mt-2">
+  {{ errorMessage }}
+</div>
             </div>
           </div>
         </div>
