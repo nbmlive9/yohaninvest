@@ -20,7 +20,7 @@
                     <label>Select Type</label>
                     <select class="form-control select" formControlName="wallettyoe">
                       <option value="" disabled>Select Type</option>
-                      <option value="ewallet">Main Wallet ({{pfdata?.walletamount | currency:'USD':true:'1.0-2'}})</option>
+                      <option value="ewallet">Main Wallet ({{pfdata?.walletamount *0.90 | currency:'USD':true:'1.0-2'}})</option>
                       <option value="dwallet">Activation Fund ({{pfdata?.actwallet | currency:'USD':true:'1.0-2'}})</option>
                     </select>
                     <small

@@ -87,7 +87,14 @@ export class RegistrationComponent {
       if (modalEl) {
         const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
         modal.show();
+           // ✅ Redirect when modal is closed (Close button OR X)
+          modalEl.addEventListener('hidden.bs.modal', () => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/auth-signup']);
+            });
+          }, { once: true }); // run only once
       }
+       
     },
     error: (err) => {
       this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');

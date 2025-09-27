@@ -10,7 +10,7 @@
               <li class="active">Withdraw Fund</li>
             </ul>
           </div>
-            <h4 class="text-success">Wallet: {{pfdata?.walletamount | currency:'USD':true:'1.0-2'}} </h4>
+            <h4 class="text-success">Wallet: {{pfdata?.walletamount *0.90 | currency:'USD':true:'1.0-2'}} </h4>
           <div class="buy-crypto-group">
             <span class="text-danger">{{errorMessage}}</span> 
             <form [formGroup]="form">
