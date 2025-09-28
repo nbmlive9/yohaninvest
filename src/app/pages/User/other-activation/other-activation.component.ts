@@ -33,6 +33,15 @@ export class OtherActivationComponent {
     ngOnInit(){
       this.GetActivationData();
       this.GetProfile();
+      // Watch amount field to set default packagetype
+  this.form1.get('amount')?.valueChanges.subscribe((val) => {
+    if (val < 6000) {
+      this.form1.patchValue({ packagetype: 'nonsecure' }, { emitEvent: false });
+    } else {
+      // Clear it so user can select when amount >= 6000
+      this.form1.patchValue({ packagetype: '' }, { emitEvent: false });
+    }
+  });
     }
   
       GetProfile() {

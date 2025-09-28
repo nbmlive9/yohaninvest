@@ -35,7 +35,7 @@ export class DashbaordComponent {
       return sum + Number(item.amount); // Convert string to number
     }, 0);
 
-    console.log('Total Spin Amount:', this.totalSpinAmount);
+    // console.log('Total Spin Amount:', this.totalSpinAmount);
   },
   error: (err) => {
     console.error('Error fetching deposit data:', err);
@@ -47,7 +47,7 @@ export class DashbaordComponent {
     this.loading = true; // start loading
     this.api.UDashboardData().subscribe(
       (res: any) => {
-        console.log('Dashboard Data:', res);
+        // console.log('Dashboard Data:', res);
         this.data1 = res.data;
         this.pfdata = res.data.profiledata;
         this.loading = false; // stop loading

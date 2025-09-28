@@ -3,11 +3,40 @@
 
   <div class="page-wrapper bg-wrapper">
         <div class="content">
-
-                    <h2 class="mb-4 fw-bold">📊 Company Dashboard</h2>
-    
-  
+        <h2 class="mb-4 fw-bold">📊 Company Dashboard</h2>
     <hr class="my-4">
+          <h4>Update Dynamic Data</h4>
+    <div class="container-fluid mt-3">
+      <div class="transaction-table">
+        <div class="table-responsive">
+          <table class="table  align-middle text-nowrap">
+            <thead>
+              <tr>
+                <th>ROI</th>
+                <th>Sponsor</th>
+                <th>Last Update</th>
+                <th>Date</th>
+                <th>Action</th>
+              </tr>
+            <tbody>
+              <tr>
+                <td>{{ dydata.roi | currency:'USD':true:'1.0-2' }}</td>
+                <td>{{ dydata.sponcer | currency:'USD':true:'1.0-2' }}</td>
+                <td>ROI: {{dydata.lastroi | currency:'USD':true:'1.0-2'}} <br> Sponsor: {{ dydata.lastsponcer | currency:'USD':true:'1.0-2' }}</td>
+                  <td>ROI: {{dydata.roidate}} <br> Sponsor: {{ dydata.sponcerdate }}</td>
+                <td (click)="UpdateDynamicdata()" data-bs-toggle="modal" data-bs-target="#dynamicupdate">
+                <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i>
+              </td>
+              </tr>
+            </tbody>
+            
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+
     <h4>Power ID Generate</h4>
     <div class="card p-3">
            <form [formGroup]="form" (ngSubmit)="Active()">
@@ -193,6 +222,38 @@
               </div>
             </div>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="dynamicupdate" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Dynamic Data</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="form1" (ngSubmit)="UpdateDynamicdata()" class="form-signin">
+                        <div class="form-group">
+                          <label for="roi">ROI</label>
+                            <input type="number" autofocus="" formControlName="roi" class="form-control" [(ngModel)]="dydata.roi">
+                        </div>
+
+                          <div class="form-group">
+                            <label for="sponsor">Sponsor</label>
+                            <input type="number" autofocus="" formControlName="sponcer" class="form-control"  [(ngModel)]="dydata.sponcer" >
+                        </div>
+                     
+                        
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary account-btn">Submit <i class="fas fa-arrow-right ms-1"></i></button>
+                        </div>
+                       
+                    </form>
+
         </div>
       </div>
     </div>

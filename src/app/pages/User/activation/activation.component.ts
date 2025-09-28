@@ -20,25 +20,29 @@ export class ActivationComponent {
   adata: any;
   data1: any;
   pfdata: any;
-  form1:FormGroup;
+
   constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
         this.form = this.fb.group({
             packagetype: ['', [Validators.required,]],
             regid: [''],
             amount: ['', [Validators.required]],
           });
-
-              this.form1 = this.fb.group({
-            packagetype: ['', [Validators.required,]],
-            regid: ['',],
-            amount: ['', [Validators.required]],
-            atype: ['', [Validators.required]],
-          });
   }
 
   ngOnInit(){
     this.GetActivationData();
     this.GetProfile();
+
+      // Watch amount field to set default packagetype
+  this.form.get('amount')?.valueChanges.subscribe((val) => {
+    if (val < 6000) {
+      this.form.patchValue({ packagetype: 'nonsecure' }, { emitEvent: false });
+    } else {
+      // Clear it so user can select when amount >= 6000
+      this.form.patchValue({ packagetype: '' }, { emitEvent: false });
+    }
+  });
+
   }
 
     GetProfile() {
@@ -61,14 +65,7 @@ export class ActivationComponent {
     }
   }
 
-   validateAmount1(event: any) {
-    const value = event.target.value;
-    if (value && value % 100 !== 0) {
-      this.form1.controls['amount'].setErrors({ notMultipleOf100: true });
-    } else {
-      this.form1.controls['amount'].setErrors(null);
-    }
-  }
+
 
     GetActivationData(){
     this.api.ActivationData().subscribe((res:any)=>{
@@ -138,35 +135,7 @@ export class ActivationComponent {
 }
 
 
-    Topup() {
-      const payload = {
-           regid: this.form.value.regid,
-    packagetype: this.form.value.packagetype,
-    amount: this.form.value.amount,
-      };
-  
-      this.api.Topup(payload).subscribe({
-        next: (res: any) => {
-          this.toastr.success('Activation Successful!', 'Success');
-          this.form.reset();
-          this.idData = null;
-          this.GetActivationData();
-             // Show success modal
-        const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
-        modalElement.show();
-         setTimeout(() => {
-        modalElement.hide(); // Close modal
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate(['/activation']); // Refresh the page
-        });
-      }, 2000);
-        },
-        error: (err) => {
-          this.errorMessage = err?.error?.message || 'Activation failed.';
-          this.toastr.error(err?.error?.message || 'Activation failed.', 'Error');
-        }
-      });
-    }
+    
 
 
 }

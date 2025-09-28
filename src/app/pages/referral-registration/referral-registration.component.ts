@@ -34,7 +34,7 @@ export class ReferralRegistrationComponent {
           password: ['', [Validators.required, Validators.minLength(6)]],
           confirmPassword: ['', Validators.required],
           sponcerid: ['',],
-          placementid: ['', Validators.required],
+          placementid: ['',],
           position: ['', Validators.required],
           terms: ['', Validators.required]
         },
@@ -87,6 +87,19 @@ export class ReferralRegistrationComponent {
         if (modalEl) {
           const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
           modal.show();
+       
+        // ✅ Redirect when modal is closed OR Close button is clicked
+        modalEl.addEventListener(
+          'hidden.bs.modal',
+          () => {
+            const targetId = this.pffdata?.regid || this.udata?.Sponcerid;
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate([`/auth-sponsorsignup/${targetId}`]);
+            });
+          },
+          { once: true }
+        );
+        
         }
       },
       error: (err) => {

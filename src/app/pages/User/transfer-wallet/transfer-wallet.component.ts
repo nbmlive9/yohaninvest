@@ -20,6 +20,9 @@ export class TransferWalletComponent {
     adata: any;
     data1: any;
     pfdata: any;
+      // For charges and net amount
+  charges: number = 0;
+  netAmount: number = 0;
     constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
           this.form = this.fb.group({
               wallettyoe: ['', [Validators.required,]],
@@ -76,6 +79,21 @@ export class TransferWalletComponent {
         }
       );
     }
+
+      /** Calculate charges and net amount */
+  calculateNetAmount() {
+    const amount = this.form.value.amount || 0;
+    const walletType = this.form.value.wallettyoe;
+
+    // Only calculate when 'Main Wallet (ewallet)' is selected
+    if (walletType === 'ewallet' && amount > 0) {
+      this.charges = amount * 0.10; // 10% deduction
+      this.netAmount = amount - this.charges;
+    } else {
+      this.charges = 0;
+      this.netAmount = 0;
+    }
+  }
   
     transfer() {
     const payload = {

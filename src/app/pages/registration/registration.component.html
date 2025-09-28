@@ -60,6 +60,7 @@
 
                         <div class="form-group">
                             <input type="text" class="form-control" formControlName="sponcerid" (keyup)="onRegIdKeyup()" placeholder="Referral Id">
+                              <input type="text" class="form-control" formControlName="placementid"   placeholder="Placement Id" hidden />
                             <span class="profile-views"><img src="assets/img/icon/lock-icon-01.svg"  alt=""/></span>
                             <div *ngIf="idData" class="text-success small">Name: {{ idData.name }}</div>
                              <div *ngIf="errorMessage" class="text-danger small">{{ errorMessage }}</div>
@@ -67,15 +68,7 @@
                                 <div *ngIf="registerForm.get('sponcerid')?.errors?.['required']">Referral Id is required.</div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" class="form-control" formControlName="placementid" (keyup)="onRegIdKeyup1()" placeholder="Placement Id">
-                            <span class="profile-views"><img src="assets/img/icon/lock-icon-01.svg"  alt=""/></span>
-                           <div *ngIf="idData1" class="text-success small">Name: {{ idData1.name }}</div>
-                           <div *ngIf="errorMessage1" class="text-danger small">{{ errorMessage1 }}</div>
-                            <div *ngIf="registerForm.get('placementid')?.touched && registerForm.get('placementid')?.invalid" class="text-danger small">
-                                <div *ngIf="registerForm.get('placementid')?.errors?.['required']">placementid is required.</div>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <select formControlName="position" class="form-select">
                                 <option value="" disabled>Select Position</option>

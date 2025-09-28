@@ -45,6 +45,43 @@ getCountries() {
     );
   }
 
+   GetDynamicData(){
+    const token1 = this.token.getToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token1
+      })
+    }
+    return this.http.get(
+      AUTH_API + 'Get_ROidynamicpayment',
+      httpOptions
+    );
+  }
+
+  UpdateDynamicData(value: {
+  roi: number;
+  sponcer:number;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    AUTH_API + 'Roivalue_Update', 
+
+   {
+    roi:value.roi,
+        sponcer: value.sponcer,
+      },
+    httpOptions
+  );
+}
+
    UDashboardData(){
     const token1 = this.token.getToken();
     const httpOptions = {

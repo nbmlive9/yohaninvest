@@ -10,7 +10,7 @@
               <li class="active">Withdraw Fund</li>
             </ul>
           </div>
-            <h4 class="text-success">Wallet: {{pfdata?.walletamount *0.90 | currency:'USD':true:'1.0-2'}} </h4>
+            <h4 class="text-success">Wallet: {{pfdata?.walletamount | currency:'USD':true:'1.0-2'}} </h4>
           <div class="buy-crypto-group">
             <span class="text-danger">{{errorMessage}}</span> 
             <form [formGroup]="form">
@@ -22,7 +22,7 @@
                   <div class="form-group">
                     <label>Amount</label>
                     <input type="number" formControlName="amount" min="10" class="form-control"
-                      placeholder="Enter amount" />
+                      placeholder="Enter amount"  (keyup)="calculateNetAmount()"  />
                         <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
                           Amount is required and must be ≥ $10
                         </div>
@@ -33,6 +33,15 @@
                     >
                       Amount is required.
                     </small>
+                        <!-- Charges and Net Amount Display -->
+    <div *ngIf="form.value.amount && form.value.amount >= 10" class="mt-2">
+      <p class="text-danger mb-0">Charges (10%): 
+        <strong>{{ charges | currency:'USD':true:'1.0-2' }}</strong>
+      </p>
+      <p class="text-success mb-0">Net Amount: 
+        <strong>{{ netAmount | currency:'USD':true:'1.0-2' }}</strong>
+      </p>
+    </div>
                   </div>
                 </div>
 
@@ -51,7 +60,8 @@
                 <!-- Message if wallet address is missing -->
                 <p class="text-danger mt-2" *ngIf="!pfdata?.wallet1 || pfdata?.wallet1.trim() === ''">
                     Please set up your USDT BEP20 wallet address in your profile to enable withdrawals.
-                </p>
+                 <span routerLink="/profile" class="text-success" style="cursor: pointer;">Go to Profile</span>
+                  </p>
                 </div>
 
 

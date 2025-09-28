@@ -20,7 +20,7 @@
                     <label>Select Type</label>
                     <select class="form-control select" formControlName="wallettyoe">
                       <option value="" disabled>Select Type</option>
-                      <option value="ewallet">Main Wallet ({{pfdata?.walletamount *0.90 | currency:'USD':true:'1.0-2'}})</option>
+                      <option value="ewallet">Main Wallet ({{pfdata?.walletamount | currency:'USD':true:'1.0-2'}})</option>
                       <option value="dwallet">Activation Fund ({{pfdata?.actwallet | currency:'USD':true:'1.0-2'}})</option>
                     </select>
                     <small
@@ -36,8 +36,11 @@
                 <div class="col-xl-4 col-lg-6">
                   <div class="form-group">
                     <label>Amount</label>
-                    <input type="number" formControlName="amount"  class="form-control"
-                      placeholder="Enter amount" />
+                    <input type="number" formControlName="amount" min="10" class="form-control"
+                      placeholder="Enter amount" (keyup)="calculateNetAmount()"/>
+                        <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
+                          Amount is required and must be ≥ $10
+                        </div>
                     <!-- Error: Required -->
                     <small
                       class="text-danger"
@@ -45,6 +48,23 @@
                     >
                       Amount is required.
                     </small>
+
+                    <!-- Charges & Net Amount Section -->
+    <div
+      *ngIf="form.value.amount && form.value.amount >= 1 && form.value.wallettyoe === 'ewallet'"
+      class="mt-2"
+    >
+      <p class="text-warning mb-0">
+        Charges (10%): 
+        <strong>{{ charges | currency:'USD':true:'1.0-2' }}</strong>
+      </p>
+      <p class="text-success mb-0">
+        Net Amount: 
+        <strong>{{ netAmount | currency:'USD':true:'1.0-2' }}</strong>
+      </p>
+    </div>
+
+
                   </div>
                 </div>
 

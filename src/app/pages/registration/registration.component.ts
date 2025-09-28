@@ -33,7 +33,7 @@ export class RegistrationComponent {
         password: ['', [Validators.required, Validators.minLength(6)]],
         confirmPassword: ['', Validators.required],
         sponcerid: ['',Validators.required],
-        placementid: ['', Validators.required],
+        placementid: ['',],
         position: ['', Validators.required],
         terms: ['', Validators.required]
       },
@@ -62,6 +62,14 @@ export class RegistrationComponent {
       );
      
     });
+
+    // ✅ Automatically copy sponsorid to placementid if empty
+  this.registerForm.get('sponcerid')?.valueChanges.subscribe((value) => {
+    const placementControl = this.registerForm.get('placementid');
+    if (!placementControl?.value || placementControl.value.trim() === '') {
+      placementControl?.setValue(value, { emitEvent: false });
+    }
+  });
     
   }
 
@@ -70,6 +78,12 @@ export class RegistrationComponent {
   if (this.registerForm.invalid) {
     this.registerForm.markAllAsTouched();
     return;
+  }
+
+  // ✅ If placementid is empty, assign sponcerid
+  const formValues = this.registerForm.value;
+  if (!formValues.placementid || formValues.placementid.trim() === '') {
+    this.registerForm.patchValue({ placementid: formValues.sponcerid });
   }
 
   const payload = { ...this.registerForm.value };
@@ -87,20 +101,25 @@ export class RegistrationComponent {
       if (modalEl) {
         const modal = new bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
         modal.show();
-           // ✅ Redirect when modal is closed (Close button OR X)
-          modalEl.addEventListener('hidden.bs.modal', () => {
+
+        // ✅ Redirect when modal is closed
+        modalEl.addEventListener(
+          'hidden.bs.modal',
+          () => {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/auth-signup']);
             });
-          }, { once: true }); // run only once
+          },
+          { once: true }
+        );
       }
-       
     },
     error: (err) => {
       this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
     }
   });
 }
+
 
 
 
@@ -131,14 +150,39 @@ export class RegistrationComponent {
   }
 
   onRegIdKeyup() {
-    const regid = this.registerForm.get('sponcerid')?.value;
-    if (regid && regid.length >= 4) {
-      this.GetregistredData(regid);
-    } else {
-      this.idData = null;
-      this.errorMessage = null;
-    }
+  const regid = this.registerForm.get('sponcerid')?.value;
+
+  if (regid && regid.length >= 4) {
+    this.api.GetusersDataByRegID(regid).subscribe({
+      next: (res: any) => {
+        if (res?.data?.length > 0) {
+          // ✅ Sponsor exists
+          this.idData = res.data[0];
+          this.errorMessage = null;
+
+          // Auto-fill placementid with sponsorid
+          this.registerForm.patchValue({ placementid: regid });
+        } else {
+          // ❌ Sponsor not found
+          this.idData = null;
+          this.errorMessage = 'Sponsor ID not found.';
+          this.registerForm.patchValue({ placementid: '' });
+        }
+      },
+      error: (err) => {
+        this.idData = null;
+        this.errorMessage = err?.error?.message || 'Something went wrong.';
+        this.registerForm.patchValue({ placementid: '' });
+      }
+    });
+  } else {
+    // Reset when input cleared
+    this.idData = null;
+    this.errorMessage = null;
+    this.registerForm.patchValue({ placementid: '' });
   }
+}
+
 
   GetregistredData1(id: any) {
     this.errorMessage1 = null;

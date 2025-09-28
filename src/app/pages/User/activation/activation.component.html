@@ -13,7 +13,7 @@
             <h6><span class="text-success">Activation Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</span> 
               <!-- <span class="text-primary">Cash Wallet: {{pfdata?.cashwallet | currency:'USD':true:'1.0-2'}}</span> -->
             </h6>
-          <div class="buy-crypto-group" *ngIf="pfdata.topupstatus=='0'">
+          <div class="buy-crypto-group">
             <form [formGroup]="form" novalidate>
               <div class="row">
 
@@ -44,22 +44,23 @@
 
                 
                 <!-- Package Type -->
-                <div class="col-xl-4 col-lg-6">
-                  <div class="form-group bg-hover col-md-12">
-                    <label>Select Type *</label>
-                    <select class="form-control select" formControlName="packagetype">
-                      <option value="" disabled>Select Type</option>
-                      <option value="secure">Secure</option>
-                      <option value="nonsecure">Non Secure</option>
-                    </select>
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
-                    >
-                      Package type is required.
-                    </small>
-                  </div>
-                </div>
+                <!-- Package Type -->
+                <div class="col-xl-4 col-lg-6" *ngIf="form.value.amount >= 6000">
+  <div class="form-group bg-hover col-md-12">
+    <label>Select Type *</label>
+    <select class="form-control select" formControlName="packagetype">
+      <option value="" disabled>Select Type</option>
+      <option value="secure">Secure</option>
+      <option value="nonsecure">Non Secure</option>
+    </select>
+    <small
+      class="text-danger"
+      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
+    >
+      Package type is required.
+    </small>
+  </div>
+</div>
 
                 <!-- Submit Button -->
                 <div class="buy-crpto-btn mt-4">
@@ -70,92 +71,7 @@
             </form>
           </div>
 
-          <div class="buy-crypto-group" *ngIf="pfdata.topupstatus=='1'">
-            <form [formGroup]="form" novalidate>
-              <div class="row">
-
-                <!-- Amount -->
-                <div class="col-xl-4 col-lg-6">
-                  <div class="form-group">
-                    <label>Amount *</label>
-                    <input type="number" formControlName="amount"  class="form-control"
-                      placeholder="Enter amount (100, 200, 300...)" (input)="validateAmount1($event)"
-                    />
-                    <input type="text"  formControlName="regid" [(ngModel)]="pfdata.regid"  hidden/>
-                    <!-- Error: Required -->
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')"
-                    >
-                      Amount is required.
-                    </small>
-                    <!-- Error: Not multiple of 100 -->
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('notMultipleOf100')"
-                    >
-                      Amount must be a multiple of 100 (e.g., 100, 200, 300...).
-                    </small>
-                  </div>
-                </div>
-
-                <!-- <div class="col-xl-4 col-lg-6">
-                  <div class="form-group">
-                    <label>Userid *</label>
-                    <input type="number" formControlName="regid" (keyup)="onRegisterIdSelect($event)" class="form-control" placeholder="Enter Userid" />
-                    <span class="text-success">{{idselectmsg}}</span>
-                    <span class="text-danger">{{errorMessage}}</span>
-                        <small
-                      class="text-danger"
-                      *ngIf="form.controls['regid'].touched && form.controls['regid'].hasError('required')" >
-                      Userid is required.
-                    </small>
-                  </div>
-                </div> -->
-
-                
-                <!-- Package Type -->
-                <div class="col-xl-4 col-lg-6">
-                  <div class="form-group bg-hover col-md-12">
-                    <label>Select Type *</label>
-                    <select class="form-control select" formControlName="packagetype">
-                      <option value="" disabled>Select Type</option>
-                      <option value="secure">Secure</option>
-                      <option value="nonsecure">Non Secure</option>
-                    </select>
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['packagetype'].touched && form.controls['packagetype'].hasError('required')"
-                    >
-                      Package type is required.
-                    </small>
-                  </div>
-                </div>
-
-                <!-- <div class="col-xl-4 col-lg-6">
-                  <div class="form-group bg-hover col-md-12">
-                    <label>Wallet Type *</label>
-                    <select class="form-control select" formControlName="atype">
-                      <option value="" disabled>Wallet Type</option>
-                      <option value="aw">Activation Wallet</option>
-                      <option value="awcw">Activation + Cash Wallet</option>
-                    </select>
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['atype'].touched && form.controls['atype'].hasError('required')"
-                    >
-                      Package type is required.
-                    </small>
-                  </div>
-                </div> -->
-
-                 <div class="buy-crpto-btn mt-4">
-                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form.valid" (click)="Topup()">Buy</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
+          
 
           <!-- Recent Buying Section -->
           <div class="recent-buy comman-head">

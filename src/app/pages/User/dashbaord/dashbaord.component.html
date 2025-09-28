@@ -173,7 +173,7 @@
               <div class="card-body text-center p-4">
                 <img src="assets/img/icon/menu-icon-05.svg" alt="img">
                 <h6>Total Matching</h6>
-                <h3 class="fw-bold">{{ data1?.totalmatching }}</h3>
+                <h3 class="fw-bold">{{ data1?.totalmatching | currency:'USD':true:'1.0-2' }}</h3>
               </div>
             </div>
           </div>

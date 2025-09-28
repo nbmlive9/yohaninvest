@@ -22,6 +22,8 @@ export class WithdrawRequestComponent {
         data1: any;
         pfdata: any;
   cdata: any;
+  charges: number = 0;
+  netAmount: number = 0;
         constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
               this.form = this.fb.group({
                   amount: ['', [Validators.required]],
@@ -60,6 +62,19 @@ export class WithdrawRequestComponent {
             
           })
         }
+
+         /** Calculate Charges & Net Amount */
+  calculateNetAmount() {
+    const amount = this.form.value.amount || 0;
+
+    if (amount >= 10) {
+      this.charges = amount * 0.10; // 10% deduction
+      this.netAmount = amount - this.charges;
+    } else {
+      this.charges = 0;
+      this.netAmount = 0;
+    }
+  }
       
        
         Withdraw() {

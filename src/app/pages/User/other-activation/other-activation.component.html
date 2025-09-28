@@ -58,22 +58,32 @@
 
                 
                 <!-- Package Type -->
-                <div class="col-xl-4 col-lg-6">
-                  <div class="form-group bg-hover col-md-12">
-                    <label>Select Type *</label>
-                    <select class="form-control select" formControlName="packagetype">
-                      <option value="" disabled>Select Type</option>
-                      <option value="secure">Secure</option>
-                      <option value="nonsecure">Non Secure</option>
-                    </select>
-                    <small
-                      class="text-danger"
-                      *ngIf="form1.controls['packagetype'].touched && form1.controls['packagetype'].hasError('required')"
-                    >
-                      Package type is required.
-                    </small>
-                  </div>
-                </div>
+                <!-- Package Type -->
+<div class="col-xl-4 col-lg-6" *ngIf="form1.value.amount >= 6000">
+  <div class="form-group bg-hover col-md-12">
+    <label>Select Type *</label>
+    <select class="form-control select" formControlName="packagetype">
+      <option value="" disabled>Select Type</option>
+      <option value="secure">Secure</option>
+      <option value="nonsecure">Non Secure</option>
+    </select>
+    <small
+      class="text-danger"
+      *ngIf="form1.controls['packagetype'].touched && form1.controls['packagetype'].hasError('required')"
+    >
+      Package type is required.
+    </small>
+  </div>
+</div>
+
+<!-- Show default type for amount < 6000 -->
+<div class="col-xl-4 col-lg-6" *ngIf="form1.value.amount < 6000">
+  <div class="form-group bg-hover col-md-12">
+  
+    <input type="text" class="form-control" value="Non Secure" hidden />
+  </div>
+</div>
+
 
                 <div class="col-xl-4 col-lg-6">
                   <div class="form-group bg-hover col-md-12">

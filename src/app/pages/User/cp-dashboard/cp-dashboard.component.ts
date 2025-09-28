@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
 import * as XLSX from 'xlsx';
-
+declare var bootstrap: any;
 @Component({
   selector: 'app-cp-dashboard',
   templateUrl: './cp-dashboard.component.html',
   styleUrls: ['./cp-dashboard.component.css']
 })
 export class CpDashboardComponent {
-
+ @ViewChild('successModal') successModal!: ElementRef;
    dashboardData: any = {};
   withdrawUsersData: any = [];
   tuser: any;
@@ -27,6 +27,8 @@ export class CpDashboardComponent {
   idData: any;
   payid: any;
   rejid: any;
+  dydata: any;
+  form1:FormGroup
   constructor(private api: UserService, private fb: FormBuilder, private toast: ToastrService,private router:Router) {
     this.profileform = this.fb.group({
       regid: [''],   // <-- Add this
@@ -40,6 +42,11 @@ export class CpDashboardComponent {
       regid: ['', Validators.required],   // <-- Add this
       points: ['', Validators.required],
     });
+
+      this.form1 = this.fb.group({
+      roi: ['', ],   // <-- Add this
+      sponcer: ['', ],
+    });
     
   }
 
@@ -50,7 +57,16 @@ export class CpDashboardComponent {
     this.Totalusers();  
     this.getCountries();
     this.TotalMembers();
+    this.getdynamicdata();
+  }
 
+  getdynamicdata() {
+    this.api.GetDynamicData().subscribe({
+      next: (res: any) => {
+        // console.log('dydata',res);
+        this.dydata = res.data;
+      }
+    });
   }
 
 
@@ -60,7 +76,7 @@ export class CpDashboardComponent {
         this.payid=res.data;
               setTimeout(() => {
                this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-                 this.router.navigate(['/dashboard']);
+                 this.router.navigate(['/cpdash']);
                });
              }, 2000);
     })
@@ -72,7 +88,7 @@ export class CpDashboardComponent {
         this.rejid=res.data;
         setTimeout(() => {
          this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-           this.router.navigate(['/dashboard']);
+           this.router.navigate(['/cpdash']);
          });
        }, 2000);
     })
@@ -143,7 +159,33 @@ copyToClipboard(walletAddress: string) {
     }
   }
   
-  
+
+  UpdateDynamicdata() {
+      const payload = {
+        roi: this.form1.value.roi,
+         sponcer: this.form1.value.sponcer,
+      };
+    
+      this.api.UpdateDynamicData(payload).subscribe({
+        next: (res: any) => {
+    
+          // Show success modal
+          const modalElement = new bootstrap.Modal(this.successModal.nativeElement);
+          modalElement.show();
+    
+          // Automatically close modal and refresh page after 3 seconds
+          setTimeout(() => {
+            modalElement.hide(); // Close modal
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/cpdash']); // Refresh the page
+            });
+          }, 3000); // 3000ms = 3 seconds
+        },
+        error: (err) => {
+          this.errorMessage = err?.error?.message || 'Activation failed.';
+        }
+      });
+    }
 
   openProfile(item: any) {
     // console.log("item:",item.regid);
@@ -177,7 +219,7 @@ copyToClipboard(walletAddress: string) {
         if (res.status === 1) {
           this.toast.success("Profile updated successfully");
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/dashboard']);
+            this.router.navigate(['/cpdash']);
           });
           this.pffdata = { ...this.pffdata, ...payload };  
           this.isEdit = false;  
