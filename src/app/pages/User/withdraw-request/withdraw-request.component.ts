@@ -24,6 +24,7 @@ export class WithdrawRequestComponent {
   cdata: any;
   charges: number = 0;
   netAmount: number = 0;
+  errorMessage1: any;
         constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
               this.form = this.fb.group({
                   amount: ['', [Validators.required]],
@@ -104,7 +105,8 @@ export class WithdrawRequestComponent {
             }, 3000); // 3000ms = 3 seconds
           },
           error: (err) => {
-            this.errorMessage = err?.error?.message || 'Withdraw failed.';
+             this.errorMessage1 = 'Insufficient Funds';
+            // this.errorMessage = err?.error?.message || 'Withdraw failed.';
             this.toastr.error(this.errorMessage, 'Error');
           }
         });
