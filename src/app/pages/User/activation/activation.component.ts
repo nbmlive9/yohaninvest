@@ -58,7 +58,7 @@ export class ActivationComponent {
    // Validate amount input dynamically
   validateAmount(event: any) {
     const value = event.target.value;
-    if (value && value % 100 !== 0) {
+    if (value && value % 50 !== 0) {
       this.form.controls['amount'].setErrors({ notMultipleOf100: true });
     } else {
       this.form.controls['amount'].setErrors(null);

@@ -22,7 +22,7 @@
                   <div class="form-group">
                     <label>Amount *</label>
                     <input type="number" formControlName="amount"  class="form-control"
-                      placeholder="Enter amount (100, 200, 300...)" (input)="validateAmount($event)"
+                      placeholder="Enter amount (50, 100, 150...)" (input)="validateAmount($event)"
                     />
                     <!-- <input type="text"  formControlName="regid" [(ngModel)]="pfdata.regid"  hidden/> -->
                     <!-- Error: Required -->
@@ -37,7 +37,7 @@
                       class="text-danger"
                       *ngIf="form1.controls['amount'].touched && form1.controls['amount'].hasError('notMultipleOf100')"
                     >
-                      Amount must be a multiple of 100 (e.g., 100, 200, 300...).
+                      Amount must be a multiple of 50 (e.g., 50, 100, 150...).
                     </small>
                   </div>
                 </div>
