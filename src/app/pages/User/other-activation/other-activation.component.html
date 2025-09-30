@@ -10,7 +10,7 @@
               <li class="active">User Activation</li>
             </ul>
           </div>
-            <h6><span class="text-success">Activation Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</span> - <span class="text-primary">Cash Wallet: {{pfdata?.cashwallet | currency:'USD':true:'1.0-2'}}</span></h6>
+            <h6><span class="text-success">Activation Wallet: {{pfdata?.actwallet | currency:'USD':true:'1.0-2'}}</span> </h6>
         
 
           <div class="buy-crypto-group" >
@@ -91,7 +91,7 @@
                     <select class="form-control select" formControlName="atype">
                       <option value="" disabled>Wallet Type</option>
                       <option value="aw">Activation Wallet</option>
-                      <option value="awcw">Activation + Cash Wallet</option>
+                      <!-- <option value="awcw">Activation + Cash Wallet</option> -->
                     </select>
                     <small
                       class="text-danger"

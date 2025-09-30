@@ -28,7 +28,7 @@
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
                             <td class="pay-clr">
-                                <span class="text-success" *ngIf="row.ttype=='instant'">Cash Wallet</span>
+                                <!-- <span class="text-success" *ngIf="row.ttype=='instant'">Cash Wallet</span> -->
                                 <span class="text-primary" *ngIf="row.ttype=='daily'">Matching Wallet</span>
                             </td>
                           <td>
