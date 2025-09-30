@@ -20,6 +20,7 @@ export class ActivationComponent {
   adata: any;
   data1: any;
   pfdata: any;
+  errorMessage1: any;
 
   constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
         this.form = this.fb.group({
@@ -75,29 +76,7 @@ export class ActivationComponent {
     })
   }
 
-   onRegisterIdSelect(event: any) {
-    const id = event.target.value;
-    this.api.GetusersDataByRegID(id).subscribe(
-      (res4: any) => {
-        if (res4) {
-          // console.log(res4);
-          this.regname = res4.data[0];
-          this.idselectmsg = `Name: ${this.regname.name}`;
-          this.errorMessage = ''; // Reset the error message when data is correct
-        } else {
-          // console.log(res4);
-          this.regname = null; // Reset the regname object when data is incorrect
-          this.errorMessage = 'Error fetching user data';
-          this.idselectmsg = 'User Not Available';
-        }
-      },
-      (err: any) => {
-        this.errorMessage = err.error.message;
-        this.regname = null; // Reset the regname object when there's an error
-        this.idselectmsg = '';
-      }
-    );
-  }
+  
 
   Activation() {
   const payload = {
@@ -128,6 +107,7 @@ export class ActivationComponent {
       }, 3000); // 3000ms = 3 seconds
     },
     error: (err) => {
+      this.errorMessage1='Activation Fund Low';
       this.errorMessage = err?.error?.message || 'Activation failed.';
       this.toastr.error(this.errorMessage, 'Error');
     }

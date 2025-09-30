@@ -20,6 +20,7 @@ export class SelfTransferComponent {
       adata: any;
       data1: any;
       pfdata: any;
+  errorMessage1: any;
       constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
             this.form = this.fb.group({
                 amount: ['', [Validators.required]],
@@ -81,7 +82,8 @@ export class SelfTransferComponent {
           }, 3000); // 3000ms = 3 seconds
         },
         error: (err) => {
-          this.errorMessage = err?.error?.message || 'Activation failed.';
+          this.errorMessage1 = 'Insufficient Funds';
+          // this.errorMessage = err?.error?.message || 'Activation failed.';
           this.toastr.error(this.errorMessage, 'Error');
         }
       });

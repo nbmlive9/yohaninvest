@@ -23,6 +23,7 @@ export class TransferWalletComponent {
       // For charges and net amount
   charges: number = 0;
   netAmount: number = 0;
+  errorMessage1: any;
     constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
           this.form = this.fb.group({
               wallettyoe: ['', [Validators.required,]],
@@ -125,7 +126,8 @@ export class TransferWalletComponent {
         }, 3000); // 3000ms = 3 seconds
       },
       error: (err) => {
-        this.errorMessage = err?.error?.message || 'Activation failed.';
+             this.errorMessage1 = 'Insufficient Funds Wallet';
+        // this.errorMessage = err?.error?.message || 'Activation failed.';
         this.toastr.error(this.errorMessage, 'Error');
       }
     });

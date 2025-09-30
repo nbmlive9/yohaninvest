@@ -21,6 +21,7 @@ export class OtherActivationComponent {
     data1: any;
     pfdata: any;
     form1:FormGroup;
+  errorMessage1: any;
     constructor(private api:UserService, private fb:FormBuilder, private router:Router, private toastr:ToastrService){
                 this.form1 = this.fb.group({
               packagetype: ['', [Validators.required,]],
@@ -122,7 +123,8 @@ export class OtherActivationComponent {
         }, 2000);
           },
           error: (err) => {
-            this.errorMessage = err?.error?.message || 'Activation failed.';
+             this.errorMessage1 = 'Activation Fund Low';
+            // this.errorMessage1 = err?.error?.message || 'Activation failed.';
             this.toastr.error(err?.error?.message || 'Activation failed.', 'Error');
           }
         });
