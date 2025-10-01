@@ -53,7 +53,7 @@
     </div>
     <!-- Show calculated coins -->
   <div *ngIf="calculatedCoins > 0" class="mt-2">
-    USDT Amount: <strong>{{ calculatedCoins | number:'1.0-6' }}</strong> coins
+    USDT Amount: <strong>{{ calculatedCoins | number:'1.0-6' }}</strong>
   </div>
 
   <button type="submit" class="btn btn-sm btn-danger mt-2" [disabled]="!form.valid">
