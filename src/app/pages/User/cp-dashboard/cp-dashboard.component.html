@@ -16,17 +16,19 @@
                 <th>Sponsor</th>
                 <th>Last Update</th>
                 <th>Date</th>
+                <th>Coin Price</th>
                 <th>Action</th>
               </tr>
             <tbody>
               <tr>
                 <td>{{ dydata.roi | currency:'USD':true:'1.0-2' }}</td>
                 <td>{{ dydata.sponcer | currency:'USD':true:'1.0-2' }}</td>
-                <td>ROI: {{dydata.lastroi | currency:'USD':true:'1.0-2'}} <br> Sponsor: {{ dydata.lastsponcer | currency:'USD':true:'1.0-2' }}</td>
-                  <td>ROI: {{dydata.roidate}} <br> Sponsor: {{ dydata.sponcerdate }}</td>
+                <td>ROI: {{dydata.lastroi | currency:'USD':true:'1.0-2'}} <br> Sponsor: {{ dydata.   lastsponcer | currency:'USD':true:'1.0-2' }}</td>
+                <td>ROI: {{dydata.roidate}} <br> Sponsor: {{ dydata.sponcerdate }}</td>
+                  <td>{{dydata.coinvalue}}</td>
                 <td (click)="UpdateDynamicdata()" data-bs-toggle="modal" data-bs-target="#dynamicupdate">
                 <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i>
-              </td>
+                </td>
               </tr>
             </tbody>
             
@@ -252,6 +254,11 @@
                           <div class="form-group">
                             <label for="sponsor">Sponsor</label>
                             <input type="number" autofocus="" formControlName="sponcer" class="form-control"  [(ngModel)]="dydata.sponcer" >
+                        </div>
+
+                           <div class="form-group">
+                            <label for="sponsor">Coin Price</label>
+                            <input type="number" autofocus="" formControlName="coinvalue" class="form-control"  [(ngModel)]="dydata.coinvalue" >
                         </div>
                      
                         

@@ -56,6 +56,7 @@ export class CpDashboardComponent {
       this.form1 = this.fb.group({
       roi: ['', ],   // <-- Add this
       sponcer: ['', ],
+      coinvalue: ['', ],
     });
     
   }
@@ -83,7 +84,7 @@ export class CpDashboardComponent {
   getdynamicdata() {
     this.api.GetDynamicData().subscribe({
       next: (res: any) => {
-        // console.log('dydata',res);
+        console.log('dydata',res);
         this.dydata = res.data;
       }
     });
@@ -184,6 +185,7 @@ copyToClipboard(walletAddress: string) {
       const payload = {
         roi: this.form1.value.roi,
          sponcer: this.form1.value.sponcer,
+         coinvalue: this.form1.value.coinvalue,
       };
     
       this.api.UpdateDynamicData(payload).subscribe({

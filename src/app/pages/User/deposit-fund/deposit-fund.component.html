@@ -44,112 +44,34 @@
       </div>
       <div class="modal-body">
 
-       <div *ngIf="!paymentInfo">
-  <form [formGroup]="form" (ngSubmit)="generatePayment()">
+       <div >
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <label for="amount">Amount (USDT BEP20 Network Only) *</label>
-    <!-- <input id="amount" class="form-control" type="number" formControlName="amount" min="1" step="0.01" /> -->
-    <input id="amount" class="form-control" type="text" formControlName="amount" min="50" placeholder="Enter Amount"
-       (input)="formatAmount($event)" />
+    <input id="amount" class="form-control" type="text" formControlName="amount" min="50" placeholder="Enter Amount" (input)="formatAmount($event)" />
     <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
       Amount is required and must be ≥ $50
     </div>
-    <button type="submit" class="btn btn-sm btn-danger mt-2" [disabled]="submitting">
-      {{ submitting ? 'Generating…' : 'Confirm' }}
-    </button>
+    <!-- Show calculated coins -->
+  <div *ngIf="calculatedCoins > 0" class="mt-2">
+    Yohan Coins: <strong>{{ calculatedCoins | number:'1.0-6' }}</strong> coins
+  </div>
+
+  <button type="submit" class="btn btn-sm btn-danger mt-2" [disabled]="!form.valid">
+    Submit
+  </button>
   </form>
 </div>
 
-<div *ngIf="paymentInfo">
-  <p>Send Only USDT BEP20 for <strong>${{ paymentInfo.price_amount}}</strong> Deposit to:</p>
-  <p><strong>{{ paymentInfo.pay_address }}</strong></p>
-      <button class="btn btn-outline-primary btn-sm ms-2" (click)="copyAddress()">
-      Copy
-    </button>
-
-
-  <!-- QR Code -->
-  <qrcode
-    [qrdata]="paymentInfo.pay_address"
-    [width]="200"
-    [errorCorrectionLevel]="'M'">
-  </qrcode>
-
-    <!-- <div class="mt-3">
-    <button class="btn btn-success me-2" (click)="shareOnWhatsApp()">
-      Share on WhatsApp
-    </button>
-  </div> -->
-<div *ngIf="alertMessage" [ngClass]="'alert alert-' + alertType">
-  {{ alertMessage }}
 </div>
-
-
-
-  <button (click)="checkPaymentStatus()" [disabled]="checkingStatus" class="btn btn-success mt-2">
-    {{ checkingStatus ? 'Checking…' : 'Check Payment Status' }}
-  </button>
-</div>
-
-
-
 
 
       </div>
     </div>
   </div>
-</div>
 
 
 
-<!-- 
-  <div class="container mt-4">
-  <h3>📜 Payment History</h3>
 
-  <div *ngIf="loading" class="alert alert-info">Loading payments...</div>
-  <div *ngIf="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
-
-  <table class="table table-bordered table-striped mt-3" *ngIf="payments.length > 0">
-    <thead>
-      <tr>
-        <th>Payment ID</th>
-        <th>Invoice ID</th>
-        <th>Status</th>
-        <th>Amount (USD)</th>
-        <th>Paid</th>
-        <th>Currency</th>
-        <th>Created</th>
-        <th>Updated</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let p of payments">
-        <td>{{ p.payment_id }}</td>
-        <td>{{ p.invoice_id }}</td>
-        <td>
-          <span
-            class="badge"
-            [ngClass]="{
-              'bg-success': p.payment_status === 'finished',
-              'bg-warning': p.payment_status === 'partially_paid' || p.payment_status === 'waiting',
-              'bg-danger': p.payment_status === 'failed'
-            }"
-          >
-            {{ p.payment_status }}
-          </span>
-        </td>
-        <td>{{ p.price_amount }}</td>
-        <td>{{ p.actually_paid }}</td>
-        <td>{{ p.pay_currency }}</td>
-        <td>{{ p.created_at | date: 'short' }}</td>
-        <td>{{ p.updated_at | date: 'short' }}</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div *ngIf="!loading && payments.length === 0" class="alert alert-warning">
-    No payment history found.
-  </div>
-</div> -->
 
 
         </div>

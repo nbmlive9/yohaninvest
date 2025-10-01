@@ -62,6 +62,7 @@ getCountries() {
   UpdateDynamicData(value: {
   roi: number;
   sponcer:number;
+  coinvalue:number;
 }) {
   const token = this.token.getToken();
   const httpOptions = {
@@ -77,6 +78,7 @@ getCountries() {
    {
     roi:value.roi,
         sponcer: value.sponcer,
+        coinvalue:value.coinvalue,
       },
     httpOptions
   );
@@ -944,6 +946,20 @@ SecureUpdate(id: string, value: {
     },
     httpOptions
   );
+}
+
+YohanPrice(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_ROidynamicpaymentout',
+    httpOptions
+  );   
 }
 
 
