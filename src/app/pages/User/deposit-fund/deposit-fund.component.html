@@ -46,8 +46,8 @@
 
        <div >
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <label for="amount">Amount (USDT BEP20 Network Only) *</label>
-    <input id="amount" class="form-control" type="text" formControlName="amount" min="50" placeholder="Enter Amount" (input)="formatAmount($event)" />
+    <label for="amount">Yohan Coins*</label>
+    <input id="amount" class="form-control" type="text" formControlName="amount" min="50" placeholder="Enter Coins" (input)="formatAmount($event)" />
     <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
       Amount is required and must be ≥ $50
     </div>
