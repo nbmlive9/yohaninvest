@@ -37,7 +37,7 @@ export class SecureUsersReportComponent implements OnInit {
 
   const payload = this.form.value;
 
-  this.api.SecureUpdate(this.selectedUser.regid, payload).subscribe({
+  this.api.SecureUpdate(this.selectedUser.id, payload).subscribe({
     next: (res: any) => {
       if (res.status === 1) {
         this.closeModal(); // ✅ clean close
@@ -62,6 +62,7 @@ closeModal() {
   if (this.modalRef) {
     this.modalRef.hide();
     this.modalRef.dispose(); // ✅ dispose modal completely
+      this.reloadPage();
     document.body.classList.remove('modal-open'); // ✅ remove body state
     document.querySelectorAll('.modal-backdrop')
       .forEach(el => el.remove()); // ✅ remove black overlay
