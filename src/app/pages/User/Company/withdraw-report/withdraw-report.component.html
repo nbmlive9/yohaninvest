@@ -1,0 +1,32 @@
+<h4>Withdraw Report</h4>
+<div class="table-responsive">
+        <table class="table align-middle text-nowrap">
+          <thead>
+            <tr>
+                <th>S.No</th>
+                <th>Date</th>
+                <th>Userid</th>
+                <th>Amount</th>
+                <th>Wallet Address</th>
+                <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data1; let i = index">
+              <td>{{i+1}}</td>
+                <td>{{row.cdate | date:'dd/MMM/yyyy'}}</td>
+                <td>{{row.regid}}</td>
+                <td>{{row.amount | currency:'USD':true:'1.0-2'}}</td>
+                <td class="d-flex align-items-center">
+                    <span class="me-2">{{ row.accountno }}</span>
+                </td>
+                <td>
+                    <span class="text-success" *ngIf="row.status=='1'">Success</span>
+                    <span class="text-danger" *ngIf="row.status=='0'">Pending</span>
+                </td>
+            </tr>
+          </tbody>
+        
+          
+        </table>
+      </div>

@@ -1,0 +1,59 @@
+<h4>Secure Users</h4>
+<div class="table-responsive">
+        <table class="table align-middle text-nowrap">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Date</th>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Balance</th>
+              <th>Note</th>
+              <th>Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data1; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.cdate }}</td>
+              <td>{{ item.regid }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.pkamount | currency:'USD':true:'1.0-2' }}</td>
+            <td>{{item.balamount | currency:'USD':true:'1.0-2'}}</td>
+            <td>{{item.comment}}</td>
+              <td (click)="openModal(item)" data-bs-toggle="modal" data-bs-target="#secureupdate">
+                <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i> Update
+              </td>
+            </tr>
+          </tbody>
+        
+          
+        </table>
+      </div>
+
+
+      <!-- Bootstrap Modal -->
+<div class="modal fade" id="secureupdate" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg border-0">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Update Comment</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <form [formGroup]="form" (ngSubmit)="UpdateData()">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label fw-bold">Comment</label>
+            <textarea formControlName="comment" class="form-control rounded-3" rows="3" placeholder="Enter comment"></textarea>
+          
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary rounded-3" type="button" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary rounded-3" type="submit" [disabled]="form.invalid">Update</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

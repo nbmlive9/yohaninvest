@@ -1,0 +1,31 @@
+<h4>ROI Report</h4>
+<div class="table-responsive">
+        <table class="table align-middle text-nowrap">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Date</th>
+              <th>User ID</th>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Type</th>
+              <th>Balance</th>
+              <th>ROI %</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data1; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.cdate }}</td>
+              <td>{{ item.regid }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.pkamount | currency:'USD':true:'1.0-2'}}</td>
+              <td>{{ item.prtype }}</td>
+              <td>{{ item.balamount | currency:'USD':true:'1.0-2' }}</td>
+               <td>{{ item.dper }}</td>
+            </tr>
+          </tbody>
+        
+          
+        </table>
+      </div>

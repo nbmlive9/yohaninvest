@@ -1,0 +1,29 @@
+<h4>Fund Transfer Report</h4>
+<div class="table-responsive">
+        <table class="table align-middle text-nowrap">
+          <thead>
+            <tr>
+              <th>S.no</th>
+              <th>Date</th>
+              <th>From ID</th>
+              <th>Name</th>
+               <th>To ID</th>
+              <th>Name</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data1; let i = index">
+              <td>{{ i + 1 }}</td>
+              <td>{{ item.cdate }}</td>
+              <td>{{ item.fromid }}</td>
+              <td>{{ item.sname }}</td>
+              <td>{{ item.userid }}</td>
+              <td>{{ item.rname }}</td>
+              <td>{{ item.amount | currency:'USD':true:'1.0-2' }}</td>
+            </tr>
+          </tbody>
+        
+          
+        </table>
+      </div>

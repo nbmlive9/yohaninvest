@@ -814,6 +814,137 @@ ActivatePremiumId(value: {
   );
 }
 
+DepositeReports(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Total_Deposites',
+    httpOptions
+  );
+}
+
+TransferReportTotal(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Total_Transfers',
+    httpOptions
+  );
+}
+
+WithdrawReportsTotal(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Total_Withdraws',
+    httpOptions
+  );
+}
+
+RoiReportTotal(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Total_ROI',
+    httpOptions
+  );
+}
+
+BinaryReportsTotal(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Total_Binary',
+    httpOptions
+  );
+}
+
+SecureUsersReport(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Total_Secureuser',
+    httpOptions
+  );
+}
+
+NonSecureUsersReport(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Total_nonSecureuser',
+    httpOptions
+  );
+}
+
+SearchUserData(id:any){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Get_Userdatabynameormobile/' + id,
+    httpOptions
+  );   
+}
+
+SecureUpdate(id: string, value: {
+  comment: string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.put(
+    `${AUTH_API}Secureuser_Update/${id}`,  
+    {
+      comment: value.comment,
+    },
+    httpOptions
+  );
+}
 
 
 }

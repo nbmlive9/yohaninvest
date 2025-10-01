@@ -47,6 +47,17 @@ import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
 import { CpDashboardComponent } from './pages/User/cp-dashboard/cp-dashboard.component';
 import { OtherActivationComponent } from './pages/User/other-activation/other-activation.component';
 import { SponsorIncomeComponent } from './pages/User/sponsor-income/sponsor-income.component';
+import { FundsTransferReportComponent } from './pages/User/Company/funds-transfer-report/funds-transfer-report.component';
+import { WithdrawReportComponent } from './pages/User/Company/withdraw-report/withdraw-report.component';
+import { DepositReportComponent } from './pages/User/Company/deposit-report/deposit-report.component';
+import { BinaryReportComponent } from './pages/User/Company/binary-report/binary-report.component';
+import { RoiReportAdminComponent } from './pages/User/Company/roi-report-admin/roi-report-admin.component';
+import { SponsorReportAdminComponent } from './pages/User/Company/sponsor-report-admin/sponsor-report-admin.component';
+import { SecureUsersReportComponent } from './pages/User/Company/secure-users-report/secure-users-report.component';
+import { NonsecureUsersReportComponent } from './pages/User/Company/nonsecure-users-report/nonsecure-users-report.component';
+import { SearchUsersDataComponent } from './pages/User/Company/search-users-data/search-users-data.component';
+
+
 
 @NgModule({
   declarations: [
@@ -79,7 +90,16 @@ import { SponsorIncomeComponent } from './pages/User/sponsor-income/sponsor-inco
     SpinRollComponent,
     CpDashboardComponent,
     OtherActivationComponent,
-    SponsorIncomeComponent
+    SponsorIncomeComponent,
+    DepositReportComponent,
+    WithdrawReportComponent,
+    FundsTransferReportComponent,
+    BinaryReportComponent,
+    RoiReportAdminComponent,
+    SponsorReportAdminComponent,
+    SecureUsersReportComponent,
+    NonsecureUsersReportComponent,
+    SearchUsersDataComponent
   ],
   imports: [
     BrowserModule,

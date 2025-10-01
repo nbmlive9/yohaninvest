@@ -29,6 +29,16 @@ export class CpDashboardComponent {
   rejid: any;
   dydata: any;
   form1:FormGroup
+
+   deposit: boolean = false;
+  transfer: boolean = false;
+  withdraw: boolean= false;
+  roireport: boolean= false;
+  secure: boolean= false;
+  binary: boolean= false;
+  nonsecure: boolean= false;
+ 
+
   constructor(private api: UserService, private fb: FormBuilder, private toast: ToastrService,private router:Router) {
     this.profileform = this.fb.group({
       regid: [''],   // <-- Add this
@@ -48,6 +58,16 @@ export class CpDashboardComponent {
       sponcer: ['', ],
     });
     
+  }
+
+   showSection(section: string) {
+    this.deposit = section === 'deposit';
+    this.transfer = section === 'transfer';
+    this.withdraw = section === 'withdraw';
+    this.roireport = section === 'roireport';
+    this.binary = section === 'binary';
+    this.secure = section === 'secure';
+    this.nonsecure = section === 'nonsecure';
   }
 
   ngOnInit() {

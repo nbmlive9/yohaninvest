@@ -37,39 +37,9 @@
 
 
 
-    <h4>Power ID Generate</h4>
+    <h4>Search User</h4>
     <div class="card p-3">
-           <form [formGroup]="form" (ngSubmit)="Active()">
-            <div class="row g-3">
-          
-              <!-- Full Name -->
-              <div class="col-sm-6">
-                <label class="form-label">User Id</label>
-                <div class="input-wrapper">
-                  <input type="text" formControlName="regid" placeholder="Enter Userid" class="form-control" (keyup)="onRegIdKeyup()" />
-                       <div *ngIf="idData" class="text-success small">Name: {{ idData.name }}</div>
-                </div>
-                <div *ngIf="form.get('regid')?.touched && form.get('regid')?.invalid" class="text-danger small">
-                  User Id is required
-                </div>
-              </div>
-          
-              <!-- Password -->
-              <div class="col-sm-6">
-                <label class="form-label">Points</label>
-                <div class="input-wrapper">
-                  <input type="number" formControlName="points" placeholder="Enter points" class="form-control" />
-                </div>
-                <div *ngIf="form.get('points')?.touched && form.get('points')?.invalid" class="text-danger small">
-                  <span *ngIf="form.get('points')?.errors?.['required']">points is required</span>
-                </div>
-              </div>
-          
-          
-            </div>
-          
-            <button type="submit" class="btn btn-success w-25 mt-3 rounded-pill">Active</button>
-          </form>
+           <app-search-users-data></app-search-users-data>
     </div>
    
     <!-- <h4 class="mb-3 fw-bold">💸 Withdraw Users</h4> -->
@@ -110,6 +80,43 @@
     <!-- <ng-template #noData>
       <p class="text-muted">No withdraw requests available.</p>
     </ng-template> -->
+
+    <h4>Total Data</h4>
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-md-12">
+              <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
+                <button class="btn btn-outline-primary m-1" (click)="showSection('deposit')">Deposit Report</button>
+                      <button class="btn btn-outline-success m-1" (click)="showSection('secure')"> Secure Users</button>
+                       <button class="btn btn-outline-danger m-1" (click)="showSection('nonsecure')"> Non Secure Users</button>
+                  <button class="btn btn-outline-warning m-1" (click)="showSection('transfer')"> Transfer Report</button>
+                   <button class="btn btn-outline-info m-1" (click)="showSection('withdraw')"> Withdraw Report</button>
+                    <button class="btn btn-outline-primary m-1" (click)="showSection('roireport')"> ROI Report</button>
+                     <button class="btn btn-outline-success m-1" (click)="showSection('binary')"> Binary Report</button>
+              </div>
+            </div>
+            <div class="col-md-12" *ngIf="deposit">
+               <app-deposit-report></app-deposit-report>
+            </div>
+            <div class="col-md-12" *ngIf="transfer">
+                <app-funds-transfer-report></app-funds-transfer-report>
+            </div>
+            <div class="col-md-12" *ngIf="secure">
+                <app-secure-users-report></app-secure-users-report>
+            </div>
+             <div class="col-md-12" *ngIf="nonsecure">
+                <app-nonsecure-users-report></app-nonsecure-users-report>
+            </div>
+             <div class="col-md-12" *ngIf="withdraw">
+                <app-withdraw-report></app-withdraw-report>
+            </div>
+             <div class="col-md-12" *ngIf="roireport">
+                <app-roi-report-admin></app-roi-report-admin>
+            </div>
+             <div class="col-md-12" *ngIf="binary">
+                <app-binary-report></app-binary-report>
+            </div>
+    </div>
   <h4 class="mb-3 fw-bold mx-3">Total Users</h4>
 
   <div class="container-fluid mt-3">
