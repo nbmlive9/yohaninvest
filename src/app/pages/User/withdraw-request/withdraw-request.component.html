@@ -13,60 +13,93 @@
             <h4 class="text-success">Wallet: {{pfdata?.walletamount | currency:'USD':true:'1.0-2'}} </h4>
           <div class="buy-crypto-group">
             <span class="text-danger">{{errorMessage1}}</span> 
-            <form [formGroup]="form">
-              <div class="row">
-                <!-- Package Type -->
+         <form [formGroup]="form" (ngSubmit)="Withdraw()">
+  <div class="row">
+    <!-- Amount Input -->
+    <div class="col-xl-4 col-lg-6">
+      <div class="form-group">
+        <label>Amount</label>
+        <input
+          type="number"
+          formControlName="amount"
+          min="10"
+          class="form-control"
+          placeholder="Enter amount"
+          (keyup)="calculateNetAmount()"
+        />
+        <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
+          Amount is required and must be ≥ $10
+        </div>
+        <small
+          class="text-danger"
+          *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')"
+        >
+          Amount is required.
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('min')"
+        >
+          Minimum amount is 10.
+        </small>
 
-                <!-- Amount -->
-                <div class="col-xl-4 col-lg-6">
-                  <div class="form-group">
-                    <label>Amount</label>
-                    <input type="number" formControlName="amount" min="10" class="form-control"
-                      placeholder="Enter amount"  (keyup)="calculateNetAmount()"  />
-                        <div *ngIf="form.get('amount')?.invalid && form.get('amount')?.touched" class="text-danger">
-                          Amount is required and must be ≥ $10
-                        </div>
-                    <!-- Error: Required -->
-                    <small
-                      class="text-danger"
-                      *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')"
-                    >
-                      Amount is required.
-                    </small>
-                        <!-- Charges and Net Amount Display -->
-    <div *ngIf="form.value.amount && form.value.amount >= 10" class="mt-2">
-      <p class="text-danger mb-0">Charges (10%): 
-        <strong>{{ charges | currency:'USD':true:'1.0-2' }}</strong>
-      </p>
-      <p class="text-success mb-0">Net Amount: 
-        <strong>{{ netAmount | currency:'USD':true:'1.0-2' }}</strong>
+        <!-- Charges and Net Amount Display -->
+        <div *ngIf="form.value.amount && form.value.amount >= 10" class="mt-2">
+          <p class="text-danger mb-0">
+            Charges (10%):
+            <strong>{{ charges | currency:'USD':true:'1.0-2' }}</strong>
+          </p>
+          <p class="text-success mb-0">
+            Net Amount:
+            <strong>{{ netAmount | currency:'USD':true:'1.0-2' }}</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wallet Address Display -->
+    <div class="col-xl-4 col-lg-6">
+      <div class="form-group">
+        <label>Wallet Address (USDT BEP20)</label>
+        <input type="text" class="form-control" [value]="pfdata?.wallet1" readonly />
+      </div>
+    </div>
+
+    <!-- Submit Button and Wallet Missing Message -->
+    <div class="buy-crpto-btn mt-4">
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="form.invalid || !pfdata?.wallet1 || pfdata?.wallet1.trim() === ''"
+      >
+        Withdraw
+      </button>
+
+      <p class="text-danger mt-2" *ngIf="!pfdata?.wallet1 || pfdata?.wallet1.trim() === ''">
+        Please set up your USDT BEP20 wallet address in your profile to enable withdrawals.
+        <span routerLink="/profile" class="text-success" style="cursor: pointer;">Go to Profile</span>
       </p>
     </div>
-                  </div>
-                </div>
+  </div>
+</form>
 
-                  <div class="col-xl-4 col-lg-6">
-                  <div class="form-group">
-                    <label>Wallet Address (USDT BEP20)</label>
-                    <input type="text"  class="form-control" value="{{pfdata?.wallet1}}" readonly />
-                  </div>
-                </div>
+<!-- Success Modal -->
+<div
+  #successModal
+  class="modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="successModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content p-3 text-center">
+      <h5 class="modal-title" id="successModalLabel">Withdrawal Successful!</h5>
+      <p>Your withdrawal request has been submitted successfully.</p>
+    </div>
+  </div>
+</div>
 
-
-               <!-- Submit Button -->
-                <div class="buy-crpto-btn mt-4">
-                <button type="submit" class="btn btn-primary submit-btn mb-0" [disabled]="form.invalid" (click)="Withdraw()" *ngIf="pfdata?.wallet1 && pfdata?.wallet1.trim() !== ''"> Withdraw </button>
-
-                <!-- Message if wallet address is missing -->
-                <p class="text-danger mt-2" *ngIf="!pfdata?.wallet1 || pfdata?.wallet1.trim() === ''">
-                    Please set up your USDT BEP20 wallet address in your profile to enable withdrawals.
-                 <span routerLink="/profile" class="text-success" style="cursor: pointer;">Go to Profile</span>
-                  </p>
-                </div>
-
-
-              </div>
-            </form>
           </div>
 
           <!-- Recent Buying Section -->

@@ -26,6 +26,7 @@ export class ReferralRegistrationComponent {
       idData1: any;
     udata: any;
       showPassword = false;
+  errorMessage3: any;
     constructor(private fb: FormBuilder,private router:Router, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef) {
     
         this.registerForm = this.fb.group({
@@ -103,6 +104,7 @@ export class ReferralRegistrationComponent {
         }
       },
       error: (err) => {
+        this.errorMessage3='Email ID 1 Limit Exceed ...';
         this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
       }
     });

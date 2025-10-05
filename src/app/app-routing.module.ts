@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './service/auth.guard';
 import { LoginComponent } from './pages/login/login.component';
@@ -58,7 +58,7 @@ const routes: Routes = [
      { path: "treeview/:regid", component: TreeViewComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     { path: 'treeregister/:regid/:position', component: TreeRegistrationComponent, canActivate: [AuthGuard], data: { usertype: ['user'] } },
     { path: "depositfund", component: DepositFundComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
-    { path: "spinroll", component: SpinRollComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+    // { path: "spinroll", component: SpinRollComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
      { path: "cpdash", component: CpDashboardComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 

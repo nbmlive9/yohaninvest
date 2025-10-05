@@ -5,7 +5,7 @@
       <div class="content">
 
         <h5 class="text-center mb-4 fw-bold text-success">REGISTER</h5>
-          
+          <span class="text-danger">{{errorMessage3}}</span>
           <form [formGroup]="registerForm" (ngSubmit)="sign()">
             <div class="row g-3">
               <!-- Full Name -->

@@ -33,6 +33,7 @@ export class TreeRegistrationComponent {
   confirmPassword: string = '';
   showPassword = false;
   showConfirmPassword = false;
+  errorMessage3: string = '';
       constructor(private fb: FormBuilder,private router:Router, private api: UserService, private activeroute:ActivatedRoute,private toast:ToastrService) {
           this.registerForm = this.fb.group({
         name: ['', Validators.required],
@@ -142,6 +143,7 @@ export class TreeRegistrationComponent {
         }
       },
       error: (err) => {
+        this.errorMessage3='Email ID 1 Limit Exceed ...';
         this.toast.error(err?.error?.message || 'Registration failed. Please try again.', 'Error');
       }
     });

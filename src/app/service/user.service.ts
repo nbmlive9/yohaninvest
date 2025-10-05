@@ -947,6 +947,17 @@ SecureUpdate(id: string, value: {
     httpOptions
   );
 }
+// Add this method inside UserService
+
+withdrawToBlockchain(data: any) {
+  const url = 'http://209.74.79.73:3000/api/YohanPayout';
+  return this.http.post(url, data, {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  });
+}
+
 
 YohanPrice(){
   const token1 = this.token.getToken();
