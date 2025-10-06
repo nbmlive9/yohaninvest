@@ -145,7 +145,7 @@
               <td>{{ item.name }}</td>
               <td>{{ item.position }}</td>
             <td>{{item.walletamount}}</td>
-              <td (click)="openProfile(item)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <td (click)="openProfile(item)" data-bs-toggle="modal" data-bs-target="#exampleModal12">
                 <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i>
               </td>
             </tr>
@@ -170,7 +170,7 @@
     </button>
   </div>
 
-  <div class="modal fade" id="exampleModal" tabindex="-1">
+  <div class="modal fade" id="exampleModal12" tabindex="-1">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -180,6 +180,17 @@
         <div class="modal-body">
           <form [formGroup]="profileform">
             <div class="form-card" *ngIf="pffdata">
+              <h5>User details</h5>
+              <div class="row mb-3">
+                <div class="col-md-6">
+                    <label>User ID</label>
+                    <input type="text" class="form-control" [value]="pffdata.regid" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label>Password ID</label>
+                    <input type="text" class="form-control" [value]="pffdata.password" readonly>
+                  </div>
+              </div>
               <h5>Sponsor Details</h5>
               <div class="row mb-3">
                 <div class="col-md-6">
@@ -204,21 +215,17 @@
                   <input *ngIf="isEdit" type="email" class="form-control" formControlName="email">
                   <input *ngIf="!isEdit" type="email" class="form-control" [value]="pffdata.email" readonly>
                 </div>
+                <div class="col-md-6">
+                  <label>Password</label>
+                  <input *ngIf="isEdit" type="text" class="form-control" formControlName="password">
+                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.password" readonly>
+                </div>
               </div>
   
               <div class="row mb-3">
-                <div class="col-md-6">
-                  <label>Country</label>
-                  <!-- Edit mode -->
-                  <select *ngIf="isEdit" class="form-control" formControlName="country">
-                    <option value="" disabled>Select Country</option>
-                    <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-                  </select>
-                  <!-- View mode -->
-                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.country" readonly>
-                </div>
+               
   
-                <div class="col-md-6">
+                <div class="col-md-12">
                   <label>Wallet Address (USDT BEP20)</label>
                   <input *ngIf="isEdit" type="text" formControlName="wallet1" class="form-control">
                   <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.wallet1" readonly>

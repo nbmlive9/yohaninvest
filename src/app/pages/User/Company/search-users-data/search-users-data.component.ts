@@ -26,6 +26,7 @@ noData: any;
   constructor(private api:UserService, private router: Router, private fb:FormBuilder, private activeroute:ActivatedRoute) { 
     this.form = this.fb.group({
       regid: [''],
+       password: [''],
       name: [''],
       email: [''],
       country: [''],
@@ -58,7 +59,8 @@ noData: any;
     this.pffdata = item;   
 
     this.form.patchValue({
-      regid: item.regid,  // <-- Add this
+      regid: item.regid,
+      password: item.password,
       name: item.name,
       email: item.email,
       country: item.country,

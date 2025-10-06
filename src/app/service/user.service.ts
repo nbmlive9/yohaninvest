@@ -752,6 +752,7 @@ PayWithdraw(id:any){
 
 cupdateprofile(id: string, value: {
   regid: string;
+   password: string;
   name: string;
   email: string;
   country: string;
@@ -769,6 +770,7 @@ cupdateprofile(id: string, value: {
     `${AUTH_API}Userprofile_Update/${id}`,  
     {
       regid: value.regid,
+      password:value.password,
       name: value.name,
       email: value.email,
       country: value.country,

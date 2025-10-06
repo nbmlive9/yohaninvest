@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/service/user.service';
 declare var bootstrap: any;
@@ -27,7 +27,8 @@ export class ReferralRegistrationComponent {
     udata: any;
       showPassword = false;
   errorMessage3: any;
-    constructor(private fb: FormBuilder,private router:Router, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef) {
+  id: any;
+    constructor(private fb: FormBuilder,private router:Router, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef, private activeroute:ActivatedRoute) {
     
         this.registerForm = this.fb.group({
           name: ['', [Validators.required, Validators.minLength(3)]],
@@ -54,8 +55,10 @@ export class ReferralRegistrationComponent {
       }
   
     ngOnInit(): void {
+        this.id = this.activeroute.snapshot.params['regid'];
       // this.getCountries();
-      this.getProfileData();
+      // this.getProfileData();
+      this.GetregistredData();
   
       this.registerForm.get('country')?.valueChanges.subscribe((selectedCountry: string) => {
         const selected = this.codes.find(
@@ -112,16 +115,16 @@ export class ReferralRegistrationComponent {
   
   
   
-    getProfileData() {
-      this.api.UProfile().subscribe((res: any) => {
-        this.pffdata = res.data[0];
-      });
-    }
+    // getProfileData() {
+    //   this.api.UProfile().subscribe((res: any) => {
+    //     this.pffdata = res.data[0];
+    //   });
+    // }
     // sadasdasdasds
   // lll
-    GetregistredData(id: any) {
+    GetregistredData() {
       this.errorMessage = null;
-      this.api.GetusersDataByRegID(id).subscribe({
+      this.api.GetusersDataByRegID(this.id).subscribe({
         next: (res: any) => {
           if (res?.data?.length > 0) {
             this.idData = res.data[0];
@@ -138,15 +141,7 @@ export class ReferralRegistrationComponent {
       });
     }
   
-    onRegIdKeyup() {
-      const regid = this.registerForm.get('sponcerid')?.value;
-      if (regid && regid.length >= 4) {
-        this.GetregistredData(regid);
-      } else {
-        this.idData = null;
-        this.errorMessage = null;
-      }
-    }
+ 
   
     GetregistredData1(id: any) {
       this.errorMessage1 = null;

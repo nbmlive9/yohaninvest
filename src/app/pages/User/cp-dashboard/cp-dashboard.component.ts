@@ -41,7 +41,8 @@ export class CpDashboardComponent {
 
   constructor(private api: UserService, private fb: FormBuilder, private toast: ToastrService,private router:Router) {
     this.profileform = this.fb.group({
-      regid: [''],   // <-- Add this
+      regid: [''], 
+         password: [''],
       name: [''],
       email: [''],
       country: [''],
@@ -217,7 +218,8 @@ copyToClipboard(walletAddress: string) {
     this.pffdata = item;   
 
     this.profileform.patchValue({
-      regid: item.regid,  // <-- Add this
+      regid: item.regid,
+       password: item.password,
       name: item.name,
       email: item.email,
       country: item.country,
