@@ -13,6 +13,16 @@ export class DashbaordComponent {
     showShareIcons = false;
   dpdata: any;
   totalSpinAmount: number = 0;
+  public selectedPosition: string = 'left'; 
+
+setPosition(pos: string) {
+  this.selectedPosition = pos;
+}
+  public selectedPosition1: string = 'right'; 
+
+setPosition1(pos: string) {
+  this.selectedPosition1 = pos;
+}
   constructor(private api:UserService){}
 
   ngOnInit(){
@@ -47,7 +57,7 @@ export class DashbaordComponent {
     this.loading = true; // start loading
     this.api.UDashboardData().subscribe(
       (res: any) => {
-        // console.log('Dashboard Data:', res);
+        console.log('Dashboard Data:', res);
         this.data1 = res.data;
         this.pfdata = res.data.profiledata;
         this.loading = false; // stop loading

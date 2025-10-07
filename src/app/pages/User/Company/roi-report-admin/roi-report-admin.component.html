@@ -10,6 +10,7 @@
               <th>Amount</th>
               <th>Type</th>
               <th>Balance</th>
+              <th>Received</th>
               <th>ROI %</th>
             </tr>
           </thead>
@@ -22,6 +23,7 @@
               <td>{{ item.pkamount | currency:'USD':true:'1.0-2'}}</td>
               <td>{{ item.prtype }}</td>
               <td>{{ item.balamount | currency:'USD':true:'1.0-2' }}</td>
+              <td>{{ item.cramount | currency:'USD':true:'1.0-2' }}</td>
                <td>{{ item.dper }}</td>
             </tr>
           </tbody>

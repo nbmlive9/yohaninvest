@@ -417,7 +417,7 @@ AddSupport(value: {
     })
   };
   return this.http.post(
-    AUTH_API + 'Add_Supporttoken',
+    AUTH_API + 'Add_Query',
     { "query":value.query,
     "subject":value.subject,   
    },
@@ -434,7 +434,7 @@ GetSupportTickets(){
     })
   }
   return this.http.get(
-    AUTH_API + 'User_Supporttokens',
+    AUTH_API + 'User_querydata',
     httpOptions
   );
 }
@@ -974,6 +974,7 @@ YohanPrice(){
     httpOptions
   );   
 }
+
 
 
 }

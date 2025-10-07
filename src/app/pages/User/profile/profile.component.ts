@@ -20,7 +20,15 @@ export class ProfileComponent {
   currentTab: 'profile' | 'password' = 'profile';
   isEdit: boolean = false;
   showOtpForm: boolean = false;
+showPassword = false;
 
+togglePassword() {
+  this.showPassword = !this.showPassword;
+}
+
+maskPassword(pwd: string): string {
+  return pwd ? '*'.repeat(pwd.length) : '';
+}
   constructor(
     private api: UserService,
     private fb: FormBuilder,

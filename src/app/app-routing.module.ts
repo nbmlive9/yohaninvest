@@ -28,6 +28,7 @@ import { SpinRollComponent } from './pages/User/spin-roll/spin-roll.component';
 import { CpDashboardComponent } from './pages/User/cp-dashboard/cp-dashboard.component';
 import { OtherActivationComponent } from './pages/User/other-activation/other-activation.component';
 import { SponsorIncomeComponent } from './pages/User/sponsor-income/sponsor-income.component';
+import { SupportComponent } from './pages/User/support/support.component';
 
 const routes: Routes = [
   {path:"auth-login",component:LoginComponent },
@@ -60,6 +61,7 @@ const routes: Routes = [
     { path: "depositfund", component: DepositFundComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
     // { path: "spinroll", component: SpinRollComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
      { path: "cpdash", component: CpDashboardComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
+       { path: "support", component: SupportComponent, canActivate: [AuthGuard], data: { roles: ['user'] } },
   // {path:"activation/:regid",component:UserActivation, canActivate: [AuthGuard], data: { roles: ['user'] } },
 
 ];

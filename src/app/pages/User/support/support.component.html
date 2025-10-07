@@ -1,0 +1,143 @@
+<div class="main-wrapper">
+  <app-menu></app-menu>
+
+  <div class="page-wrapper bg-wrapper">
+    <div class="content">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="sell-buy-list">
+            <ul>
+              <li class="active">Create Ticket</li>
+            </ul>
+          </div>
+
+          <div class="buy-crypto-group">
+            <form [formGroup]="form">
+              <div class="row">
+                <!-- Package Type -->
+                <div class="col-xl-4 col-lg-6">
+                  <div class="form-group bg-hover col-md-12">
+                    <label>Select Subject *</label>
+                    <select class="form-control select" formControlName="query">
+                      <option value="" disabled>Select Query</option>
+                      <option value="Desposit">Deposit</option>
+                      <option value="Withdraw">Withdraw</option>
+                      <option value="Profile">Profile</option>
+                      <option value="Wallet">Wallet</option>
+                      <option value="Others">Others</option>
+                    </select>
+                    <small
+                      class="text-danger"
+                      *ngIf="form.controls['query'].touched && form.controls['query'].hasError('required')"
+                    >
+                      Select Subject is required.
+                    </small>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-6">
+                  <div class="form-group">
+                    <label>Message *</label>
+                    <input type="text" formControlName="subject"  class="form-control"
+                      placeholder="Enter Messgae" />
+                    <!-- Error: Required -->
+                    <small
+                      class="text-danger"
+                      *ngIf="form.controls['subject'].touched && form.controls['subject'].hasError('required')"
+                    >
+                      Message is required.
+                    </small>
+                  </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="buy-crpto-btn mt-4">
+                  <button type="submit" class="btn btn-primary submit-btn mb-0" *ngIf="form.valid" (click)="support()">Submit</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+
+          <!-- Recent Buying Section -->
+          <div class="recent-buy comman-head">
+            <h3>Recent Tickets</h3>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="buy-form-crypto mb-0">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                           <th>Date</th>
+                          <th>Subject</th>
+                          <th>Message</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of adata; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                          <td>{{row.query}}</td>
+                          <td class="pay-clr">{{row.subject}}</td>
+                          <td>
+                            <span class="custom-status active-green" *ngIf="row.status==='1'">
+                              <span class="live-dark me-1"></span>Completed
+                            </span>
+                                <span class="custom-status active-red" *ngIf="row.status==='0'">
+                              <span class="live-dark me-1"></span>Pending
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Recent Buying -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div
+  class="modal fade"
+  #successModal
+  tabindex="-1"
+  aria-labelledby="successModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="successModalLabel">Ticket Created Successful</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body text-center">
+        <i class="bi bi-check-circle-fill text-success fs-1 mb-3"></i>
+        <h5>Ticket has been Created successfully!</h5>
+        <p class="text-muted">Shortly our team repond to your ticket... </p>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

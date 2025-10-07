@@ -56,6 +56,7 @@ import { SponsorReportAdminComponent } from './pages/User/Company/sponsor-report
 import { SecureUsersReportComponent } from './pages/User/Company/secure-users-report/secure-users-report.component';
 import { NonsecureUsersReportComponent } from './pages/User/Company/nonsecure-users-report/nonsecure-users-report.component';
 import { SearchUsersDataComponent } from './pages/User/Company/search-users-data/search-users-data.component';
+import { SupportComponent } from './pages/User/support/support.component';
 
 
 
@@ -99,7 +100,8 @@ import { SearchUsersDataComponent } from './pages/User/Company/search-users-data
     SponsorReportAdminComponent,
     SecureUsersReportComponent,
     NonsecureUsersReportComponent,
-    SearchUsersDataComponent
+    SearchUsersDataComponent,
+    SupportComponent
   ],
   imports: [
     BrowserModule,

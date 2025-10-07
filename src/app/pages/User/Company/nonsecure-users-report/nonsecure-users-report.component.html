@@ -9,6 +9,7 @@
               <th>Name</th>
               <th>Amount</th>
               <th>Balance</th>
+              <th>Received</th>
             </tr>
           </thead>
           <tbody>
@@ -18,7 +19,8 @@
               <td>{{ item.regid }}</td>
               <td>{{ item.name }}</td>
               <td>{{ item.pkamount | currency:'USD':true:'1.0-2' }}</td>
-            <td>{{item.balamount | currency:'USD':true:'1.0-2'}}</td>
+              <td>{{item.balamount | currency:'USD':true:'1.0-2'}}</td>
+              <td>{{item.cramount | currency:'USD':true:'1.0-2'}}</td>
             </tr>
           </tbody>
         

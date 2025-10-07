@@ -24,6 +24,14 @@
                 <h3 class="user-name">{{ pfdata?.name }}</h3>
                 <small class="text-muted">{{ pfdata?.cdate | date:'dd/MMM/yyyy' }}</small>
                 <div class="staff-id">User ID : {{ pfdata?.regid }}</div>
+               <div class="staff-id">
+  Password :
+  <span (click)="togglePassword()" style="cursor:pointer;">
+    {{ showPassword ? pfdata?.password : maskPassword(pfdata?.password) }}
+    <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'" style="margin-left:5px;"></i>
+  </span>
+</div>
+
                 <button class="btn btn-primary btn-rounded mt-2" (click)="edit()" data-bs-toggle="modal"
                   data-bs-target="#editModal">
                   <i class="fas fa-edit"></i> Edit Profile

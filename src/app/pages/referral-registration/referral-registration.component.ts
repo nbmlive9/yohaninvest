@@ -28,6 +28,7 @@ export class ReferralRegistrationComponent {
       showPassword = false;
   errorMessage3: any;
   id: any;
+  position: any;
     constructor(private fb: FormBuilder,private router:Router, private api: UserService,private toast:ToastrService,private cdRef: ChangeDetectorRef, private activeroute:ActivatedRoute) {
     
         this.registerForm = this.fb.group({
@@ -56,6 +57,9 @@ export class ReferralRegistrationComponent {
   
     ngOnInit(): void {
         this.id = this.activeroute.snapshot.params['regid'];
+         this.activeroute.queryParams.subscribe(params => {
+    this.position = params['position'] || ''; // Read from query params
+  });
       // this.getCountries();
       // this.getProfileData();
       this.GetregistredData();

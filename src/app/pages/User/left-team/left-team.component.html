@@ -18,6 +18,7 @@
                           <th>S.No</th>
                           <th>Date</th>
                           <th>Userid</th>
+                          <th>Name</th>
                           <th>Status</th>
                         </tr>
                       </thead>
@@ -26,6 +27,7 @@
                           <td>{{i+1}}</td>
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
                           <td class="pay-clr">{{row.forid}}</td>
+                           <td class="pay-clr">{{row.fname}}</td>
                           <td>
                             <span class="custom-status active-green" *ngIf="row.board=='2'">
                               <span class="live-dark me-1"></span>Active
