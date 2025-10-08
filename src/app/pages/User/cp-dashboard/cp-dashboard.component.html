@@ -21,11 +21,11 @@
               </tr>
             <tbody>
               <tr>
-                <td>{{ dydata.roi | currency:'USD':true:'1.0-2' }}</td>
-                <td>{{ dydata.sponcer | currency:'USD':true:'1.0-2' }}</td>
-                <td>ROI: {{dydata.lastroi | currency:'USD':true:'1.0-2'}} <br> Sponsor: {{ dydata.   lastsponcer | currency:'USD':true:'1.0-2' }}</td>
-                <td>ROI: {{dydata.roidate}} <br> Sponsor: {{ dydata.sponcerdate }}</td>
-                  <td>{{dydata.coinvalue}}</td>
+                <td>{{ dydata?.roi | currency:'USD':true:'1.0-2' }}</td>
+                <td>{{ dydata?.sponcer | currency:'USD':true:'1.0-2' }}</td>
+                <td>ROI: {{dydata?.lastroi | currency:'USD':true:'1.0-2'}} <br> Sponsor: {{ dydata?.   lastsponcer | currency:'USD':true:'1.0-2' }}</td>
+                <td>ROI: {{dydata?.roidate}} <br> Sponsor: {{ dydata?.sponcerdate }}</td>
+                  <td>{{dydata?.coinvalue}}</td>
                 <td (click)="UpdateDynamicdata()" data-bs-toggle="modal" data-bs-target="#dynamicupdate">
                 <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i>
                 </td>
@@ -88,6 +88,8 @@
         <div class="row">
             <div class="col-md-12">
               <div class="text-center mb-3 d-flex flex-wrap justify-content-center">
+                     <button class="btn btn-outline-danger m-1" (click)="showSection('ticket')">Support Tickets</button>
+                  <button class="btn btn-outline-danger m-1" (click)="showSection('totalusers')">Total Users</button>
                 <button class="btn btn-outline-primary m-1" (click)="showSection('deposit')">Deposit Report</button>
                       <button class="btn btn-outline-success m-1" (click)="showSection('secure')"> Secure Users</button>
                        <button class="btn btn-outline-danger m-1" (click)="showSection('nonsecure')"> Non Secure Users</button>
@@ -96,6 +98,9 @@
                     <button class="btn btn-outline-primary m-1" (click)="showSection('roireport')"> ROI Report</button>
                      <button class="btn btn-outline-success m-1" (click)="showSection('binary')"> Binary Report</button>
               </div>
+            </div>
+              <div class="col-md-12" *ngIf="ticket">
+                 <app-admin-support></app-admin-support>
             </div>
             <div class="col-md-12" *ngIf="deposit">
                <app-deposit-report></app-deposit-report>
@@ -118,130 +123,11 @@
              <div class="col-md-12" *ngIf="binary">
                 <app-binary-report></app-binary-report>
             </div>
-    </div>
-  <h4 class="mb-3 fw-bold mx-3">Total Users</h4>
 
-  <div class="container-fluid mt-3">
-    <div class="transaction-table">
-      <div class="table-responsive">
-        <table class="table align-middle text-nowrap">
-          <thead>
-            <tr>
-              <th>S.no</th>
-              <th>Date</th>
-              <th>Registration ID</th>
-              <th>Name</th>
-              <th>Position</th>
-              <th>wallet</th>
-
-              <th>Edit</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of tuser?.data; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ item.cdate }}</td>
-              <td>{{ item.regid }}</td>
-              <td>{{ item.name }}</td>
-              <td>{{ item.position }}</td>
-            <td>{{item.walletamount}}</td>
-              <td (click)="openProfile(item)" data-bs-toggle="modal" data-bs-target="#exampleModal12">
-                <i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #0C227D;"></i>
-              </td>
-            </tr>
-          </tbody>
-        
-          
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="d-flex justify-content-between mt-3">
-    <button class="btn btn-primary"
-            [disabled]="!tuser?.previouspage"
-            (click)="loadPage(tuser.previouspage)">
-      Previous
-    </button>
-  
-    <button class="btn btn-primary"
-            [disabled]="!tuser?.nextpage"
-            (click)="loadPage(tuser.nextpage)">
-      Next
-    </button>
-  </div>
-
-  <div class="modal fade" id="exampleModal12" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Profile Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="profileform">
-            <div class="form-card" *ngIf="pffdata">
-              <h5>User details</h5>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                    <label>User ID</label>
-                    <input type="text" class="form-control" [value]="pffdata.regid" readonly>
-                  </div>
-                  <div class="col-md-6">
-                    <label>Password ID</label>
-                    <input type="text" class="form-control" [value]="pffdata.password" readonly>
-                  </div>
-              </div>
-              <h5>Sponsor Details</h5>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label>Sponsor ID</label>
-                  <input type="text" class="form-control" [value]="pffdata.refid" readonly>
-                </div>
-                <div class="col-md-6">
-                  <label>Sponsor Name</label>
-                  <input type="text" class="form-control" [value]="pffdata.name" readonly>
-                </div>
-              </div>
-  
-              <h5 class="mt-4">Basic Details</h5>
-              <div class="row mb-3">
-                <div class="col-md-6">
-                  <label>Name</label>
-                  <input *ngIf="isEdit" type="text" class="form-control" formControlName="name">
-                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.name" readonly>
-                </div>
-                <div class="col-md-6">
-                  <label>Email</label>
-                  <input *ngIf="isEdit" type="email" class="form-control" formControlName="email">
-                  <input *ngIf="!isEdit" type="email" class="form-control" [value]="pffdata.email" readonly>
-                </div>
-                <div class="col-md-6">
-                  <label>Password</label>
-                  <input *ngIf="isEdit" type="text" class="form-control" formControlName="password">
-                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.password" readonly>
-                </div>
-              </div>
-  
-              <div class="row mb-3">
-               
-  
-                <div class="col-md-12">
-                  <label>Wallet Address (USDT BEP20)</label>
-                  <input *ngIf="isEdit" type="text" formControlName="wallet1" class="form-control">
-                  <input *ngIf="!isEdit" type="text" class="form-control" [value]="pffdata.wallet1" readonly>
-                </div>
-              </div>
-              <div class="text-end">
-                <button class="btn btn-danger me-2" type="button" (click)="edit()" *ngIf="!isEdit">Edit</button>
-                <button class="btn btn-success me-2" type="button"  data-bs-dismiss="modal"  (click)="save()" 
-                        [disabled]="!profileform.valid || !profileform.dirty" *ngIf="isEdit">Save</button>
-              </div>
+            <div class="col-md-12" *ngIf="totalusers">
+                <app-total-users-list></app-total-users-list>
             </div>
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
 
   <div class="modal fade" id="dynamicupdate" tabindex="-1">
     <div class="modal-dialog modal-xl">

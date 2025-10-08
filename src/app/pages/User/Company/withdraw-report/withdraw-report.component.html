@@ -12,8 +12,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let row of data1; let i = index">
-              <td>{{i+1}}</td>
+            <tr *ngFor="let row of pagedData; let i = index">
+             <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
                 <td>{{row.cdate | date:'dd/MMM/yyyy'}}</td>
                 <td>{{row.regid}}</td>
                 <td>{{row.amount | currency:'USD':true:'1.0-2'}}</td>

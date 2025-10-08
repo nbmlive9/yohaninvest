@@ -26,7 +26,7 @@
                     <span class="badge bg-warning text-dark fs-6">
                       {{ pfdata?.walletamount | currency:'USD':true:'1.0-2' }}
                     </span> <br>
-                    Balance Business: {{ pfdata?.packageamount *  pfdata?.packper - pfdata?.walletamount | currency:'USD':true:'1.0-2'}}
+                    Balance Business: {{ pfdata?.balance | currency:'USD':true:'1.0-2'}}
                   </h5>
                 </div>
               </div>

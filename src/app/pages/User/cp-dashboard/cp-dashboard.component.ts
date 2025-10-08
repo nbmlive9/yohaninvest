@@ -14,13 +14,8 @@ export class CpDashboardComponent {
  @ViewChild('successModal') successModal!: ElementRef;
    dashboardData: any = {};
   withdrawUsersData: any = [];
-  tuser: any;
-  profileform: FormGroup;
-  pffdata: any;
-  isEdit: boolean = false;
   countries: string[] = [];
   codes: string[] = [];
-  userid:any;
   totalmembers:any;
   form:FormGroup;
     errorMessage: any;
@@ -37,17 +32,10 @@ export class CpDashboardComponent {
   secure: boolean= false;
   binary: boolean= false;
   nonsecure: boolean= false;
- 
-
+ totalusers:boolean=false;
+ ticket:boolean=true;
   constructor(private api: UserService, private fb: FormBuilder, private toast: ToastrService,private router:Router) {
-    this.profileform = this.fb.group({
-      regid: [''], 
-         password: [''],
-      name: [''],
-      email: [''],
-      country: [''],
-      wallet1: ['']
-    });
+
 
     this.form = this.fb.group({
       regid: ['', Validators.required],   // <-- Add this
@@ -70,13 +58,14 @@ export class CpDashboardComponent {
     this.binary = section === 'binary';
     this.secure = section === 'secure';
     this.nonsecure = section === 'nonsecure';
+    this.totalusers = section === 'totalusers';
+    this.ticket = section === 'ticket';
   }
 
   ngOnInit() {
     this.getDashboard();
     this.getWithdrawUsers();
-    this.getWithdrawPaid();
-    this.Totalusers();  
+    this.getWithdrawPaid(); 
     this.getCountries();
     this.TotalMembers();
     this.getdynamicdata();
@@ -149,37 +138,7 @@ copyToClipboard(walletAddress: string) {
   });
 }
 
-  Totalusers(page: number = 1) {
-    this.api.totalusers(page).subscribe({
-      next: (res: any) => {
-        this.tuser = {
-          data: res.data.data,                // 👈 the actual array
-          nextpage: res.data.nextpage,        // 👈 URL string
-          previouspage: res.data.previouspage // 👈 URL string or null
-        };
-        // console.log("tuser:", this.tuser);
-      },
-      error: (err) => console.error('Total Users API error:', err),
-    });
-  }
-  
-  getPageNumber(url: string): number | null {
-    if (!url) return null;
-    try {
-      const params = new URL(url).searchParams;
-      return Number(params.get("page"));
-    } catch (e) {
-      console.error("Invalid URL:", url);
-      return null;
-    }
-  }
-  
-  loadPage(url: string) {
-    const page = this.getPageNumber(url);
-    if (page) {
-      this.Totalusers(page);
-    }
-  }
+ 
   
 
   UpdateDynamicdata() {
@@ -210,53 +169,7 @@ copyToClipboard(walletAddress: string) {
       });
     }
 
-  openProfile(item: any) {
-    // console.log("item:",item.regid);
-    this.userid=item.regid
-    
-    this.isEdit = false;   
-    this.pffdata = item;   
-
-    this.profileform.patchValue({
-      regid: item.regid,
-       password: item.password,
-      name: item.name,
-      email: item.email,
-      country: item.country,
-      wallet1: item.wallet1
-    });
-    
-    this.profileform.markAsPristine();
-  }
-
-  edit() {
-    this.isEdit = true;
-  }
   
-  save() {
-    const payload = this.profileform.value;
-    const id = this.userid;   
-  
-    this.api.cupdateprofile(id, payload).subscribe({
-      next: (res: any) => {
-        // console.log("updateprofile:", res);
-        if (res.status === 1) {
-          this.toast.success("Profile updated successfully");
-            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-            this.router.navigate(['/cpdash']);
-          });
-          this.pffdata = { ...this.pffdata, ...payload };  
-          this.isEdit = false;  
-        } else {
-          this.toast.error("Update failed");
-        }
-      },
-      error: (err) => {
-        console.error("updateprofile error:", err);
-        this.toast.error("Error updating profile");
-      }
-    });
-  }
 
   Active(): void {
       if (this.form.invalid) {

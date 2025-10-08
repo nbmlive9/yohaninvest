@@ -8,18 +8,35 @@
               <th>User ID</th>
               <th>Name</th>
               <th>Amount</th>
+               <th>Received</th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let item of data1; let i = index">
-              <td>{{ i + 1 }}</td>
+            <tr *ngFor="let item of pagedData; let i = index">
+              <td>{{ (currentPage - 1) * pageSize + i + 1 }}</td>
               <td>{{ item.cdate }}</td>
               <td>{{ item.regid }}</td>
               <td>{{ item.name }}</td>
-              <td>{{ item.amount | currency:'USD':true:'1.0-2' }}</td>
+              <td>{{ item.samount | currency:'USD':true:'1.0-2' }}</td>
+              <td>{{ item.cramount | currency:'USD':true:'1.0-2' }}</td>
             </tr>
           </tbody>
         
           
         </table>
       </div>
+
+      <nav>
+  <ul class="pagination justify-content-center">
+    <li class="page-item" [class.disabled]="currentPage === 1">
+      <a class="page-link" (click)="gotoPage(currentPage - 1)">Previous</a>
+    </li>
+    <li class="page-item" *ngFor="let page of [].constructor(totalPages); let idx = index"
+        [class.active]="currentPage === idx + 1">
+      <a class="page-link"  (click)="gotoPage(idx + 1)">{{ idx + 1 }}</a>
+    </li>
+    <li class="page-item" [class.disabled]="currentPage === totalPages">
+      <a class="page-link" (click)="gotoPage(currentPage + 1)">Next</a>
+    </li>
+  </ul>
+</nav>

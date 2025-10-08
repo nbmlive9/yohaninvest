@@ -439,6 +439,54 @@ GetSupportTickets(){
   );
 }
 
+PendingTickets(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Pending_queries',
+    httpOptions
+  );
+}
+
+UpdateTicket(id: string, value: {
+  reply: string;
+}) {
+  const token = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {})
+    }),
+  };
+
+  return this.http.put(
+    `${AUTH_API}Query_update/${id}`,  
+    {
+      reply: value.reply,
+    },
+    httpOptions
+  );
+}
+
+CompletedTickets(){
+  const token1 = this.token.getToken();
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token1
+    })
+  }
+  return this.http.get(
+    AUTH_API + 'Completed_queries',
+    httpOptions
+  );
+}
+
  forgotPassword(value: { regid: string; email: string }): Observable<any> {
   return this.http.post(AUTH_API + 'Forget_password', {
     regid: value.regid,

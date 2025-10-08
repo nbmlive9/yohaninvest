@@ -57,6 +57,8 @@ import { SecureUsersReportComponent } from './pages/User/Company/secure-users-re
 import { NonsecureUsersReportComponent } from './pages/User/Company/nonsecure-users-report/nonsecure-users-report.component';
 import { SearchUsersDataComponent } from './pages/User/Company/search-users-data/search-users-data.component';
 import { SupportComponent } from './pages/User/support/support.component';
+import { TotalUsersListComponent } from './pages/User/Company/total-users-list/total-users-list.component';
+import { AdminSupportComponent } from './pages/User/Company/admin-support/admin-support.component';
 
 
 
@@ -101,7 +103,9 @@ import { SupportComponent } from './pages/User/support/support.component';
     SecureUsersReportComponent,
     NonsecureUsersReportComponent,
     SearchUsersDataComponent,
-    SupportComponent
+    SupportComponent,
+    TotalUsersListComponent,
+    AdminSupportComponent
   ],
   imports: [
     BrowserModule,

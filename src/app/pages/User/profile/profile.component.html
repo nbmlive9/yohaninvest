@@ -79,7 +79,17 @@
           <input type="text" class="form-control mb-2" placeholder="Full Name" formControlName="name" />
           <input type="email" class="form-control mb-2" placeholder="Email Address" formControlName="email" />
           <input type="text" class="form-control mb-2" placeholder="BNB Wallet Address" formControlName="wallet1" />
-          <input type="password" class="form-control mb-2" placeholder="Password" formControlName="password" />
+    <div class="position-relative">
+  <input [type]="showPassword ? 'text' : 'password'"
+         class="form-control mb-2"
+         placeholder="Password"
+         formControlName="password" />
+  <i class="fa"
+     [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+     (click)="showPassword = !showPassword"
+     style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer;"></i>
+</div>
+
 
           <!-- OTP Form -->
       <!-- OTP Verification Section -->
