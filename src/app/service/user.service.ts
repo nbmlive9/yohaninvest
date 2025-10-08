@@ -997,6 +997,7 @@ SecureUpdate(id: string, value: {
     httpOptions
   );
 }
+
 // Add this method inside UserService
 
 withdrawToBlockchain(data: any) {
