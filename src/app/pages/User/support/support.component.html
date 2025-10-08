@@ -73,6 +73,7 @@
                            <th>Date</th>
                           <th>Subject</th>
                           <th>Message</th>
+                          <th>Reply</th>
                           <th>Status</th>
                         </tr>
                       </thead>
@@ -82,6 +83,8 @@
                           <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
                           <td>{{row.query}}</td>
                           <td class="pay-clr">{{row.subject}}</td>
+                           <td class="pay-clr">{{row.reply}} <br>
+                           <small class="text-success fs-15">{{row.rdate | date:'dd/MMM/YYYY'}}</small> </td>
                           <td>
                             <span class="custom-status active-green" *ngIf="row.status==='1'">
                               <span class="live-dark me-1"></span>Completed
