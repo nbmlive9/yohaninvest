@@ -86,13 +86,32 @@ closeModal() {
 // Handle form submission
 submitReplay() {
   if (this.form.valid && this.selectedTicket) {
-    const replyContent = this.form.get('replay')?.value;
+    const replyContent = this.form.get('reply')?.value;
     const val = { reply: replyContent };
-    this.api.UpdateTicket(this.selectedTicket.id, val).subscribe(res => {
-      // Handle success like closing modal, showing message, etc.
-      this.form.reset();
-      // Other logic...
-       this.reloadPage();
+
+    this.api.UpdateTicket(this.selectedTicket.id, val).subscribe({
+      next: (res) => {
+        // Close modal cleanly
+        if (this.modalRef) {
+          this.modalRef.hide();
+          this.modalRef.dispose();
+        }
+
+        // Remove backdrop manually
+        document.body.classList.remove('modal-open');
+        document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+
+        // Reset form
+        this.form.reset();
+
+        // Reload page after small delay for smooth transition
+        setTimeout(() => {
+          this.reloadPage();
+        }, 500);
+      },
+      error: (err) => {
+        console.error('Error updating ticket:', err);
+      }
     });
   }
 }
@@ -103,33 +122,5 @@ reloadPage() {
   });
 }
 
-  // replay(id:any){
-  //   console.log(this.form.value);
-  //   if (this.form.valid) {
-  //     const val = {
-  //       reply: this.form.value.reply,
-  //     };
-  //     this.api.UpdateTicket(id,val).subscribe(
-  //       a => {
-  //         if (a) {
-  //           console.log(a);
-  //              this.form.reset();
-              
-  //             setTimeout(() => {
-  //              this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-  //                this.router.navigate(['/cpdash']);
-  //              });
-  //            }, 1000);
-  //         } else {
-  //           console.log(a);
-          
-  //         }
-  //       },
-  //       (err: any) => {
-         
-  //       },
-  //     );
-  //   }
-  // }
 
 }
