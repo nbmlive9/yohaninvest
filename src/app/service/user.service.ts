@@ -1000,13 +1000,31 @@ SecureUpdate(id: string, value: {
 
 // Add this method inside UserService
 
-withdrawToBlockchain(data: any) {
-  const url = 'http://209.74.79.73:3000/api/YohanPayout';
-  return this.http.post(url, data, {
+withdrawToBlockchain(value: {
+  recipient: string;
+  amount:number;
+  flag:number;
+}) {
+
+  const token = this.token.getToken();
+  const httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  });
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` })
+    }),
+  };
+
+  return this.http.post(
+    AUTH_API + 'Yohanpayout', 
+
+   {
+    recipient:value.recipient,
+        amount: value.amount,
+        flag:value.flag,
+      },
+    httpOptions
+  );
+
 }
 
 
