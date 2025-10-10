@@ -126,17 +126,32 @@ export class WithdrawRequestComponent implements OnInit {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/withdraw']);
             });
-          }, 3000);
+          }, 1000);
         } else if (res.error && res.error.toLowerCase().includes('approval')) {
           // Example: backend returns error message about admin approval
+              setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/withdraw']);
+            });
+          }, 1000);
           this.toastr.warning('Your withdrawal request is pending admin approval.', 'Pending Approval');
         } else {
+              setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/withdraw']);
+            });
+          }, 3000);
           this.toastr.error(res.error || 'Withdraw failed.', 'Error');
         }
       },
       error: (err) => {
         console.error('Withdraw Error:', err);
         this.errorMessage1 = 'Insufficient Funds or Server Error';
+            setTimeout(() => {
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/withdraw']);
+            });
+          }, 3000);
         this.toastr.error(this.errorMessage1, 'Error');
       }
     });
