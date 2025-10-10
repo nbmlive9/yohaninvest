@@ -133,7 +133,7 @@ export class WithdrawRequestComponent implements OnInit {
             this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
               this.router.navigate(['/withdraw']);
             });
-          }, 1000);
+          }, 3000);
           this.toastr.warning('Your withdrawal request is pending admin approval.', 'Pending Approval');
         } else {
               setTimeout(() => {
