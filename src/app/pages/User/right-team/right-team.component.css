@@ -1,0 +1,20 @@
+.table {
+  font-size: 14px;
+}
+
+select.form-select {
+  padding: 2px 8px;
+  height: auto;
+  font-size: 14px;
+}
+
+button.btn-sm {
+  min-width: 32px;
+}
+
+.pagination-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+

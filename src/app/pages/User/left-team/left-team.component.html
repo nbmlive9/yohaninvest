@@ -3,51 +3,117 @@
 
   <div class="page-wrapper bg-wrapper">
     <div class="content">
-      <div class="row">
-        
-          <!-- Recent Buying Section -->
-          <div class="recent-buy comman-head">
-            <h3>Left Team</h3>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="buy-form-crypto mb-0">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>S.No</th>
-                          <th>Date</th>
-                          <th>Userid</th>
-                          <th>Name</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let row of data1; let i=index">
-                          <td>{{i+1}}</td>
-                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
-                          <td class="pay-clr">{{row.forid}}</td>
-                           <td class="pay-clr">{{row.fname}}</td>
-                          <td>
-                            <span class="custom-status active-green" *ngIf="row.board=='2'">
-                              <span class="live-dark me-1"></span>Active
-                            </span>
-                            <span class="custom-status active-danger" *ngIf="row.board=='0'">
-                              <span class="live-dark me-1"></span>Not Active
-                            </span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
+      <div class="recent-buy comman-head">
+        <h3>Left Team</h3>
+
+        <!-- Loading -->
+        <div *ngIf="loading" class="text-center py-4">
+          <img src="assets/logo.png" height="50" alt="">
+          <p>Loading Data... Please Wait</p>
+        </div>
+
+        <!-- No Data -->
+        <div *ngIf="!loading && data1.length === 0" class="text-center py-4">
+          <p>No data found.</p>
+        </div>
+
+        <!-- Table -->
+        <div *ngIf="!loading && data1.length > 0">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <div>
+              Show
+              <select
+                class="form-select d-inline-block w-auto mx-2"
+                (change)="changeItemsPerPage($event)"
+              >
+                <option [value]="10">10</option>
+                <option [value]="25">25</option>
+                <option [value]="50">50</option>
+                <option [value]="100">100</option>
+              </select>
+              entries
+            </div>
+            <div>
+              <strong>Page {{ currentPage }} of {{ totalPages }}</strong>
             </div>
           </div>
-          <!-- End Recent Buying -->
+
+          <div class="table-responsive">
+            <table class="table table-striped table-bordered text-center">
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>Date</th>
+                  <th>User ID</th>
+                  <th>Name</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of pagedData; let i = index">
+                  <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                  <td *ngIf="row.cdate && row.cdate !== '0000-00-00'">{{ row.cdate | date:'dd/MMM/YYYY' }}<br><small>{{ row.ctime }}</small></td>
+                  <td>{{ row.forid }}</td>
+                  <td>{{ row.fname }}</td>
+                  <td>
+                    <span class="badge bg-success" *ngIf="row.board == '2'">Active</span>
+                    <span class="badge bg-danger" *ngIf="row.board == '0'">Not Active</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination Controls -->
+          <div class="d-flex justify-content-between align-items-center mt-3 flex-wrap">
+            <button
+              class="btn btn-outline-primary btn-sm"
+              (click)="changePage(currentPage - 1)"
+              [disabled]="currentPage === 1"
+            >
+              &laquo; Previous
+            </button>
+
+            <div class="pagination-numbers my-2">
+              <button
+                class="btn btn-outline-secondary btn-sm mx-1"
+                (click)="prevPageGroup()"
+                [disabled]="pageGroupStart === 1"
+              >
+                ...
+              </button>
+
+              <button
+                *ngFor="let page of visiblePages"
+                class="btn btn-sm mx-1"
+                [ngClass]="{
+                  'btn-primary': currentPage === page,
+                  'btn-outline-primary': currentPage !== page
+                }"
+                (click)="changePage(page)"
+              >
+                {{ page }}
+              </button>
+
+              <button
+                class="btn btn-outline-secondary btn-sm mx-1"
+                (click)="nextPageGroup()"
+                [disabled]="pageGroupStart + pagesPerGroup > totalPages"
+              >
+                ...
+              </button>
+            </div>
+
+            <button
+              class="btn btn-outline-primary btn-sm"
+              (click)="changePage(currentPage + 1)"
+              [disabled]="currentPage === totalPages"
+            >
+              Next &raquo;
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
+</div>

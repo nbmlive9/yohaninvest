@@ -3,7 +3,10 @@
    <div class="page-wrapper bg-wrapper">
         <div class="content">
             <h4>Direct Referral</h4>
-            <div class="table-responsive">
+            <div class="" *ngIf="loading">
+                <p> <img src="assets/logo.png" alt=""> Loading Data Wait...</p>
+            </div>
+            <div class="table-responsive" *ngIf="!loading && data1.length > 0">
                 <table class="table ">
                     <thead>
                         <tr>
@@ -14,6 +17,7 @@
                             <th style="min-width:110px;">Position</th>
                             <th style="min-width:110px;">Business</th>
                             <th style="min-width:110px;">Status</th>
+                            <th> </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -29,7 +33,15 @@
                                 <span *ngIf="row.topupstatus=='1'" class="custom-status active-green">
                                 <span class="live-dark me-1"></span>Active</span>
                             </td>
-                                                                
+                            <td>
+                             <span
+  *ngIf="row.adate && row.adate !== '0000-00-00' && row.atime && row.atime !== '00:00:00'"
+  class="text-primary fs-20"
+>
+  {{ row.adate | date: 'dd/MMM/YYYY' }}<br />
+  {{ row.atime }}
+</span>
+                            </td>                                  
                         </tr>										
                     </tbody>
                 </table>

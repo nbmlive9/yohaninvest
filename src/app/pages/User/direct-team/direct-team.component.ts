@@ -7,19 +7,30 @@ import { UserService } from 'src/app/service/user.service';
   styleUrls: ['./direct-team.component.css']
 })
 export class DirectTeamComponent {
-  data1: any;
+  data1: any[] = [];
+  loading = true;
 
-  constructor(private api:UserService){}
+  constructor(private api: UserService) {}
 
-  ngOnInit(){
+  ngOnInit() {
     this.getreferralData();
   }
 
-  getreferralData(){
-    this.api.DirectTeam().subscribe((res:any)=>{
-      // console.log(res);
-      this.data1=res.data;
-    })
+  getreferralData() {
+    this.loading = true;
+    this.api.DirectTeam().subscribe({
+      next: (res: any) => {
+        // console.log(res);
+        this.data1 = res.data || [];
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error(err);
+        this.data1 = [];
+        this.loading = false;
+      }
+    });
   }
 
+  
 }
