@@ -31,8 +31,12 @@
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
                           <td>{{row.remark}}</td>
                           <td>
-                            <span class="custom-status active-green">
-                              <span class="live-dark me-1"></span>Credit
+                            <span class="custom-status active-green" *ngIf="row.type=='credit'">
+                              <span class="me-1" >Credit</span>
+                            </span>
+                              
+                             <span class="custom-status active-red" *ngIf="row.type=='debit'">
+                              <span class="me-1 text-danger" >Debit</span>
                             </span>
                           </td>
                         </tr>
