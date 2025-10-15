@@ -103,41 +103,6 @@
           </div>
 
           <!-- Recent Buying Section -->
-          <div class="recent-buy comman-head">
-            <h3>Pending Transaction</h3>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="buy-form-crypto mb-0">
-                  <div class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>S.No</th>
-                           <th>Date</th>
-                          <th>Amount</th>
-                           <th>Txn Id</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr *ngFor="let row of adata; let i=index">
-                          <td>{{i+1}}</td>
-                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
-                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
-                          <td>{{row.note}}</td>
-                          <td>
-                            <span class="custom-status active-danger">
-                              <span class="live-dark me-1"></span>Pending
-                            </span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
           <div class="recent-buy comman-head">
             <h3>Completed Transaction</h3>
@@ -158,7 +123,7 @@
                       <tbody>
                         <tr *ngFor="let row of cdata; let i=index">
                           <td>{{i+1}}</td>
-                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                            <td>{{row.cdate | date:'dd/MMM/YYYY'}} <br> {{row.ctime}} </td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
                              <td>{{row.note}}</td>
                           <td>
@@ -174,6 +139,44 @@
               </div>
             </div>
           </div>
+          
+          <div class="recent-buy comman-head">
+            <h3>Pending Transaction</h3>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="buy-form-crypto mb-0">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>S.No</th>
+                           <th>Date</th>
+                          <th>Amount</th>
+                           <th>Txn Id</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of adata; let i=index">
+                          <td>{{i+1}}</td>
+                          <td>{{row.cdate | date:'dd/MMM/YYYY'}} <br> {{row.ctime}} </td>
+                          <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
+                          <td>{{row.note}}</td>
+                          <td>
+                            <span class="custom-status active-danger">
+                              <span class="live-dark me-1"></span>Pending
+                            </span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          
           <!-- End Recent Buying -->
         </div>
       </div>

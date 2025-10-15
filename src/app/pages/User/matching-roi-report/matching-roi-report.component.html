@@ -27,7 +27,7 @@
                       <tbody>
                         <tr *ngFor="let row of data1; let i=index">
                           <td>{{i+1}}</td>
-                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                       <td>{{row.cdate | date:'dd/MMM/YYYY'}} <br> {{row.ctime}} </td>
                           <td class="pay-clr">{{row.samount | currency:'USD':true:'1.0-2'}}</td>
                           <!-- <td>{{row.refdays}}</td>
                            <td class="pay-clr">{{row.balamount | currency:'USD':true:'1.0-2'}}</td>

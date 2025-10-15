@@ -116,7 +116,7 @@
                       <tbody>
                         <tr *ngFor="let row of adata; let i=index">
                           <td>{{i+1}}</td>
-                          <td>{{row.cdate | date:'dd/MMM/YYYY'}}</td>
+                          <td>{{row.cdate | date:'dd/MMM/YYYY'}} <br> {{row.ctime}} </td>
                           <td>{{row.userid}}</td>
                           <td> <span class="text-success" *ngIf="row.waltype=='mwallet'">Main Wallet</span> <span class="text-primary" *ngIf="row.waltype=='dwallet'">Activation Fund</span> </td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>

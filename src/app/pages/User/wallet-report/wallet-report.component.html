@@ -16,6 +16,7 @@
                       <thead>
                         <tr>
                           <th>S.No</th>
+                          <th>Date</th>
                           <th>Userid</th>
                           <th>Amount</th>
                           <th>Remark</th>
@@ -25,6 +26,7 @@
                       <tbody>
                         <tr *ngFor="let row of data1; let i=index">
                           <td>{{i+1}}</td>
+                            <td>{{row.cdate | date:'dd/MMM/YYYY'}} <br> {{row.ctime}} </td>
                           <td>{{row.forid}}</td>
                           <td class="pay-clr">{{row.amount | currency:'USD':true:'1.0-2'}}</td>
                           <td>{{row.remark}}</td>
