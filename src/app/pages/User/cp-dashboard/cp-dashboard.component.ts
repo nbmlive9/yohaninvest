@@ -33,7 +33,8 @@ export class CpDashboardComponent {
   binary: boolean= false;
   nonsecure: boolean= false;
  totalusers:boolean=false;
- ticket:boolean=true;
+ ticket:boolean=false;
+  summery: boolean = true;
   constructor(private api: UserService, private fb: FormBuilder, private toast: ToastrService,private router:Router) {
 
 
@@ -60,6 +61,7 @@ export class CpDashboardComponent {
     this.nonsecure = section === 'nonsecure';
     this.totalusers = section === 'totalusers';
     this.ticket = section === 'ticket';
+    this.summery = section === 'summery';
   }
 
   ngOnInit() {

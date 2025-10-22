@@ -1,0 +1,136 @@
+<div class="container my-4">
+      <h4>Summery Report</h4>
+  <div class="row g-3">
+
+    <!-- Active Users -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-primary h-100">
+        <div class="card-body">
+          <h6 class="card-title">Active Users</h6>
+          <h3 class="card-text">{{ data1?.activeusers }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Inactive Users -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-secondary h-100">
+        <div class="card-body">
+          <h6 class="card-title">Inactive Users</h6>
+          <h3 class="card-text">{{ data1?.inactiveusers }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Binary Credit -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-success h-100">
+        <div class="card-body">
+          <h6 class="card-title">Today Binary Credit</h6>
+          <h3 class="card-text">{{ data1?.binarycredit | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sponsor Credit -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-warning h-100">
+        <div class="card-body">
+          <h6 class="card-title">Sponsor Credit</h6>
+          <h3 class="card-text">{{ data1?.sponcercredit | currency:'USD':'symbol':'1.2-2'}}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Active Users -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-info h-100">
+        <div class="card-body">
+          <h6 class="card-title">Today's Active Users</h6>
+          <h3 class="card-text">{{ data1?.todayactiveusers }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Sponsor Credit -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-danger h-100">
+        <div class="card-body">
+          <h6 class="card-title">Today's Sponsor Credit</h6>
+          <h3 class="card-text">{{ data1?.todaysponcercredit | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's Deposit -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-success h-100">
+        <div class="card-body">
+          <h6 class="card-title">Today's Deposit</h6>
+          <h3 class="card-text">{{ data1?.todaydeposite | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Deposit -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-primary h-100">
+        <div class="card-body">
+          <h6 class="card-title">Total Deposit</h6>
+          <h3 class="card-text">{{ data1?.totdeposite | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Today's ROI Income -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-warning h-100">
+        <div class="card-body">
+          <h6 class="card-title">Today's ROI Income</h6>
+          <h3 class="card-text">{{ data1?.todayroiincome | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total ROI Income -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-info h-100">
+        <div class="card-body">
+          <h6 class="card-title">Total ROI Income</h6>
+          <h3 class="card-text">{{ data1?.totroiincome | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Credit -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-success h-100">
+        <div class="card-body">
+          <h6 class="card-title">Total Credit</h6>
+          <h3 class="card-text">{{ data1?.credit | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Debit -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-danger h-100">
+        <div class="card-body">
+          <h6 class="card-title">Total Debit</h6>
+          <h3 class="card-text">{{ data1?.debit | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Total Withdraw -->
+    <div class="col-md-3 col-sm-6">
+      <div class="card text-white bg-secondary h-100">
+        <div class="card-body">
+          <h6 class="card-title">Total Withdraw</h6>
+          <h3 class="card-text">{{ data1?.totwithdraw | currency:'USD':'symbol':'1.2-2' }}</h3>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

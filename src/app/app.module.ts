@@ -59,6 +59,7 @@ import { SearchUsersDataComponent } from './pages/User/Company/search-users-data
 import { SupportComponent } from './pages/User/support/support.component';
 import { TotalUsersListComponent } from './pages/User/Company/total-users-list/total-users-list.component';
 import { AdminSupportComponent } from './pages/User/Company/admin-support/admin-support.component';
+import { AdminSummeryReportComponent } from './pages/User/admin-summery-report/admin-summery-report.component';
 
 
 
@@ -105,7 +106,8 @@ import { AdminSupportComponent } from './pages/User/Company/admin-support/admin-
     SearchUsersDataComponent,
     SupportComponent,
     TotalUsersListComponent,
-    AdminSupportComponent
+    AdminSupportComponent,
+    AdminSummeryReportComponent
   ],
   imports: [
     BrowserModule,

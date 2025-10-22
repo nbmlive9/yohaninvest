@@ -17,6 +17,7 @@ constructor(private api: UserService) {}
 
 ngOnInit() {
   this.api.WithdrawReportsTotal().subscribe((res: any) => {
+    console.log('withdraw report',res);
     this.data1 = res.data || [];
     this.totalPages = Math.ceil(this.data1.length / this.pageSize);
     this.setPagedData();

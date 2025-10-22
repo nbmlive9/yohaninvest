@@ -6,7 +6,7 @@
       <!-- Search Box -->
       <div class="input-group mb-3">
         <input type="text" [(ngModel)]="searchInput" class="form-control"
-               placeholder="Enter UserID / Name / Email" />
+               placeholder="Enter UserID / Name " />
         <button class="btn btn-primary" (click)="onSearch()">
           <i class="pi pi-search"></i> Search
         </button>
@@ -28,6 +28,9 @@
               <th>Name</th>
               <th>Email</th>
               <th>Wallet</th>
+              <th>Fund</th>
+              <th>Business</th>
+              <th>Per</th>
                  <th>Status</th>
                     <th>Action</th>
             </tr>
@@ -40,6 +43,9 @@
               <td>{{ row.name }}</td>
               <td>{{ row.email }}</td>
               <td>{{ row.wallet1 }}</td>
+              <td>{{row.walletamount | currency:'USD':'symbol':'1.2-2'}}</td>
+              <td>{{row.business | currency:'USD':'symbol':'1.2-2'}}</td>
+              <td>{{row.packper }}%</td>
               <td>
                             <span style="cursor: pointer">
                                 <ng-container *ngIf="row.topupstatus=='1'">
